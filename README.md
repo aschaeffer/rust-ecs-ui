@@ -12,7 +12,7 @@
 [<img src="https://img.shields.io/github/issues/aschaeffer/rust-ecs-ui">]()
 [<img src="https://img.shields.io/github/languages/code-size/aschaeffer/rust-ecs-ui">]()
 
-[<img src="https://raw.githubusercontent.com/aschaeffer/rust-ecs-ui/public/assets/inexor_2.png">]()
+[<img src="https://raw.githubusercontent.com/aschaeffer/rust-ecs-ui/master/public/assets/inexor_2.png">]()
 
 Inexor is an open-source project which ???.
 
