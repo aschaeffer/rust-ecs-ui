@@ -1,0 +1,17 @@
+{
+  "name": "arithmetic_gate",
+  "properties": [
+    {
+      "name": "lhs",
+      "data_type": "number"
+    },
+    {
+      "name": "rhs",
+      "data_type": "number"
+    },
+    {
+      "name": "result",
+      "data_type": "number"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "name": "logical_gate",
+  "properties": [
+    {
+      "name": "lhs",
+      "data_type": "bool"
+    },
+    {
+      "name": "rhs",
+      "data_type": "bool"
+    },
+    {
+      "name": "result",
+      "data_type": "bool"
+    }
+  ]
+}

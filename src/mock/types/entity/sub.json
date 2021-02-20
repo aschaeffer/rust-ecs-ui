@@ -1,0 +1,82 @@
+{
+  "name": "sub",
+  "description": "Performs a subtration on two integer numbers",
+  "components": [
+    "arithmetic_gate"
+  ],
+  "behaviours": [
+    "SubGate"
+  ],
+  "properties": [
+    {
+      "name": "lhs",
+      "data_type": "number",
+      "socket_type": "input"
+    },
+    {
+      "name": "rhs",
+      "data_type": "number",
+      "socket_type": "input"
+    },
+    {
+      "name": "result",
+      "data_type": "number",
+      "socket_type": "output"
+    }
+  ],
+  "shape": {
+    "width": 200,
+    "socket": {
+      "width": 60,
+      "height": 30
+    },
+    "offset": {
+      "top": "socket.height",
+      "bottom": "socket.height"
+    },
+    "elements": {
+      "title": {
+        "show": true,
+        "content": "SUB",
+        "position": {
+          "left": 0,
+          "top": 0,
+          "width": "shape.width",
+          "height": "socket.height"
+        },
+        "styles": {
+          "font-size": "12px",
+          "color": "black"
+        }
+      },
+      "symbol": {
+        "show": true,
+        "content": "-",
+        "position": {
+          "left": 0,
+          "top": 0,
+          "width": "shape.width",
+          "height": "shape.height"
+        },
+        "styles": {
+          "font-size": "40px",
+          "fill": "steelblue"
+        }
+      },
+      "id": {
+        "show": true,
+        "content": "shape.id",
+        "position": {
+          "left": 0,
+          "top": "shape.height-socket.height",
+          "width": "shape.width",
+          "height": "socket.height"
+        },
+        "styles": {
+          "font-size": "9px",
+          "color": "black"
+        }
+      }
+    }
+  }
+}

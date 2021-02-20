@@ -1,0 +1,8 @@
+{
+  "name": "divide",
+  "components": [
+    "arithmetic_gate"
+  ],
+  "properties": [
+  ]
+}

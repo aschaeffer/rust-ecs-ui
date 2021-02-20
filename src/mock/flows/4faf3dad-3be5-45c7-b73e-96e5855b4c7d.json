@@ -1,0 +1,76 @@
+{
+  "id": "4faf3dad-3be5-45c7-b73e-96e5855b4c7d",
+  "description": "Threads per CPU Core",
+  "entities": [
+    {
+      "type": "and",
+      "id": "ddde5b62-e85a-4b26-bfbd-70e51c2be815",
+      "description": "",
+      "properties": {
+        "lhs": true,
+        "rhs": true,
+        "result": true
+      }
+    },
+    {
+      "type": "and",
+      "id": "3cb4254a-0a99-41b8-b6f4-b5dc6e13f7ff",
+      "description": "",
+      "properties": {
+        "lhs": true,
+        "rhs": true,
+        "result": true
+      }
+    },
+    {
+      "type": "and",
+      "id": "d5f6e205-ccc6-4b63-9675-014831ecbf3f",
+      "description": "",
+      "properties": {
+        "lhs": true,
+        "rhs": true,
+        "result": true
+      }
+    },
+    {
+      "type": "add",
+      "id": "590d78f1-edb6-4890-8e65-4c9427680870",
+      "description": "",
+      "properties": {
+        "lhs": 5,
+        "rhs": 10,
+        "result": 15
+      }
+    },
+    {
+      "type": "concat",
+      "id": "b1a0fa9c-9728-4aa7-91db-b4c91d181e53",
+      "description": "",
+      "properties": {
+        "lhs": "Hallo",
+        "rhs": "Welt",
+        "result": "HalloWelt"
+      }
+    }
+  ],
+  "relations": [
+    {
+      "outbound_id": "ddde5b62-e85a-4b26-bfbd-70e51c2be815",
+      "type": "default_connector--result--lhs",
+      "inbound_id": "d5f6e205-ccc6-4b63-9675-014831ecbf3f",
+      "properties": {
+        "outbound_property_name": "result",
+        "inbound_property_name": "lhs"
+      }
+    },
+    {
+      "outbound_id": "3cb4254a-0a99-41b8-b6f4-b5dc6e13f7ff",
+      "type": "default_connector--result--rhs",
+      "inbound_id": "d5f6e205-ccc6-4b63-9675-014831ecbf3f",
+      "properties": {
+        "outbound_property_name": "result",
+        "inbound_property_name": "rhs"
+      }
+    }
+  ]
+}

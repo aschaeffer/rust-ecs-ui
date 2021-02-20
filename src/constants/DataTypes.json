@@ -1,0 +1,8 @@
+{
+  "BOOL": "bool",
+  "STRING": "string",
+  "NUMBER": "number",
+  "ARRAY": "array",
+  "Object": "object",
+  "ANY": "any"
+}

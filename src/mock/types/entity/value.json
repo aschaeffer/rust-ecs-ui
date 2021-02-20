@@ -1,0 +1,71 @@
+{
+  "name": "value",
+  "description": "Constant Value",
+  "components": [
+    "named"
+  ],
+  "behaviours": [
+  ],
+  "properties": [
+    {
+      "name": "value",
+      "data_type": "any",
+      "socket_type": "output"
+    }
+  ],
+  "shape": {
+    "width": 200,
+    "socket": {
+      "width": 60,
+      "height": 30
+    },
+    "offset": {
+      "top": "socket.height",
+      "bottom": "socket.height"
+    },
+    "elements": {
+      "title": {
+        "show": true,
+        "content": "VALUE",
+        "position": {
+          "left": 0,
+          "top": 0,
+          "width": "shape.width",
+          "height": "socket.height"
+        },
+        "styles": {
+          "font-size": "12px",
+          "fill": "black"
+        }
+      },
+      "symbol": {
+        "show": true,
+        "content": "V",
+        "position": {
+          "left": 0,
+          "top": 0,
+          "width": "shape.width",
+          "height": "shape.height"
+        },
+        "styles": {
+          "font-size": "40px",
+          "fill": "black"
+        }
+      },
+      "id": {
+        "show": true,
+        "content": "shape.id",
+        "position": {
+          "left": 0,
+          "top": "shape.height-socket.height",
+          "width": "shape.width",
+          "height": "socket.height"
+        },
+        "styles": {
+          "font-size": "9px",
+          "fill": "black"
+        }
+      }
+    }
+  }
+}

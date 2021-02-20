@@ -1,0 +1,82 @@
+{
+  "name": "mul",
+  "description": "Performs an multiplication on two integer numbers",
+  "components": [
+    "arithmetic_gate"
+  ],
+  "behaviours": [
+    "AddGate"
+  ],
+  "properties": [
+    {
+      "name": "lhs",
+      "data_type": "number",
+      "socket_type": "input"
+    },
+    {
+      "name": "rhs",
+      "data_type": "number",
+      "socket_type": "input"
+    },
+    {
+      "name": "result",
+      "data_type": "number",
+      "socket_type": "output"
+    }
+  ],
+  "shape": {
+    "width": 100,
+    "socket": {
+      "width": 40,
+      "height": 20
+    },
+    "offset": {
+      "top": "10",
+      "bottom": "10"
+    },
+    "elements": {
+      "title": {
+        "show": false,
+        "content": "MUL",
+        "position": {
+          "left": 0,
+          "top": 0,
+          "width": "shape.width",
+          "height": "socket.height"
+        },
+        "styles": {
+          "font-size": "12px",
+          "color": "black"
+        }
+      },
+      "symbol": {
+        "show": true,
+        "content": "×",
+        "position": {
+          "left": 0,
+          "top": 0,
+          "width": "shape.width",
+          "height": "shape.height"
+        },
+        "styles": {
+          "font-size": "40px",
+          "fill": "steelblue"
+        }
+      },
+      "id": {
+        "show": false,
+        "content": "shape.id",
+        "position": {
+          "left": 0,
+          "top": "shape.height-socket.height",
+          "width": "shape.width",
+          "height": "socket.height"
+        },
+        "styles": {
+          "font-size": "9px",
+          "color": "black"
+        }
+      }
+    }
+  }
+}
