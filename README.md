@@ -20,7 +20,7 @@ The main objective of this repository is the development of a editor for flows r
 
 Inexor is licensed under the MIT license.
 
-## About the Flow Editor
+## About the Reactive Semantic Entity Component System
 
 The `Reactive Semantic Entity Component System` is meant to be the core of the `game engine` which represents the
 `game state` as the one and only truth using `entities` and `semantic relations` in a graph that controls and runs
@@ -36,6 +36,13 @@ The Flow Editor builds upon a great library: diagram-js.
 At a later point of development the same or a similar interface will be implemented within the 3D game world - 
 the 3D Visual Scripting Editor of Inexor! The can be a really useful extension for map designers which can
 combine entities in the 3D world with logical gates, mathematical or other operations.
+
+[<img src="https://raw.githubusercontent.com/aschaeffer/rust-ecs-ui/master/docs/screenshots/1.png">]()
+
+[<img src="https://raw.githubusercontent.com/aschaeffer/rust-ecs-ui/master/docs/screenshots/2.png">]()
+
+[<img src="https://raw.githubusercontent.com/aschaeffer/rust-ecs-ui/master/docs/screenshots/3.png">]()
+
 
 ## Roadmap
 
