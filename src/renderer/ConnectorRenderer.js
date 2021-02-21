@@ -1,7 +1,6 @@
 import inherits from 'inherits'
 
 import BaseRenderer from "diagram-js/lib/draw/BaseRenderer"
-import { createLine } from "diagram-js/lib/util/RenderUtil"
 
 import {
   append as svgAppend,
@@ -73,31 +72,50 @@ ConnectorRenderer.prototype.canRender = function(element) {
 }
 
 ConnectorRenderer.prototype.drawConnection = function drawConnection(visuals, connection) {
-  if (connection.waypoints.length % 2 === 0) {
-    let line = createLine(connection.waypoints, this.CONNECTION_STYLE)
-    svgAttr(line, {
-      markerEnd: 'url(#arrow)'
-    })
-    svgAttr(line, this.getFillColorByDataTypes(connection))
-    svgAppend(visuals, line);
-    return line
-  } else {
-    let bezierCurve = svgCreate('path')
-    // console.log(this.toBezierPoints(connection.waypoints))
-    svgAttr(bezierCurve, { d: this.toBezierPoints(connection.waypoints) })
-    svgAttr(bezierCurve, this.CONNECTION_STYLE)
-    svgAttr(bezierCurve, this.getFillColorByDataTypes(connection))
-    svgAttr(bezierCurve, { markerEnd: 'url(#arrow)' })
-    svgAppend(visuals, bezierCurve)
-    return bezierCurve
-  }
+  let bezierCurve = svgCreate('path')
+  // console.log(this.toBezierPoints(connection.waypoints))
+  svgAttr(bezierCurve, { d: this.toBezierPoints(connection.waypoints) })
+  svgAttr(bezierCurve, this.CONNECTION_STYLE)
+  svgAttr(bezierCurve, this.getFillColorByDataTypes(connection))
+  svgAttr(bezierCurve, { markerEnd: 'url(#arrow)' })
+  svgAppend(visuals, bezierCurve)
+  return bezierCurve
 }
 
 ConnectorRenderer.prototype.toBezierPoints = function (points) {
   let result = 'M'
   for (let i = 0, p; (p = points[i]); i++) {
-    if (i % 2 === 1) {
-      result += 'Q'
+    if (i > 0 && i < points.length - 1) {
+      if (points.length === 3 && i === 1) {
+        result += 'Q'
+      }
+      if (points.length === 4 && i === 1) {
+        result += 'C'
+      }
+      if (points.length === 5 && (i === 1 || i === 3)) {
+        result += 'Q'
+      }
+      if (points.length === 6) {
+        if (i === 1) {
+          result += 'C'
+        } else if (i === 4) {
+          result += 'Q'
+        }
+      }
+      if (points.length === 7) {
+        if (i === 1) {
+          result += 'C'
+        } else if (i === 4) {
+          result += 'C'
+        }
+      }
+      if (points.length === 8) {
+        if (i === 1) {
+          result += 'C'
+        } else if (i === 4 || i === 7) {
+          result += 'Q'
+        }
+      }
     }
     result += p.x + ',' + p.y + ' '
   }
