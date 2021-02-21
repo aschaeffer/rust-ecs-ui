@@ -31,9 +31,6 @@ FlowContextPadProvider.prototype.getContextPadEntries = function (element) {
     }
 
     let contextPadEntries = {}
-
-    console.log(element)
-
     // eslint-disable-next-line no-prototype-builtins
     if (element.hasOwnProperty('businessObject') && typeof element.businessObject !== 'undefined') {
         if (element.businessObject.type === InstanceTypes.ENTITY ||
