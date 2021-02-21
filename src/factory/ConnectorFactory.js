@@ -1,10 +1,7 @@
-import RelationTypeManager from "@/manager/RelationTypeManager";
-import InstanceTypes from "@/constants/InstanceTypes.json"
-// eslint-disable-next-line no-unused-vars
-import EntityShapeManager from "@/manager/EntityShapeManager";
+import RelationTypeManager from '@/manager/RelationTypeManager'
+import InstanceTypes from '@/constants/InstanceTypes.json'
+import EntityShapeManager from '@/manager/EntityShapeManager'
 
-// TODO: source
-// TODO: target
 function createConnectorInstance(
   elementFactory,
   elementRegistry,
@@ -15,8 +12,7 @@ function createConnectorInstance(
   inboundId,
   inboundPropertyName
 ) {
-  let relationType = RelationTypeManager.getRelationType(relationTypeName);
-  console.log(relationType, relationInstanceTypeName, outboundId, outboundPropertyName, inboundId, inboundPropertyName)
+  let relationType = RelationTypeManager.getRelationType(relationTypeName)
 
   let outboundShape = elementRegistry.get(outboundId)
   let inboundShape = elementRegistry.get(inboundId)
@@ -63,7 +59,4 @@ function createConnectorInstance(
 
 export default {
   createConnectorInstance,
-  // createConnectorInstanceLabel,
-  // createEntityProperty,
-  // importEntityInstance,
 }
