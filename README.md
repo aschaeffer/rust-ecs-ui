@@ -59,7 +59,7 @@ combine entities in the 3D world with logical gates, mathematical or other opera
 
 ### Context Pad
 
-- [ ] Property: ContextPad: Add Shape and Connector (like in BPMN Editor)
+- [x] Property: ContextPad: Add Shape and Connector (like in BPMN Editor)
 - [ ] Use Flows in Flows (ContextPad: Jump Into // Double Click)
 
 ### Rendering

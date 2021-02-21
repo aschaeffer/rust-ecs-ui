@@ -166,6 +166,27 @@ FlowPaletteProvider.prototype.getPaletteEntries = function() {
       group: 'arithmetic-gates',
       separator: true
     },
+    'create-greater-than': {
+      group: 'comparison-gates',
+      className: 'bpmn-icon-task-none',
+      title: 'Greater Than',
+      action: {
+        click: function() {
+          let shape = EntityInstanceFactory.createEntityInstance(
+            elementFactory,
+            'greater_than',
+            undefined,
+            undefined,
+            uuidv4()
+          )
+          create.start(event, shape)
+        }
+      }
+    },
+    'comparison-gates-separator': {
+      group: 'comparison-gates',
+      separator: true
+    },
     'create-to_string': {
       group: 'string-gates',
       className: 'bpmn-icon-task-none',

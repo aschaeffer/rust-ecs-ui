@@ -147,11 +147,34 @@ export default {
       })
       this.canvas.setRootElement(this.rootElement)
     },
-    entityCreated (context) {
-      let entityInstanceShape = context.shape
-      let entityType = EntityTypeManager.getEntityType(entityInstanceShape.businessObject.entityType.name)
+    entityCreated (event) {
+      let entityInstance = event.shape
+      let entityType = EntityTypeManager.getEntityType(entityInstance.businessObject.entityType.name)
       let sockets = EntityTypeManager.getSocketDescriptors(entityType)
-      this.createEntitySockets(sockets, entityInstanceShape)
+      this.createEntitySockets(sockets, entityInstance)
+      if (Object.getOwnPropertyDescriptor(event.context, 'outboundProperty') &&
+          Object.getOwnPropertyDescriptor(event.context, 'inboundPropertyName') &&
+          Object.getOwnPropertyDescriptor(event.context, 'relationTypeName')
+      ) {
+        let relationTypeName = event.context.relationTypeName
+        let outboundProperty = event.context.outboundProperty
+        let inboundPropertyName = event.context.inboundPropertyName
+        let relationInstanceTypeName = `${relationTypeName}-${outboundProperty.businessObject.name}-${inboundPropertyName}`
+        entityInstance.children
+            .filter(p => p.businessObject.name === inboundPropertyName)
+            .forEach(inboundProperty => {
+              let connection = ConnectorFactory.connectProperties(
+                  this.elementFactory,
+                  relationTypeName,
+                  outboundProperty,
+                  relationInstanceTypeName,
+                  inboundProperty
+              )
+              connection.waypoints = this.connectionDocking.getCroppedWaypoints(connection);
+              this.canvas.addConnection(connection, this.rootElement)
+              this.autoLayoutConnector(connection)
+            })
+      }
       // TODO: Register in flow
     },
     // TODO: entityRemoved

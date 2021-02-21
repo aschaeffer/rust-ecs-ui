@@ -1,7 +1,8 @@
-import FlowContextPadProvider from './FlowContextPadProvider'
+import EntityContextPadProvider from './EntityContextPadProvider'
+import ConnectorContextPadProvider from './ConnectorContextPadProvider'
+import PropertyContextPadProvider from './PropertyContextPadProvider'
 import FlowPaletteProvider from './FlowPaletteProvider'
 import FlowRuleProvider from './FlowRuleProvider'
-// import FlowOrderingProvider from './FlowOrderingProvider'
 import EntityRenderer from '@/renderer/EntityRenderer'
 import ConnectorRenderer from '@/renderer/ConnectorRenderer'
 import PropertyRenderer from '@/renderer/PropertyRenderer'
@@ -9,7 +10,9 @@ import CroppingConnectionDockingProvider from 'diagram-js/lib/layout/CroppingCon
 
 export default {
   __init__: [
-    'flowContextPadProvider',
+    'entityContextPadProvider',
+    'connectorContextPadProvider',
+    'propertyContextPadProvider',
     'flowPaletteProvider',
     'flowRuleProvider',
     // 'flowOrderingProvider',
@@ -18,10 +21,11 @@ export default {
     'connectorRenderer',
     'propertyRenderer'
   ],
-  flowContextPadProvider: [ 'type', FlowContextPadProvider ],
+  entityContextPadProvider: [ 'type', EntityContextPadProvider ],
+  connectorContextPadProvider: [ 'type', ConnectorContextPadProvider ],
+  propertyContextPadProvider: [ 'type', PropertyContextPadProvider ],
   flowPaletteProvider: [ 'type', FlowPaletteProvider ],
   flowRuleProvider: [ 'type', FlowRuleProvider ],
-  // flowOrderingProvider: [ 'type', FlowOrderingProvider ],
   connectionDocking: [ 'type', CroppingConnectionDockingProvider ],
   entityRenderer: [ 'type', EntityRenderer ],
   connectorRenderer: [ 'type', ConnectorRenderer ],

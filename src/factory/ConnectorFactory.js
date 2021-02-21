@@ -53,10 +53,58 @@ function createConnectorInstance(
     },
     source: outboundPropertyShape,
     target: inboundPropertyShape
-  });
-  return connection;
+  })
+  return connection
 }
+
+function connectProperties(
+  elementFactory,
+  relationTypeName,
+  outboundProperty,
+  relationInstanceTypeName,
+  inboundProperty
+) {
+  let relationType = RelationTypeManager.getRelationType(relationTypeName)
+
+  let outboundPropertyShapeDefinition = EntityShapeManager.getShapeDefinition(outboundProperty.businessObject.entityType)
+  let inboundPropertyShapeDefinition = EntityShapeManager.getShapeDefinition(inboundProperty.businessObject.entityType)
+
+  let outboundPropertyShapeId = `${outboundProperty.id}-${outboundProperty.businessObject.name}`
+  let inboundPropertyShapeId = `${inboundProperty.id}-${inboundProperty.businessObject.name}`
+  let edgeKey = `${outboundPropertyShapeId}-${relationTypeName}-${inboundPropertyShapeId}`
+
+  let connection = elementFactory.createConnection({
+    id: edgeKey,
+    waypoints: [
+      {
+        x: outboundProperty.x + outboundPropertyShapeDefinition.socket.width,
+        y: outboundProperty.y + outboundPropertyShapeDefinition.socket.height / 2
+      },
+      {
+        x: (outboundProperty.x + inboundProperty.x) / 2,
+        y: (outboundProperty.y + inboundProperty.y) / 2
+      },
+      {
+        x: inboundProperty.x + inboundPropertyShapeDefinition.socket.width,
+        y: inboundProperty.y + inboundPropertyShapeDefinition.socket.height / 2
+      },
+    ],
+    businessObject: {
+      type: InstanceTypes.RELATION,
+      relationType,
+      name: relationInstanceTypeName,
+      outboundPropertyName: outboundProperty.businessObject.name,
+      inboundPropertyName: inboundProperty.businessObject.name,
+
+    },
+    source: outboundProperty,
+    target: inboundProperty
+  })
+  return connection
+}
+
 
 export default {
   createConnectorInstance,
+  connectProperties
 }
