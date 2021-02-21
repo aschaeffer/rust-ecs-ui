@@ -2,8 +2,8 @@
 
 [<img src="https://img.shields.io/badge/Language-Rust-brightgreen">]()
 [<img src="https://img.shields.io/badge/Platforms-Linux%20%26%20Windows-brightgreen">]()
-[<img src="https://img.shields.io/github/workflow/status/aschaeffer/rust-ecs-ui/Flow">](https://github.com/aschaeffer/rust-ecs-poc/actions?query=workflow%3AFlow)
-[<img src="https://img.shields.io/github/license/aschaeffer/rust-ecs-poc">](https://github.com/aschaeffer/rust-ecs-ui/blob/main/LICENSE)
+[<img src="https://img.shields.io/github/workflow/status/aschaeffer/rust-ecs-ui/inexor-ecs-flow-editor">](https://github.com/aschaeffer/rust-ecs-ui/actions?query=workflow%3Ainexor-ecs-flow-editor)
+[<img src="https://img.shields.io/github/license/aschaeffer/rust-ecs-ui">](https://github.com/aschaeffer/rust-ecs-ui/blob/main/LICENSE)
 [<img src="https://img.shields.io/discord/698219248954376256?logo=discord">](https://discord.com/invite/acUW8k7)
 
 [<img src="https://img.shields.io/github/contributors/aschaeffer/rust-ecs-ui">]()
