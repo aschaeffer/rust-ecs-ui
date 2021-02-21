@@ -2,21 +2,37 @@
   <div>
     <b-button-toolbar key-nav justify>
       <b-button-group>
-        <b-button @click="deleteSelected()" class="d-none">
-          Delete <b-icon-x />
-        </b-button>
-        <b-dropdown class="d-none mx-1" right text="menu">
-          <b-dropdown-item>
-            <b-button @click="deleteEntity">
-              Delete
-              <b-icon-x />
-            </b-button>
-          </b-dropdown-item>
-        </b-dropdown>
-        <b-button>
-          Flow
-          {{flowId}}
-        </b-button>
+        <div v-if="selection !== null">
+          <b-input-group>
+            <b-input-group-prepend>
+              <b-button>
+                {{selection.businessObject.type}}
+              </b-button>
+            </b-input-group-prepend>
+            <b-input-group-prepend>
+              <b-button>
+                {{selection.businessObject.name}}
+              </b-button>
+            </b-input-group-prepend>
+            <b-form-input v-if="selection.businessObject.type === 'property' && selection.businessObject.dataType === 'string'"
+                          v-model="selection.businessObject.value"
+                          @update="updateSelectionValue"
+                          @keyup.enter.prevent="commitSelectionValue" />
+            <b-form-input v-if="selection.businessObject.type === 'property' && selection.businessObject.dataType === 'number'"
+                          v-model="selection.businessObject.value"
+                          type="number"
+                          @update="updateSelectionValue"
+                          @keyup.enter.prevent="commitSelectionValue" />
+            <b-form-checkbox v-if="selection.businessObject.type === 'property' && selection.businessObject.dataType === 'bool'"
+                             v-model="selection.businessObject.value"
+                             @change="updateAndCommitSelectionValue" />
+            <b-input-group-addon>
+              <b-button>
+                Action
+              </b-button>
+            </b-input-group-addon>
+          </b-input-group>
+        </div>
       </b-button-group>
       <b-button-group class="float-right">
         <b-button @click="toggleSidebar">
@@ -36,30 +52,32 @@
 </template>
 
 <script>
-import EntityInstanceFactory from "@/factory/EntityInstanceFactory"
-import EntityShapeManager from "@/manager/EntityShapeManager"
-import EntityTypeManager from "@/manager/EntityTypeManager"
-import FlowEditorEntitiesSidebar from "@/components/FlowEditorEntitiesSidebar"
-import FlowEditorModules from "@/editor/FlowEditorModules"
-import FlowManager from "@/manager/FlowManager"
-import PropertyInstanceFactory from "@/factory/PropertyInstanceFactory"
-// eslint-disable-next-line no-unused-vars
-import ConnectorFactory from "@/factory/ConnectorFactory"
-// eslint-disable-next-line no-unused-vars
-import RelationTypeManager from "@/manager/RelationTypeManager"
-import DataTypeUtils from "@/utils/DataTypeUtils";
-import InstanceTypes from "@/constants/InstanceTypes.json";
-import ConnectorTypes from "@/constants/ConnectorTypes.json";
+import EntityInstanceFactory from '@/factory/EntityInstanceFactory'
+import EntityShapeManager from '@/manager/EntityShapeManager'
+import EntityTypeManager from '@/manager/EntityTypeManager'
+import FlowEditorEntitiesSidebar from '@/components/FlowEditorEntitiesSidebar'
+import FlowEditorModules from '@/editor/FlowEditorModules'
+import FlowManager from '@/manager/FlowManager'
+import PropertyInstanceFactory from '@/factory/PropertyInstanceFactory'
+import ConnectorFactory from '@/factory/ConnectorFactory'
+import RelationTypeManager from '@/manager/RelationTypeManager'
+import DataTypeUtils from '@/utils/DataTypeUtils'
+import ElementUtils from '@/utils/ElementUtils'
+import InstanceTypes from '@/constants/InstanceTypes.json'
+import ConnectorTypes from '@/constants/ConnectorTypes.json'
 
 import { connectPoints } from 'diagram-js/lib/layout/ManhattanLayout'
+import Diagram from 'diagram-js'
 
 import {
   BButtonToolbar,
   BButtonGroup,
   BButton,
-  BIconX
+  BFormInput,
+  BInputGroup,
+  BInputGroupAddon,
+  BInputGroupPrepend
 } from 'bootstrap-vue'
-import Diagram from 'diagram-js'
 
 export default {
   name: 'FlowEditor',
@@ -68,7 +86,10 @@ export default {
     BButtonToolbar,
     BButtonGroup,
     BButton,
-    BIconX
+    BFormInput,
+    BInputGroup,
+    BInputGroupAddon,
+    BInputGroupPrepend
   },
   props: {
     flowId: {
@@ -81,7 +102,7 @@ export default {
       diagram: null,
       canvas: null,
       eventBus: null,
-      selectedId: null,
+      selection: null,
       rootElement: null,
       showSidebar: false,
       x: 100,
@@ -112,11 +133,15 @@ export default {
       this.eventBus = this.diagram.get('eventBus')
       this.eventBus.on('create.end', 250, this.entityCreated)
       this.eventBus.on('connection.added', 250, this.connectorCreated)
+      this.eventBus.on('selection.changed', 250, this.select)
+      this.eventBus.on('element.dblclick', 250, this.elementDblClick)
+      this.eventBus.on('shape.move.end', 250, this.entityMoved)
       this.canvas = this.diagram.get('canvas')
       this.elementFactory = this.diagram.get('elementFactory')
       this.elementRegistry = this.diagram.get('elementRegistry')
       this.overlays = this.diagram.get('overlays')
       this.connectionDocking = this.diagram.get('connectionDocking')
+      this.connect = this.diagram.get('connect')
       this.rootElement = this.elementFactory.createRoot({
         id: `flow-${this.flowId}`
       })
@@ -155,14 +180,6 @@ export default {
         inboundPropertyName: inboundPropertyName,
       }
       connector.waypoints = connectPoints(connector.waypoints[0], connector.waypoints[1])
-
-      // // Insert another waypoint in between
-      // let waypoint = {
-      //   x: (connector.waypoints[0].x + connector.waypoints[1].x) / 2,
-      //   y: (connector.waypoints[0].y + connector.waypoints[1].y) / 2,
-      // }
-      // connector.waypoints.splice(1, 0, waypoint)
-
       connector.waypoints = this.connectionDocking.getCroppedWaypoints(connector);
 
       let outboundPropertyShapeId = `${outboundId}-${outboundPropertyName}`
@@ -241,7 +258,73 @@ export default {
         return DataTypeUtils.getDataTypeDefault(socket.dataType)
       }
     },
-    deleteEntity () {
+    select (event) {
+      if (event.newSelection.length === 1) {
+        let selection = event.newSelection[0]
+        if (ElementUtils.hasBusinessObject(selection)) {
+          this.selection = selection
+        }
+      }
+    },
+    updateAndCommitSelectionValue () {
+      this.updateSelectionValue()
+      this.commitSelectionValue()
+    },
+    rerenderElement (element) {
+      this.eventBus.fire('shape.changed', {
+        element,
+        gfx: this.elementRegistry.getGraphics(element)
+      })
+    },
+    rerenderConnector (element) {
+      this.eventBus.fire('connection.changed', {
+        element,
+        gfx: this.elementRegistry.getGraphics(element)
+      })
+    },
+    entityMoved (event) {
+      if (ElementUtils.isEntity(event.shape)) {
+        this.autoLayoutEntity(event.shape)
+      }
+    },
+    autoLayoutEntity (element) {
+      if (ElementUtils.isEntity(element)) {
+        element.children.forEach(this.autoLayoutProperty)
+      }
+    },
+    autoLayoutProperty (element) {
+      if (ElementUtils.isProperty(element)) {
+        element.incoming.forEach(this.autoLayoutRelation)
+        element.outgoing.forEach(this.autoLayoutRelation)
+      }
+    },
+    autoLayoutRelation (element) {
+      if (ElementUtils.isDefaultConnector(element)) {
+        this.autoLayoutConnector(element)
+      }
+    },
+    autoLayoutConnector (connector) {
+      connector.waypoints = connectPoints(connector.waypoints[0], connector.waypoints[connector.waypoints.length - 1])
+      connector.waypoints = this.connectionDocking.getCroppedWaypoints(connector);
+      this.rerenderConnector(connector)
+    },
+    updateSelectionValue () {
+      this.rerenderElement(this.selection)
+    },
+    commitSelectionValue () {
+      console.log('TODO: commit selection value')
+    },
+    elementDblClick (event) {
+      let element = event.element
+      if (ElementUtils.isOutputSocket(element)) {
+        this.connect.start(event.originalEvent, element, true)
+      }
+      if (ElementUtils.isDefaultConnector(element)) {
+        this.autoLayoutConnector(element)
+      }
+      if (ElementUtils.isEntity(element)) {
+        this.autoLayoutEntity(element)
+      }
     },
     toggleSidebar() {
       this.showSidebar = !this.showSidebar
