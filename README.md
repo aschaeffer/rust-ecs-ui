@@ -75,6 +75,7 @@ combine entities in the 3D world with logical gates, mathematical or other opera
 
 - [x] Entity: Render Rounded Border
 - [x] Entity: Migrate from Overlay to Renderer
+- [x] Entity: Relayout all incoming and outgoing connectors with double click on the entity
 - [ ] Entity: Symbol: Render SVG / Icon
 
 #### Properties
@@ -87,6 +88,7 @@ combine entities in the 3D world with logical gates, mathematical or other opera
 - [x] Property: Colorize Boolean Values
 - [x] Property: Use different color for each data type
 - [x] Property: Show that socket has connection (Thicker socket border)
+- [x] Property: Start connecting with double click
 - [ ] Property: Offset between sockets
 
 #### Connectors
@@ -99,25 +101,28 @@ combine entities in the 3D world with logical gates, mathematical or other opera
 - [x] Connector: Render Arrow
 - [x] Connector: Render Bezier Curve
 - [x] Connector: Colorize Line/Curve if data type can be detected
-- [ ] Connector: Move Entity: Create new Relation
+- [x] Connector: Relayout with double click on the connector
+- [ ] Connector: Move Entity: Delete old Relation / Create new Relation / Change Relation ID
 - [ ] Connector: Move: Cropping
 
-## Type System
+#### Editor
+
+- [x] Entity: Show Name
+- [x] Connector: Show Name
+- [x] Property: Show & Edit Value
+
+#### Type System Editor
 
 - [ ] Fetch EntityTypes from GraphQL
 - [ ] Fetch RelationTypes from GraphQL
-- [ ] Visualize the Type System
+- [ ] Visualize the Type System (in another diagram.js based editor)
+  - [ ] Component
+  - [ ] Property Type
   - [ ] Entity Type
   - [ ] Relation Type
 - [ ] Extend Schemas (EntityType + RelationType + Component) for Shapes
 - [ ] Create / Edit Entity Types
 - [ ] Create / Edit Relation Types
-
-## Editing
-
-- [ ] Entity: Property: Show & Edit Properties
-- [ ] Connector: Property: Show & Edit Properties
-- [ ] Property: Show & Edit Value
 
 ## Control ECS
 
