@@ -1,5 +1,6 @@
 import SocketTypes from "@/constants/SocketTypes.json"
 import DataTypes from "@/constants/DataTypes.json"
+import type_flow from '../mock/types/entity/flow/flow.json'
 import type_value from '../mock/types/entity/value/value.json'
 import type_and from '../mock/types/entity/logical_gates/and.json'
 import type_or from '../mock/types/entity/logical_gates/or.json'
@@ -11,9 +12,11 @@ import type_greater_than from '../mock/types/entity/comparison_gates/greater_tha
 import type_concat from '../mock/types/entity/string_gates/concat.json'
 import type_to_string from '../mock/types/entity/converter/to_string.json'
 import type_perlin_noise_4d from '../mock/types/entity/texture/perlin_noise_4d.json'
+import type_println from '../mock/types/entity/commands/println.json'
 
 // Currently mocks / static types
 const types = []
+types.push(type_flow)
 types.push(type_value)
 types.push(type_and)
 types.push(type_or)
@@ -25,6 +28,7 @@ types.push(type_greater_than)
 types.push(type_concat)
 types.push(type_to_string)
 types.push(type_perlin_noise_4d)
+types.push(type_println)
 
 function getEntityTypes () {
   return types
