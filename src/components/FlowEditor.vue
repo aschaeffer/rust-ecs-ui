@@ -165,25 +165,48 @@ export default {
         let relationTypeName = event.context.relationTypeName
         let outboundProperty = event.context.outboundProperty
         let inboundPropertyName = event.context.inboundPropertyName
-        let relationInstanceTypeName = `${relationTypeName}-${outboundProperty.businessObject.name}-${inboundPropertyName}`
+        let outboundPropertyName = outboundProperty.businessObject.name
+        let relationInstanceTypeName = `${relationTypeName}--${outboundPropertyName}--${inboundPropertyName}`
         entityInstance.children
             .filter(p => p.businessObject.name === inboundPropertyName)
             .forEach(inboundProperty => {
-              let connection = ConnectorFactory.connectProperties(
+              let connector = ConnectorFactory.connectProperties(
                   this.elementFactory,
                   relationTypeName,
                   outboundProperty,
                   relationInstanceTypeName,
                   inboundProperty
               )
-              connection.waypoints = this.connectionDocking.getCroppedWaypoints(connection);
-              this.canvas.addConnection(connection, this.rootElement)
-              this.autoLayoutConnector(connection)
+              connector.waypoints = this.connectionDocking.getCroppedWaypoints(connector);
+              this.canvas.addConnection(connector, this.rootElement)
+              this.autoLayoutConnector(connector)
+
+              // Register the new relation in the flow
+              this.flow.relations.push({
+                outbound_id: connector.source.parent.id,
+                type: relationInstanceTypeName,
+                inbound_id: connector.target.parent.id,
+                description: '',
+                properties: {
+                  outbound_property_name: outboundPropertyName,
+                  inbound_property_name: inboundPropertyName
+                }
+              })
+
             })
       }
-      // TODO: Register in flow
+      this.flow.entities.push({
+        type: entityInstance.businessObject.entityType.name,
+        id: entityInstance.id,
+        description: '',
+        properties: ElementUtils.getProperties(entityInstance)
+      })
     },
-    // TODO: entityRemoved
+    entityRemoved (event) {
+      if (ElementUtils.isEntity(event.element)) {
+        this.flow.entities = this.flow.entities.filter(entity => entity.id !== event.element.id)
+      }
+    },
     connectorCreated (event) {
       let connector = event.element
       // eslint-disable-next-line no-prototype-builtins
@@ -191,15 +214,14 @@ export default {
         return
       }
 
-      let outboundId = connector.source.id
-      let inboundId = connector.target.id
+      let relationTypeName = ConnectorTypes.DEFAULT_CONNECTOR
+      let edgeKey = `${connector.source.id}--${relationTypeName}--${connector.target.id}`
 
       let outboundPropertyName = connector.source.businessObject.name
       let inboundPropertyName = connector.target.businessObject.name
 
-      let relationTypeName = ConnectorTypes.DEFAULT_CONNECTOR
       let relationType = RelationTypeManager.getRelationType(relationTypeName)
-      let relationInstanceTypeName = `${relationTypeName}-${outboundPropertyName}-${inboundPropertyName}`
+      let relationInstanceTypeName = `${relationTypeName}--${outboundPropertyName}--${inboundPropertyName}`
 
       connector.businessObject = {
         type: InstanceTypes.RELATION,
@@ -211,13 +233,36 @@ export default {
       connector.waypoints = connectPoints(connector.waypoints[0], connector.waypoints[1])
       connector.waypoints = this.connectionDocking.getCroppedWaypoints(connector);
 
-      let outboundPropertyShapeId = `${outboundId}-${outboundPropertyName}`
-      let inboundPropertyShapeId = `${inboundId}-${inboundPropertyName}`
-      let edgeKey = `${outboundPropertyShapeId}-${relationTypeName}-${inboundPropertyShapeId}`
       this.elementRegistry.updateId(connector, edgeKey)
-      // TODO: Register connector in flow
+
+      // Register the new relation in the flow
+      this.flow.relations.push({
+        outbound_id: connector.source.parent.id,
+        type: relationInstanceTypeName,
+        inbound_id: connector.target.parent.id,
+        description: '',
+        properties: {
+          outbound_property_name: outboundPropertyName,
+          inbound_property_name: inboundPropertyName
+        }
+      })
     },
-    // TODO: connectorRemoved
+    connectorRemoved (event) {
+      console.log(event)
+      if (ElementUtils.isDefaultConnector(event.element)) {
+        this.flow.relations = this.flow.relations.filter(relation => {
+          let parts = event.element.id.split('--')
+          let outbound_id = parts[0].split('-').slice(0, -1).join('-')
+          let inbound_id = parts[2].split('-').slice(0, -1).join('-')
+          return !(
+              relation.type === event.element.businessObject.name &&
+              relation.outbound_id === outbound_id &&
+              relation.inbound_id === inbound_id
+
+          )
+        })
+      }
+    },
     createEntity (entityInstance) {
       let entityType = EntityTypeManager.getEntityType(entityInstance.type)
       let shapeDefinition = EntityShapeManager.getShapeDefinition(entityType)
@@ -254,7 +299,7 @@ export default {
       // console.log(relationType.name)
       if (relationType.name === ConnectorTypes.DEFAULT_CONNECTOR) {
         // console.log(`Connector ${relationInstance.outbound_id}.${relationInstance.properties.outbound_property_name} ${relationInstance.inbound_id}.${relationInstance.properties.inbound_property_name}`)
-        let connection = ConnectorFactory.createConnectorInstance(
+        let connector = ConnectorFactory.createConnectorInstance(
           this.elementFactory,
           this.elementRegistry,
           relationType.name,
@@ -264,8 +309,8 @@ export default {
           relationInstance.inbound_id,
           relationInstance.properties.inbound_property_name,
         )
-        connection.waypoints = this.connectionDocking.getCroppedWaypoints(connection);
-        this.canvas.addConnection(connection, this.rootElement)
+        connector.waypoints = this.connectionDocking.getCroppedWaypoints(connector);
+        this.canvas.addConnection(connector, this.rootElement)
       }
     },
     createEntitySockets (sockets, entityInstanceShape, entityInstance) {
