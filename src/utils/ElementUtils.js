@@ -3,11 +3,11 @@ import ConnectorTypes from '@/constants/ConnectorTypes.json'
 import SocketTypes from '@/constants/SocketTypes.json'
 
 function isProperty (element) {
-    return hasBusinessObject(element) && element.businessObject.type === InstanceTypes.PROPERTY
+  return hasBusinessObject(element) && element.businessObject.type === InstanceTypes.PROPERTY
 }
 
 function isOutputSocket (element) {
-    return isProperty(element) && element.businessObject.socketType === SocketTypes.OUTPUT
+  return isProperty(element) && element.businessObject.socketType === SocketTypes.OUTPUT
 }
 
 function hasOutgoingConnectors (element) {
@@ -15,7 +15,7 @@ function hasOutgoingConnectors (element) {
 }
 
 function isInputSocket (element) {
-    return isProperty(element) && element.businessObject.socketType === SocketTypes.INPUT
+  return isProperty(element) && element.businessObject.socketType === SocketTypes.INPUT
 }
 
 function hasIncomingConnectors (element) {
@@ -23,19 +23,19 @@ function hasIncomingConnectors (element) {
 }
 
 function isEntity (element) {
-    return hasBusinessObject(element) && element.businessObject.type === InstanceTypes.ENTITY
+  return hasBusinessObject(element) && element.businessObject.type === InstanceTypes.ENTITY
 }
 
 function isRelation (element) {
-    return hasBusinessObject(element) && element.businessObject.type === InstanceTypes.RELATION
+  return hasBusinessObject(element) && element.businessObject.type === InstanceTypes.RELATION
 }
 
 function isDefaultConnector (element) {
-    return isRelation(element) && element.businessObject.relationType.name === ConnectorTypes.DEFAULT_CONNECTOR
+  return isRelation(element) && element.businessObject.relationType.name === ConnectorTypes.DEFAULT_CONNECTOR
 }
 
 function hasBusinessObject (element) {
-    return Object.getOwnPropertyDescriptor(element, 'businessObject') && typeof element.businessObject !== 'undefined'
+  return Object.getOwnPropertyDescriptor(element, 'businessObject') && typeof element.businessObject !== 'undefined'
 }
 
 function getProperties (element) {
