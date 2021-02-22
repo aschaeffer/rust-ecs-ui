@@ -1,27 +1,15 @@
 {
-  "name": "or",
-  "description": "OR",
+  "name": "println",
+  "description": "Prints the given input to console",
   "components": [
-    "logical_gate"
   ],
   "behaviours": [
-    "OrGate"
   ],
   "properties": [
     {
-      "name": "lhs",
-      "data_type": "bool",
+      "name": "input",
+      "data_type": "string",
       "socket_type": "input"
-    },
-    {
-      "name": "rhs",
-      "data_type": "bool",
-      "socket_type": "input"
-    },
-    {
-      "name": "result",
-      "data_type": "bool",
-      "socket_type": "output"
     }
   ],
   "shape": {
@@ -51,7 +39,7 @@
       },
       "symbol": {
         "show": true,
-        "content": "| |",
+        "content": "\uD83D\uDDB9",
         "position": {
           "left": 0,
           "top": 0,
@@ -60,7 +48,7 @@
         },
         "styles": {
           "font-size": "40px",
-          "fill": "fuchsia"
+          "fill": "darkorange"
         }
       },
       "id": {

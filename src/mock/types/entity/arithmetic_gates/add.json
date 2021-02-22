@@ -37,7 +37,7 @@
     "elements": {
       "title": {
         "show": true,
-        "content": "ADD",
+        "content": "element.description",
         "position": {
           "left": 0,
           "top": 0,

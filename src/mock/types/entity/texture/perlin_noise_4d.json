@@ -44,7 +44,7 @@
     "elements": {
       "title": {
         "show": true,
-        "content": "Perlin Noise 4D",
+        "content": "element.description",
         "position": {
           "left": 0,
           "top": 0,

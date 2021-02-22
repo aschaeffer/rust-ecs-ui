@@ -29,7 +29,7 @@
     "elements": {
       "title": {
         "show": true,
-        "content": "TO_STRING",
+        "content": "element.description",
         "position": {
           "left": 0,
           "top": 0,

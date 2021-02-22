@@ -35,7 +35,7 @@
     {
       "type": "add",
       "id": "590d78f1-edb6-4890-8e65-4c9427680870",
-      "description": "",
+      "description": "CPU",
       "properties": {
         "lhs": 5,
         "rhs": 10,

@@ -1,0 +1,85 @@
+{
+  "id": "5fe09c8c-e5b5-4a0c-b211-14c4c82c98a2",
+  "description": "Threads per CPU Core",
+  "entities": [
+    {
+      "type": "flow",
+      "id": "5fe09c8c-e5b5-4a0c-b211-14c4c82c98a2",
+      "description": "",
+      "properties": {
+      }
+    },
+    {
+      "type": "and",
+      "id": "ddde5b62-e85a-4b26-bfbd-70e51c2be815",
+      "description": "",
+      "properties": {
+        "lhs": true,
+        "rhs": true,
+        "result": true
+      }
+    },
+    {
+      "type": "and",
+      "id": "25a831d2-537f-4e7e-9518-434d6c62c979",
+      "description": "",
+      "properties": {
+        "lhs": "",
+        "rhs": "",
+        "result": ""
+      }
+    },
+    {
+      "type": "and",
+      "id": "9592d0f3-2119-403c-a854-7356d03a8073",
+      "description": "",
+      "properties": {
+        "lhs": "",
+        "rhs": "",
+        "result": ""
+      }
+    }
+  ],
+  "relations": [
+    {
+      "outbound_id": "ddde5b62-e85a-4b26-bfbd-70e51c2be815",
+      "type": "default_connector--result--lhs",
+      "inbound_id": "25a831d2-537f-4e7e-9518-434d6c62c979",
+      "description": "",
+      "properties": {
+        "outbound_property_name": "result",
+        "inbound_property_name": "lhs"
+      }
+    },
+    {
+      "outbound_id": "ddde5b62-e85a-4b26-bfbd-70e51c2be815",
+      "type": "default_connector--result--rhs",
+      "inbound_id": "9592d0f3-2119-403c-a854-7356d03a8073",
+      "description": "",
+      "properties": {
+        "outbound_property_name": "result",
+        "inbound_property_name": "rhs"
+      }
+    },
+    {
+      "outbound_id": "9592d0f3-2119-403c-a854-7356d03a8073",
+      "type": "default_connector--result--rhs",
+      "inbound_id": "25a831d2-537f-4e7e-9518-434d6c62c979",
+      "description": "",
+      "properties": {
+        "outbound_property_name": "result",
+        "inbound_property_name": "rhs"
+      }
+    },
+    {
+      "outbound_id": "25a831d2-537f-4e7e-9518-434d6c62c979",
+      "type": "default_connector--result--rhs",
+      "inbound_id": "ddde5b62-e85a-4b26-bfbd-70e51c2be815",
+      "description": "",
+      "properties": {
+        "outbound_property_name": "result",
+        "inbound_property_name": "rhs"
+      }
+    }
+  ]
+}

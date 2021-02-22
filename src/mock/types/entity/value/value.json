@@ -26,7 +26,7 @@
     "elements": {
       "title": {
         "show": true,
-        "content": "VALUE",
+        "content": "entityType.name",
         "position": {
           "left": 0,
           "top": 0,
@@ -40,7 +40,7 @@
       },
       "symbol": {
         "show": true,
-        "content": "V",
+        "content": "element.description",
         "position": {
           "left": 0,
           "top": 0,
