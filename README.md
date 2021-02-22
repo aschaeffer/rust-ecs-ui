@@ -70,12 +70,17 @@ combine entities in the 3D world with logical gates, mathematical or other opera
 - [x] Flow: Render non-obtrusive border around the diagram canvas
 - [ ] Fetch Flow from GraphQL
 - [ ] Special Rendering of Entity Instance of Type "Flow": Use the properties from the instance (not the type - bc there is no type)
+- [x] Synchronize Flow Data Structure with created/removed entities and connectors
+- [ ] Export Flow to JSON
+- [ ] Virtual Flow Start Node
+- [ ] Virtual Flow End Node
 
 #### Entities
 
 - [x] Entity: Render Rounded Border
 - [x] Entity: Migrate from Overlay to Renderer
 - [x] Entity: Relayout all incoming and outgoing connectors with double click on the entity
+- [x] Entity: Direct Editing: Description / Title
 - [ ] Entity: Symbol: Render SVG / Icon
 
 #### Properties
@@ -88,7 +93,10 @@ combine entities in the 3D world with logical gates, mathematical or other opera
 - [x] Property: Colorize Boolean Values
 - [x] Property: Use different color for each data type
 - [x] Property: Show that socket has connection (Thicker socket border)
-- [x] Property: Start connecting with double click
+- [x] Property: Interaction: Single Click: Open Context Pad
+- [x] Property: Interaction: Double Click: Start connecting
+- [x] Property: Direct Editing: Value
+- [x] Property: Handle Data Type "any"
 - [ ] Property: Offset between sockets
 
 #### Connectors
@@ -102,8 +110,8 @@ combine entities in the 3D world with logical gates, mathematical or other opera
 - [x] Connector: Render Bezier Curve
 - [x] Connector: Colorize Line/Curve if data type can be detected
 - [x] Connector: Relayout with double click on the connector
+- [x] Connector: Move: Cropping
 - [ ] Connector: Move Entity: Delete old Relation / Create new Relation / Change Relation ID
-- [ ] Connector: Move: Cropping
 
 #### Editor
 
