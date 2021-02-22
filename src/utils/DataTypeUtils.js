@@ -1,5 +1,7 @@
 // TODO: Use JSON-Enum
 
+import DataTypes from '@/constants/DataTypes.json'
+
 function getDataTypeShort (dataType) {
   try {
     switch (dataType.toLowerCase()) {
@@ -115,8 +117,18 @@ function convertValue (dataType, value) {
   }
 }
 
-function  isBool (dataType) {
+function isAny (dataType) {
+  return dataType.toLowerCase() === 'any' || dataType.toLowerCase() === '*'
+}
+
+function isBool (dataType) {
   return dataType.toLowerCase() === 'bool'
+}
+
+function haveCompatibleDataTypes (outbound, inbound) {
+  return outbound.businessObject.dataType === DataTypes.ANY ||
+    inbound.businessObject.dataType === DataTypes.ANY ||
+    outbound.businessObject.dataType === inbound.businessObject.dataType
 }
 
 export default {
@@ -125,5 +137,7 @@ export default {
   getDataTypeColor,
   getDataTypeColorOpaque,
   convertValue,
-  isBool
+  isAny,
+  isBool,
+  haveCompatibleDataTypes
 }
