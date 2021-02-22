@@ -99,6 +99,7 @@ export default {
   },
   data: function() {
     return {
+      flow: null,
       diagram: null,
       canvas: null,
       eventBus: null,
@@ -116,9 +117,9 @@ export default {
   },
   mounted () {
     this.initEditor()
-    let flow = FlowManager.getFlow(this.flowId)
-    flow.entities.forEach(entityInstance => this.createEntity(entityInstance))
-    flow.relations.forEach(relationInstance => this.createRelation(relationInstance))
+    this.flow = FlowManager.getFlow(this.flowId)
+    this.flow.entities.forEach(entityInstance => this.createEntity(entityInstance))
+    this.flow.relations.forEach(relationInstance => this.createRelation(relationInstance))
   },
   methods: {
     initEditor() {
