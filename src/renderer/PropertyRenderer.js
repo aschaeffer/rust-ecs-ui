@@ -70,12 +70,24 @@ PropertyRenderer.prototype.drawShape = function (visuals, element) {
   let isOutput = this.isOutput(element.businessObject.socketType)
   let value = element.businessObject.value
 
+  let factualDataType = dataType
+  if (DataTypeUtils.isAny(dataType)) {
+    if (isInput && element.incoming.length > 0) {
+      console.log(element.incoming[0])
+      factualDataType = element.incoming[0].source.businessObject.dataType
+    } else if (isOutput && element.outgoing.length > 0) {
+      console.log(element.outgoing[0])
+      factualDataType = element.outgoing[0].target.businessObject.dataType
+    }
+    console.log(factualDataType)
+  }
+
   let propertyShape = svgCreate('rect');
   svgAttr(propertyShape, this.getShapeType(element));
   svgAttr(propertyShape, this.SHAPE_STYLE);
   if (!isBool) {
     svgAttr(propertyShape, {
-      fill: DataTypeUtils.getDataTypeColorOpaque(dataType, 0.1)
+      fill: DataTypeUtils.getDataTypeColorOpaque(factualDataType, 0.1)
     })
   } else if (element.businessObject.value) {
     svgAttr(propertyShape, {
@@ -109,15 +121,15 @@ PropertyRenderer.prototype.drawShape = function (visuals, element) {
     align: 'center-middle'
   })
 
-  let dataTypeText = dataTypeLabel.createText(DataTypeUtils.getDataTypeShort(dataType), {})
+  let dataTypeText = dataTypeLabel.createText(DataTypeUtils.getDataTypeShort(factualDataType), {})
   svgClasses(dataTypeText).add('djs-label')
   if (!isInput) {
     translate(dataTypeText, centerWidth, 0)
   }
   svgAttr(dataTypeText, {
-    fill: DataTypeUtils.getDataTypeColorOpaque(dataType, 0.7),
+    fill: DataTypeUtils.getDataTypeColorOpaque(factualDataType, 0.7),
     strokeWidth: 1,
-    stroke: DataTypeUtils.getDataTypeColorOpaque(dataType, 0.3),
+    stroke: DataTypeUtils.getDataTypeColorOpaque(factualDataType, 0.3),
     strokeLineCap: 'butt',
     strokeLineJoin: 'miter'
   })
@@ -134,7 +146,7 @@ PropertyRenderer.prototype.drawShape = function (visuals, element) {
       align: 'center-middle'
     })
 
-    let valueText = valueLabel.createText(DataTypeUtils.convertValue(dataType, value), {})
+    let valueText = valueLabel.createText(DataTypeUtils.convertValue(factualDataType, value), {})
     svgClasses(valueText).add('djs-label')
     if (isInput) {
       translate(valueText, centerWidth, 0)
