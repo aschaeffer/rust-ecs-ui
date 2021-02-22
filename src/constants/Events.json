@@ -1,0 +1,5 @@
+{
+  "CONNECTION_START": "connection.start",
+  "CONNECTION_CREATE": "connection.create",
+  "SHAPE_CREATE": "shape.create"
+}
