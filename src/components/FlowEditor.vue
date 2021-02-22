@@ -35,6 +35,9 @@
         </div>
       </b-button-group>
       <b-button-group class="float-right">
+        <b-button variant="primary" @click="exportFlow">
+          Export
+        </b-button>
         <b-button @click="toggleSidebar">
           Entities
           <b-icon-list />
@@ -352,6 +355,10 @@ export default {
     },
     toggleSidebar() {
       this.showSidebar = !this.showSidebar
+    },
+    exportFlow () {
+      console.log(this.flow)
+      console.log(JSON.stringify(this.flow, null, 2))
     }
   },
 }
