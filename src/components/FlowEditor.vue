@@ -146,6 +146,8 @@ export default {
       this.overlays = this.diagram.get('overlays')
       this.connectionDocking = this.diagram.get('connectionDocking')
       this.connect = this.diagram.get('connect')
+      this.directEditing = this.diagram.get('directEditing')
+
       this.rootElement = this.elementFactory.createRoot({
         id: `flow-${this.flowId}`
       })
@@ -225,7 +227,8 @@ export default {
         entityInstance.type,
         this.x,
         this.y,
-        entityInstance.id
+        entityInstance.id,
+        entityInstance.description
       )
       this.canvas.addShape(entityInstanceShape, this.rootElement)
 
@@ -285,6 +288,10 @@ export default {
         return DataTypeUtils.getDataTypeDefault(socket.dataType)
       }
     },
+    setPropertyValue (event) {
+      console.log(event)
+      this.rerenderElement(event.element)
+    },
     select (event) {
       if (event.newSelection.length === 1) {
         let selection = event.newSelection[0]
@@ -343,6 +350,21 @@ export default {
     },
     elementDblClick (event) {
       let element = event.element
+      if (ElementUtils.isInputSocket(element) && !ElementUtils.hasIncomingConnectors(element)) {
+        if (DataTypeUtils.isBool(element.businessObject.dataType)) {
+          // Toggle boolean value
+          element.businessObject.value = !element.businessObject.value
+          this.eventBus.fire('property.changed', {
+            element
+          })
+
+          this.rerenderElement(element)
+        } else {
+          // Open direct editing for all other data types
+          this.directEditing.activate(element)
+        }
+        // this.connect.start(event.originalEvent, element, true)
+      }
       if (ElementUtils.isOutputSocket(element)) {
         this.connect.start(event.originalEvent, element, true)
       }
@@ -351,7 +373,11 @@ export default {
       }
       if (ElementUtils.isEntity(element)) {
         this.autoLayoutEntity(element)
+        this.directEditing.activate(element)
       }
+    },
+    setDescription (event) {
+      this.rerenderElement(event.element)
     },
     toggleSidebar() {
       this.showSidebar = !this.showSidebar
