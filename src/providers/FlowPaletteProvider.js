@@ -267,6 +267,27 @@ FlowPaletteProvider.prototype.getPaletteEntries = function() {
       group: 'texture',
       separator: true
     },
+    'create-println': {
+      group: 'commands',
+      className: 'bpmn-icon-task-none',
+      title: 'Println',
+      action: {
+        click: function() {
+          let shape = EntityInstanceFactory.createEntityInstance(
+            elementFactory,
+            'println',
+            undefined,
+            undefined,
+            uuidv4()
+          )
+          create.start(event, shape)
+        }
+      }
+    },
+    'commands-separator': {
+      group: 'commands',
+      separator: true
+    },
     'create-default-connector': {
       group: 'connect',
       className: 'bpmn-icon-connection',
@@ -277,21 +298,5 @@ FlowPaletteProvider.prototype.getPaletteEntries = function() {
         }
       }
     },
-    // 'create-frame': {
-    //     group: 'create',
-    //     className: 'palette-icon-create-frame',
-    //     title: 'Create Frame',
-    //     action: {
-    //         click: function() {
-    //             var shape = elementFactory.createShape({
-    //                 width: 300,
-    //                 height: 200,
-    //                 isFrame: true
-    //             });
-    //
-    //             create.start(event, shape);
-    //         }
-    //     }
-    // }
   }
 }
