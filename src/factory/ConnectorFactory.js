@@ -19,7 +19,7 @@ function createConnectorInstance(
 
   let outboundPropertyShapeId = `${outboundId}-${outboundPropertyName}`
   let inboundPropertyShapeId = `${inboundId}-${inboundPropertyName}`
-  let edgeKey = `${outboundPropertyShapeId}-${relationTypeName}-${inboundPropertyShapeId}`
+  let edgeKey = `${outboundPropertyShapeId}--${relationTypeName}--${inboundPropertyShapeId}`
 
   let outboundPropertyShape = outboundShape.children.filter(p => p.id === outboundPropertyShapeId)[0]
   let inboundPropertyShape = inboundShape.children.filter(p => p.id === inboundPropertyShapeId)[0]
@@ -69,9 +69,7 @@ function connectProperties(
   let outboundPropertyShapeDefinition = EntityShapeManager.getShapeDefinition(outboundProperty.businessObject.entityType)
   let inboundPropertyShapeDefinition = EntityShapeManager.getShapeDefinition(inboundProperty.businessObject.entityType)
 
-  let outboundPropertyShapeId = `${outboundProperty.id}-${outboundProperty.businessObject.name}`
-  let inboundPropertyShapeId = `${inboundProperty.id}-${inboundProperty.businessObject.name}`
-  let edgeKey = `${outboundPropertyShapeId}-${relationTypeName}-${inboundPropertyShapeId}`
+  let edgeKey = `${outboundProperty.id}--${relationTypeName}--${inboundProperty.id}`
 
   let connection = elementFactory.createConnection({
     id: edgeKey,
