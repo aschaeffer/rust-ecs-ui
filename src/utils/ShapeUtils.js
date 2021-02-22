@@ -27,12 +27,22 @@ function parseValue (shapeDefinition, shape, value, isHeight) {
   return value
 }
 
-function parseContentValue (shapeDefinition, shape, content) {
-  switch (content) {
-    case 'shape.id':
-      return shape.id;
-    default:
-      return content
+function parseContentValue (shapeDefinition, element, content) {
+  try {
+    switch (content) {
+      case 'shape.id':
+        return element.id
+      case 'element.description':
+        return element.businessObject.description || ''
+      case 'entityType.name':
+        return element.businessObject.entityType.name
+      case 'entityType.description':
+        return element.businessObject.entityType.description
+      default:
+        return content
+    }
+  } catch (err) {
+    return content
   }
 }
 
