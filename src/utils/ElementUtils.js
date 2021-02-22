@@ -10,8 +10,16 @@ function isOutputSocket (element) {
     return isProperty(element) && element.businessObject.socketType === SocketTypes.OUTPUT
 }
 
+function hasOutgoingConnectors (element) {
+  return isOutputSocket(element) && element.outgoing.length > 0
+}
+
 function isInputSocket (element) {
     return isProperty(element) && element.businessObject.socketType === SocketTypes.INPUT
+}
+
+function hasIncomingConnectors (element) {
+  return isInputSocket(element) && element.incoming.length > 0
 }
 
 function isEntity (element) {
@@ -30,12 +38,27 @@ function hasBusinessObject (element) {
     return Object.getOwnPropertyDescriptor(element, 'businessObject') && typeof element.businessObject !== 'undefined'
 }
 
+function getProperties (element) {
+  return element.children.reduce(
+    (properties, propertyInstance) => Object.assign(
+      properties,
+      {
+        [propertyInstance.businessObject.name]: propertyInstance.businessObject.value
+      }
+    ),
+    {}
+  )
+}
+
 export default {
-    isProperty,
-    isOutputSocket,
-    isInputSocket,
-    isEntity,
-    isRelation,
-    isDefaultConnector,
-    hasBusinessObject
+  isProperty,
+  isOutputSocket,
+  hasOutgoingConnectors,
+  isInputSocket,
+  hasIncomingConnectors,
+  isEntity,
+  isRelation,
+  isDefaultConnector,
+  hasBusinessObject,
+  getProperties
 }
