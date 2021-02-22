@@ -23,9 +23,10 @@ import SelectionModule from 'diagram-js/lib/features/selection'
 import CopyPasteModule from 'diagram-js/lib/features/copy-paste'
 import OverlaysModule from 'diagram-js/lib/features/overlays'
 import GlobalConnectModule from 'diagram-js/lib/features/global-connect'
-// import PreviewSupportModule from 'diagram-js/lib/features/preview-support'
 import ConnectionPreviewModule from 'diagram-js/lib/features/connection-preview'
 import GridSnappingModule from 'diagram-js/lib/features/grid-snapping'
+import DirectEditingModule from 'diagram-js-direct-editing/index'
+// import PreviewSupportModule from 'diagram-js/lib/features/preview-support'
 
 /**
  * A module that changes the default diagram look.
@@ -88,7 +89,8 @@ const builtinModules = [
   OverlaysModule,
   GlobalConnectModule,
   ConnectionPreviewModule,
-  GridSnappingModule
+  GridSnappingModule,
+  DirectEditingModule
 ]
 
 // our own modules, contributing controls, customizations, and more

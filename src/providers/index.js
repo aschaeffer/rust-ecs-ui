@@ -7,6 +7,8 @@ import EntityRenderer from '@/renderer/EntityRenderer'
 import ConnectorRenderer from '@/renderer/ConnectorRenderer'
 import PropertyRenderer from '@/renderer/PropertyRenderer'
 import CroppingConnectionDockingProvider from 'diagram-js/lib/layout/CroppingConnectionDocking'
+import PropertyDirectEditingProvider from './PropertyDirectEditingProvider'
+import EntityDirectEditingProvider from './EntityDirectEditingProvider'
 
 export default {
   __init__: [
@@ -15,11 +17,12 @@ export default {
     'propertyContextPadProvider',
     'flowPaletteProvider',
     'flowRuleProvider',
-    // 'flowOrderingProvider',
     'connectionDocking',
     'entityRenderer',
     'connectorRenderer',
-    'propertyRenderer'
+    'propertyRenderer',
+    'propertyDirectEditingProvider',
+    'entityDirectEditingProvider'
   ],
   entityContextPadProvider: [ 'type', EntityContextPadProvider ],
   connectorContextPadProvider: [ 'type', ConnectorContextPadProvider ],
@@ -29,5 +32,7 @@ export default {
   connectionDocking: [ 'type', CroppingConnectionDockingProvider ],
   entityRenderer: [ 'type', EntityRenderer ],
   connectorRenderer: [ 'type', ConnectorRenderer ],
-  propertyRenderer: [ 'type', PropertyRenderer ]
+  propertyRenderer: [ 'type', PropertyRenderer ],
+  propertyDirectEditingProvider: [ 'type', PropertyDirectEditingProvider ],
+  entityDirectEditingProvider: [ 'type', EntityDirectEditingProvider ]
 }
