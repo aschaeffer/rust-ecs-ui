@@ -139,7 +139,14 @@ export default {
       this.eventBus.on('connection.added', 250, this.connectorCreated)
       this.eventBus.on('selection.changed', 250, this.select)
       this.eventBus.on('element.dblclick', 250, this.elementDblClick)
+      this.eventBus.on('element.start.drag', 250, this.elementDblClick)
       this.eventBus.on('shape.move.end', 250, this.entityMoved)
+      this.eventBus.on('shape.removed', 250, this.entityRemoved)
+      this.eventBus.on('connection.removed', 250, this.connectorRemoved)
+      this.eventBus.on('property.changed', 250, this.setPropertyValue)
+      this.eventBus.on('element.description.changed', 250, this.setDescription)
+
+
       this.canvas = this.diagram.get('canvas')
       this.elementFactory = this.diagram.get('elementFactory')
       this.elementRegistry = this.diagram.get('elementRegistry')
