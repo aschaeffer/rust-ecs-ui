@@ -46,21 +46,25 @@ combine entities in the 3D world with logical gates, mathematical or other opera
 
 ## Roadmap
 
-### General
+### General Integration
 
 - [x] Integrate diagram-js
+
+### General Styling
+
 - [x] Fork diagram-js CSS styles
+- [x] Create an SVG icon font
 
 ### Palette
 
 - [x] Provide a customized palette
-- [ ] Use Better Icons
-- [ ] Resolve Palette-Entries from EntityTypeManager
+- [x] Resolve Palette-Entries from EntityTypeManager
+- [x] Use SVG Icon Font
 
 ### Context Pad
 
-- [x] Property: ContextPad: Add Shape and Connector (like in BPMN Editor)
-- [ ] Use Flows in Flows (ContextPad: Jump Into // Double Click)
+- [x] ContextPad: Property: Add Shape and Connector (like in BPMN Editor)
+- [x] ContextPad: Property: Sockets: Trash -> Remove the incoming/outgoing connector(s)
 
 ### Rendering
 
@@ -68,12 +72,19 @@ combine entities in the 3D world with logical gates, mathematical or other opera
 
 - [x] Allow multiple Flows in multiple tabs
 - [x] Flow: Render non-obtrusive border around the diagram canvas
-- [ ] Fetch Flow from GraphQL
-- [ ] Special Rendering of Entity Instance of Type "Flow": Use the properties from the instance (not the type - bc there is no type)
 - [x] Synchronize Flow Data Structure with created/removed entities and connectors
-- [ ] Export Flow to JSON
-- [ ] Virtual Flow Start Node
-- [ ] Virtual Flow End Node
+- [x] Export Flow to JSON
+- [x] Import Flow from Local JSON-File
+- [ ] Render: Virtual Flow Start Node
+- [ ] Render: Virtual Flow End Node
+- [ ] Fetch Flow from GraphQL
+
+#### Sub-Flows
+
+- [ ] Flow: Render Entity Instance of Type "flow"
+  - [ ] Use the properties from the instance (not from the type - bc there is no type)
+- [ ] Flow: Interaction: Double-Click: Open / Focus Flow
+- [ ] ContextPad: Icon for Jump Into Flow
 
 #### Entities
 
@@ -81,7 +92,12 @@ combine entities in the 3D world with logical gates, mathematical or other opera
 - [x] Entity: Migrate from Overlay to Renderer
 - [x] Entity: Relayout all incoming and outgoing connectors with double click on the entity
 - [x] Entity: Direct Editing: Description / Title
-- [ ] Entity: Symbol: Render SVG / Icon
+- [x] Entity: Direct Editing: Update Flow
+- [x] Entity: Import Positions (via properties: f2dx, f2dy)
+- [x] Entity: Shape Styles & Rendering Comments
+- [x] Entity: Symbol: Render Custom SVG by Filename
+- [x] Entity: Symbol: Render Symbol Text using SVG Icon Font
+- [x] Entity: Rule: Allow Resizing Comments
 
 #### Properties
 
@@ -96,8 +112,9 @@ combine entities in the 3D world with logical gates, mathematical or other opera
 - [x] Property: Interaction: Single Click: Open Context Pad
 - [x] Property: Interaction: Double Click: Start connecting
 - [x] Property: Direct Editing: Value
+- [x] Property: Direct Editing: Update Flow
 - [x] Property: Handle Data Type "any"
-- [ ] Property: Offset between sockets
+- [x] Property: Offset between sockets
 
 #### Connectors
 
@@ -111,16 +128,15 @@ combine entities in the 3D world with logical gates, mathematical or other opera
 - [x] Connector: Colorize Line/Curve if data type can be detected
 - [x] Connector: Relayout with double click on the connector
 - [x] Connector: Move: Cropping
-- [ ] Connector: Move Entity: Delete old Relation / Create new Relation / Change Relation ID
-
-#### Editor
-
-- [x] Entity: Show Name
-- [x] Connector: Show Name
-- [x] Property: Show & Edit Value
+- [x] Connector: Direct Editing: Description / Title
+- [x] Connector: Direct Editing: Update Flow
+- [x] Connector: Rule: Disallow Reconnect
 
 #### Type System Editor
 
+- [x] Entity Types: Merge properties from Components
+- [x] Entity Types: Tolerant mode if entity type doesn't exist
+- [x] Entity Types: Dynamic Imports
 - [ ] Fetch EntityTypes from GraphQL
 - [ ] Fetch RelationTypes from GraphQL
 - [ ] Visualize the Type System (in another diagram.js based editor)
