@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 import 'bpmn-font/dist/css/bpmn.css'
+import '../public/css/inexor-ecs-font/inexor-ecs.css'
 
 import 'diagram-js/assets/diagram-js.css'
 import '../public/css/diagram-js.css'
