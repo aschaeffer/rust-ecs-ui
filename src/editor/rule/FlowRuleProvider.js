@@ -45,8 +45,15 @@ FlowRuleProvider.prototype.init = function () {
       DataTypeUtils.haveCompatibleDataTypes(outbound, inbound)
   })
 
-  this.addRule('shape.resize', function () {
+  // eslint-disable-next-line no-unused-vars
+  this.addRule('connection.reconnect', function (context) {
+    console.log(context)
     return false
+  })
+
+  this.addRule('shape.resize', function (context) {
+    let element = context.shape
+    return ElementUtils.isEntity(element) && element.businessObject.entityType.name === 'comment'
   })
 
   this.addRule('shape.move', function (context) {

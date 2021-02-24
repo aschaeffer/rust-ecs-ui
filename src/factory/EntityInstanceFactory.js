@@ -1,24 +1,35 @@
 import { v4 as uuidv4 } from 'uuid'
 
-import EntityTypeManager from '@/manager/EntityTypeManager'
-import EntityShapeManager from '@/manager/EntityShapeManager'
+import EntityShapeManager from '@/utils/EntityShapeUtils'
 import InstanceTypes from '@/constants/InstanceTypes.json'
 import ShapeUtils from '@/utils/ShapeUtils'
 
-function createEntityInstance (elementFactory, entityTypeName, x, y, id, description) {
-  let entityType = EntityTypeManager.getEntityType(entityTypeName)
+export default function EntityInstanceFactory(elementFactory, entityTypeManager) {
+  this._elementFactory = elementFactory
+  this._entityTypeManager = entityTypeManager
+}
+
+EntityInstanceFactory.$inject = [
+  'elementFactory',
+  'entityTypeManager'
+]
+
+EntityInstanceFactory.prototype.createEntityInstance = function (entityTypeName, x, y, id, description) {
+  let entityType = this._entityTypeManager.getEntityType(entityTypeName)
   let shapeDefinition = EntityShapeManager.getShapeDefinition(entityType)
 
   let entityId = (typeof id === 'undefined') ? uuidv4() : id
-  let sockets = EntityTypeManager.getSocketDescriptors(entityType)
+  let sockets = this._entityTypeManager.getSocketDescriptors(entityType)
 
   let offsetTop = ShapeUtils.parseValue(shapeDefinition, null, shapeDefinition.offset.top)
   let offsetBottom = ShapeUtils.parseValue(shapeDefinition, null, shapeDefinition.offset.bottom)
-  let height = (Math.max(sockets.input.length, sockets.output.length) * shapeDefinition.socket.height)
+  let numberOfSockets = Math.max(sockets.input.length, sockets.output.length)
+  let height = numberOfSockets * shapeDefinition.socket.height
+    + (numberOfSockets - 1) * shapeDefinition.socket.offset
     + offsetTop
     + offsetBottom
   height = Math.max(height, 2 * shapeDefinition.socket.height)
-  let shape = elementFactory.createShape({
+  let shape = this._elementFactory.createShape({
     id: entityId,
     x,
     y,
@@ -29,7 +40,7 @@ function createEntityInstance (elementFactory, entityTypeName, x, y, id, descrip
       id: entityId,
       entityType: entityType,
       name: entityTypeName,
-      description: description || entityType.name
+      description: description || entityTypeName
     },
     label: {
       name: 'name'
@@ -39,11 +50,6 @@ function createEntityInstance (elementFactory, entityTypeName, x, y, id, descrip
 }
 
 // eslint-disable-next-line no-unused-vars
-function importEntityInstance(entityInstance) {
+EntityInstanceFactory.prototype.importEntityInstance = function (entityInstance) {
 
-}
-
-export default {
-  createEntityInstance,
-  importEntityInstance,
 }

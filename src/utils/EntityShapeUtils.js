@@ -1,4 +1,5 @@
 import EntityShapeDefaults from "@/constants/EntityShapeDefaults.json"
+import EntityShapeDefaultElements from "@/constants/EntityShapeDefaultElements.json"
 import SocketShapeDefaults from "@/constants/SocketShapeDefaults.json"
 
 function getEntityWidth (entityType) {
@@ -22,6 +23,14 @@ function getSocketWidth (entityType) {
     return entityType.shape.socket.width
   } catch {
     return SocketShapeDefaults.WIDTH
+  }
+}
+
+function getSocketOffset (entityType) {
+  try {
+    return entityType.shape.socket.offset
+  } catch {
+    return SocketShapeDefaults.OFFSET
   }
 }
 
@@ -58,6 +67,17 @@ function getShapeElements (entityType) {
     }
     return elements
   } catch {
+    return EntityShapeDefaultElements
+  }
+}
+
+function getShapeStyle (entityType) {
+  try {
+    if (typeof entityType.shape.style !== 'undefined') {
+      return entityType.shape.style
+    }
+    return {}
+  } catch {
     return {}
   }
 }
@@ -68,17 +88,39 @@ function getShapeDefinition (entityType) {
       width: getEntityWidth(entityType)
     },
     socket: {
+      width: getSocketWidth(entityType),
       height: getSocketHeight(entityType),
-      width: getSocketWidth(entityType)
+      offset: getSocketOffset(entityType)
     },
     offset: {
       top: getOffsetTop(entityType),
       bottom: getOffsetBottom(entityType)
     },
-    elements: getShapeElements(entityType)
+    elements: getShapeElements(entityType),
+    style: getShapeStyle(entityType),
+  }
+}
+
+function getDefaultShapeDefinition () {
+  return {
+    entity: {
+      width: EntityShapeDefaults.WIDTH
+    },
+    socket: {
+      width: SocketShapeDefaults.WIDTH,
+      height: SocketShapeDefaults.HEIGHT,
+      offset: SocketShapeDefaults.OFFSET
+    },
+    offset: {
+      top: EntityShapeDefaults.OFFSET_TOP,
+      bottom: EntityShapeDefaults.OFFSET_BOTTOM
+    },
+    elements: EntityShapeDefaultElements,
+    style: {},
   }
 }
 
 export default {
-  getShapeDefinition
+  getShapeDefinition,
+  getDefaultShapeDefinition
 }

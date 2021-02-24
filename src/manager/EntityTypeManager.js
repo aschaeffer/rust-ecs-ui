@@ -1,89 +1,110 @@
 import SocketTypes from "@/constants/SocketTypes.json"
 import DataTypes from "@/constants/DataTypes.json"
-import type_flow from '../mock/types/entity/flow/flow.json'
-import type_value from '../mock/types/entity/value/value.json'
-import type_and from '../mock/types/entity/logical_gates/and.json'
-import type_or from '../mock/types/entity/logical_gates/or.json'
-import type_divide from '../mock/types/entity/arithmetic_gates/divide.json'
-import type_add from '../mock/types/entity/arithmetic_gates/add.json'
-import type_sub from '../mock/types/entity/arithmetic_gates/sub.json'
-import type_mul from '../mock/types/entity/arithmetic_gates/mul.json'
-import type_greater_than from '../mock/types/entity/comparison_gates/greater_than.json'
-import type_concat from '../mock/types/entity/string_gates/concat.json'
-import type_to_string from '../mock/types/entity/converter/to_string.json'
-import type_perlin_noise_4d from '../mock/types/entity/texture/perlin_noise_4d.json'
-import type_println from '../mock/types/entity/commands/println.json'
 
-// Currently mocks / static types
-const types = []
-types.push(type_flow)
-types.push(type_value)
-types.push(type_and)
-types.push(type_or)
-types.push(type_divide)
-types.push(type_add)
-types.push(type_sub)
-types.push(type_mul)
-types.push(type_greater_than)
-types.push(type_concat)
-types.push(type_to_string)
-types.push(type_perlin_noise_4d)
-types.push(type_println)
+export default function EntityTypeManager(componentManager) {
 
-function getEntityTypes () {
-  return types
+  this._componentManager = componentManager
+
+  this.types = []
+
+  // Currently mocks / static components
+  this.importAllTypes(require.context('../mock/types/entity/', true, /\.json$/))
+  // console.log(this.types.map(t => t.name))
 }
 
-function getEntityType (type_name) {
-  let found_types = types.filter(t => t.name === type_name)
+EntityTypeManager.$inject = [
+  'componentManager'
+]
+
+EntityTypeManager.prototype.importAllTypes = function (r) {
+  r.keys().forEach((key) => this.types.push(r(key)))
+}
+
+EntityTypeManager.prototype.getEntityTypes = function () {
+  return this.types
+}
+
+EntityTypeManager.prototype.getEntityType = function (type_name) {
+  let found_types = this.types.filter(t => t.name === type_name)
   if (found_types.length > 0) {
     return found_types[0]
   }
-  return null
+  return {
+    name: type_name,
+    description: '',
+    components: [],
+    behaviours: [],
+    properties: []
+  }
 }
 
-function getPropertyNames (entityType) {
-  return entityType.properties.map(property => property.name)
-}
-
-function getPropertyType (entityType, propertyName) {
+EntityTypeManager.prototype.getPropertyNames = function (entityType) {
+  let propertyNames = new Set()
   if (entityType !== null) {
-    let propertyTypes = entityType.properties.filter(t => t.name === propertyName)
-    if (propertyTypes.length > 0) {
-      return propertyTypes[0]
+    if (Object.getOwnPropertyDescriptor(entityType, 'properties')) {
+      entityType.properties.map(property => property.name).reduce((propertyNames, propertyName) => propertyNames.add(propertyName), propertyNames)
+    }
+    if (Object.getOwnPropertyDescriptor(entityType, 'components')) {
+      entityType.components.forEach(componentName => {
+        let component = this._componentManager.getComponent(componentName)
+        if (component !== null) {
+          this._componentManager.getPropertyNames(component).reduce((propertyNames, propertyName) => propertyNames.add(propertyName), propertyNames) // propertyNames.add(propertyName)
+        }
+      })
+    }
+  }
+  return Array.from(propertyNames)
+}
+
+EntityTypeManager.prototype.getPropertyType = function (entityType, propertyName) {
+  if (entityType !== null) {
+    if (Object.getOwnPropertyDescriptor(entityType, 'properties')) {
+      let propertyTypes = entityType.properties.filter(t => t.name === propertyName)
+      if (propertyTypes.length > 0) {
+        return propertyTypes[0]
+      }
+    }
+    if (Object.getOwnPropertyDescriptor(entityType, 'components')) {
+      for (let componentName of entityType.components) {
+        let component = this._componentManager.getComponent(componentName)
+        if (component !== null) {
+          let propertyType = this._componentManager.getPropertyType(component, propertyName)
+          if (propertyType !== null) {
+            return propertyType
+          }
+        }
+      }
     }
   }
   return null
 }
 
-function getPropertyDataType(propertyType) {
-  if (propertyType !== null &&
-    Object.prototype.hasOwnProperty.call(propertyType, 'data_type')
-  ) {
+EntityTypeManager.prototype.getPropertyDataType = function (propertyType) {
+  if (propertyType !== null && Object.getOwnPropertyDescriptor(propertyType, 'data_type')) {
     return propertyType.data_type
   }
   return DataTypes.ANY
 }
 
-function getPropertySocketType(propertyType) {
+EntityTypeManager.prototype.getPropertySocketType = function (propertyType) {
   if (propertyType !== null &&
-    Object.prototype.hasOwnProperty.call(propertyType, 'socket_type')
+    Object.getOwnPropertyDescriptor(propertyType, 'socket_type')
   ) {
     return propertyType.socket_type
   }
   return SocketTypes.NONE
 }
 
-function getSocketDescriptors(entityType) {
-  let propertyNames = getPropertyNames(entityType)
+EntityTypeManager.prototype.getSocketDescriptors = function (entityType) {
+  let propertyNames = this.getPropertyNames(entityType)
   let sockets = {
     input: [],
     output: []
   }
   for (const propertyName of propertyNames) {
-    let propertyType = getPropertyType(entityType, propertyName)
-    let propertySocketType = getPropertySocketType(propertyType)
-    let propertyDataType = getPropertyDataType(propertyType)
+    let propertyType = this.getPropertyType(entityType, propertyName)
+    let propertySocketType = this.getPropertySocketType(propertyType)
+    let propertyDataType = this.getPropertyDataType(propertyType)
     let socketDescriptor = {
       entityType,
       propertyName,
@@ -105,12 +126,28 @@ function getSocketDescriptors(entityType) {
   return sockets
 }
 
-export default {
-  getEntityTypes,
-  getEntityType,
-  getPropertyNames,
-  getPropertyType,
-  getPropertyDataType,
-  getPropertySocketType,
-  getSocketDescriptors
+EntityTypeManager.prototype.getGroupName = function (entityType) {
+  return Object.getOwnPropertyDescriptor(entityType, 'group') ? entityType.group : 'default'
 }
+
+EntityTypeManager.prototype.getGroupNames = function () {
+  let groupNames = new Set()
+  this.types.forEach(entityType => groupNames.add(this.getGroupName(entityType)))
+  return Array.from(groupNames)
+}
+
+EntityTypeManager.prototype.getEntityTypesByGroupName = function (groupName) {
+  return this.types.filter(entityType => this.getGroupName(entityType) === groupName)
+}
+
+// export default {
+//   getEntityTypes,
+//   getEntityType,
+//   getPropertyNames,
+//   getPropertyType,
+//   getPropertyDataType,
+//   getPropertySocketType,
+//   getSocketDescriptors,
+//   getGroupNames,
+//   getEntityTypesByGroupName
+// }

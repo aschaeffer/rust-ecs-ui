@@ -1,16 +1,26 @@
 <template>
   <b-tabs content-class="mt-3" class="m-3">
-    <b-tab v-for="flow in flows" :key="flow.id" :title="getTitle(flow)">
+    <b-tab v-for="flow in flows" :key="flow.id">
+      <template #title>
+        {{ getTitle(flow) }}
+        <b-button variant="sm" @click="removeFlow(flow.id)">
+          <b-icon-x />
+        </b-button>
+      </template>
       <flow-editor :flowId="flow.id" />
     </b-tab>
     <template #tabs-start>
-      <img src="assets/inexor_2.png" style="width: 48px; height: 48px; margin: 8px;" />
+      <b-nav-item>
+        <img src="assets/inexor_2.png" style="width: 24px; height: 24px;" />
+      </b-nav-item>
     </template>
     <template #tabs-end>
-      <b-button @click="addFlow">
+      <b-nav-item @click="createFlow">
         <b-icon-plus />
-      </b-button>
-      <img src="assets/inexor_2.png" style="width: 48px; height: 48px; margin: 8px;" />
+      </b-nav-item>
+      <b-nav-form class="float-right">
+        <b-form-file v-model="importFlowFile" accept="application/json" size="sm" @input="uploadFlow" />
+      </b-nav-form>
     </template>
   </b-tabs>
 </template>
@@ -22,7 +32,10 @@ import EntityTypeManager from "@/manager/FlowManager";
 import {
   BTabs,
   BTab,
-  BIconPlus
+  BIconPlus,
+  BNavItem,
+  BNavForm,
+  BFormFile
 } from 'bootstrap-vue';
 
 export default {
@@ -31,6 +44,9 @@ export default {
     BTabs,
     BTab,
     BIconPlus,
+    BNavItem,
+    BNavForm,
+    BFormFile,
     FlowEditor,
   },
   props: [
@@ -38,6 +54,7 @@ export default {
   data: function() {
     return {
       flows: [],
+      importFlowFile: null,
     }
   },
   mounted () {
@@ -45,19 +62,36 @@ export default {
   },
   methods: {
     getTitle (flow) {
-      return `Flow Editor ${flow.id}`
+      if (Object.getOwnPropertyDescriptor(flow, 'description') && flow.description !== '') {
+        return flow.description
+      }
+      return `Flow ${flow.id}`
     },
-    addFlow () {
-      EntityTypeManager.addFlow()
+    createFlow () {
+      EntityTypeManager.createFlow()
+      this.loadFlows()
+    },
+    removeFlow (id) {
+      EntityTypeManager.removeFlow(id)
       this.loadFlows()
     },
     loadFlows () {
       this.flows = EntityTypeManager.getFlows()
+    },
+    uploadFlow (event) {
+      const reader = new FileReader()
+      reader.onload = this.convertFlow
+      reader.readAsText(event)
+    },
+    convertFlow (event) {
+      let flow = JSON.parse(event.target.result)
+      this.importFlow(flow)
+    },
+    importFlow (flow) {
+      console.log(flow)
+      EntityTypeManager.addFlow(flow)
+      this.loadFlows()
     }
   }
 }
 </script>
-
-<style scoped>
-
-</style>

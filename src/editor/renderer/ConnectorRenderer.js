@@ -4,21 +4,24 @@ import BaseRenderer from "diagram-js/lib/draw/BaseRenderer"
 
 import {
   append as svgAppend,
-  attr as svgAttr,
+  attr as svgAttr, classes as svgClasses,
   create as svgCreate
 } from 'tiny-svg'
 
 import { query as domQuery } from 'min-dom'
 
-import InstanceTypes from "@/constants/InstanceTypes.json"
-import ConnectorTypes from "@/constants/ConnectorTypes.json"
 import DataTypes from "@/constants/DataTypes.json"
 import DataTypeUtils from "@/utils/DataTypeUtils"
+// eslint-disable-next-line no-unused-vars
+import {translate} from "diagram-js/lib/util/SvgTransformUtil";
+import TextUtil from "diagram-js/lib/util/Text";
+import ElementUtils from "@/utils/ElementUtils";
 
 const CONNECTOR_RENDER_PRIORITY = 3000
 
 function ConnectorRenderer(eventBus, styles, canvas) {
   BaseRenderer.call(this, eventBus, CONNECTOR_RENDER_PRIORITY);
+  this.arrowId = 'arrow-' + Math.random()
   this.CONNECTION_STYLE = styles.style(
     [
       'no-fill'
@@ -30,6 +33,9 @@ function ConnectorRenderer(eventBus, styles, canvas) {
       stroke: '#000'
     }
   )
+  this.MARKER_END_ARROW = {
+    markerEnd: `url(#${this.arrowId})`
+  }
 
   let arrowMarker = svgCreate('path')
   svgAttr(arrowMarker, {
@@ -40,7 +46,7 @@ function ConnectorRenderer(eventBus, styles, canvas) {
 
   let marker = svgCreate('marker')
   svgAttr(marker, {
-    id: 'arrow',
+    id: this.arrowId,
     orient: 'auto',
     markerWidth: 15,
     markerHeight: 20,
@@ -62,23 +68,43 @@ function ConnectorRenderer(eventBus, styles, canvas) {
 inherits(ConnectorRenderer, BaseRenderer)
 
 ConnectorRenderer.prototype.canRender = function(element) {
-  // eslint-disable-next-line no-prototype-builtins
-  return element.hasOwnProperty('businessObject') &&
-    element.businessObject !== undefined &&
-    // eslint-disable-next-line no-prototype-builtins
-    element.businessObject.hasOwnProperty('type') &&
-    element.businessObject.type === InstanceTypes.RELATION &&
-    element.businessObject.relationType.name === ConnectorTypes.DEFAULT_CONNECTOR
+  return ElementUtils.isDefaultConnector(element)
 }
 
-ConnectorRenderer.prototype.drawConnection = function drawConnection(visuals, connection) {
+ConnectorRenderer.prototype.drawConnection = function drawConnection(visuals, element) {
   let bezierCurve = svgCreate('path')
   // console.log(this.toBezierPoints(connection.waypoints))
-  svgAttr(bezierCurve, { d: this.toBezierPoints(connection.waypoints) })
+  let bezierCurvePath = this.toBezierPoints(element.waypoints)
+  svgAttr(bezierCurve, { d: bezierCurvePath })
   svgAttr(bezierCurve, this.CONNECTION_STYLE)
-  svgAttr(bezierCurve, this.getFillColorByDataTypes(connection))
-  svgAttr(bezierCurve, { markerEnd: 'url(#arrow)' })
+  svgAttr(bezierCurve, this.getFillColorByDataTypes(element))
+  svgAttr(bezierCurve, this.MARKER_END_ARROW)
   svgAppend(visuals, bezierCurve)
+
+  let x = Math.min(element.waypoints[0].x, element.waypoints[element.waypoints.length - 1].x)
+  let y = Math.min(element.waypoints[0].y, element.waypoints[element.waypoints.length - 1].y)
+  let width = Math.abs(element.waypoints[element.waypoints.length - 1].x - element.waypoints[0].x)
+  let height = Math.abs(element.waypoints[element.waypoints.length - 1].y - element.waypoints[0].y)
+
+  if (width < 75) {
+    let dx = 75 - width
+    x -= dx / 2
+    width += dx / 2
+  }
+  let elementLabel = new TextUtil({
+    style: { fill: "black", fontSize: "12px" },
+    size: { width, height },
+    align: 'center-middle'
+  })
+
+  let description = element.businessObject.description || ''
+  if (description !== '') {
+    let shapeElementText = elementLabel.createText(description, {})
+    svgClasses(shapeElementText).add('djs-label')
+    translate(shapeElementText, x, y)
+    svgAppend(visuals, shapeElementText)
+  }
+
   return bezierCurve
 }
 

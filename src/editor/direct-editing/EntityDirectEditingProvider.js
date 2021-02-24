@@ -15,9 +15,9 @@ EntityDirectEditingProvider.$inject = [
 
 EntityDirectEditingProvider.prototype.activate = function (element) {
   let context = {}
-  console.log(element)
 
   if (ElementUtils.isEntity(element)) {
+    console.log(element)
     assign(context, {
       bounds: element.labelBounds || element,
       text: element.businessObject.description || ''
@@ -38,7 +38,7 @@ EntityDirectEditingProvider.prototype.update = function (element, text, oldText,
     element
   })
 
-  var labelBounds = element.labelBounds || element
+  let labelBounds = element.labelBounds || element
 
   assign(labelBounds, bounds)
 }

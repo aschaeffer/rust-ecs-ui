@@ -1,4 +1,12 @@
-import FlowModule from '@/providers'
+import FlowContextPadProviders from '@/editor/context-pad'
+import FlowDirectEditingProviders from '@/editor/direct-editing'
+import FlowLayoutModule from '@/editor/layout'
+import FlowPaletteProvider from '@/editor/palette'
+import FlowRuleProvider from '@/editor/rule'
+import FlowRenderers from '@/editor/renderer'
+import FlowManagers from '@/manager'
+import FlowFactories from '@/factory'
+
 import HandToolModule from 'diagram-js/lib/features/hand-tool'
 import KeyboardMoveModule from 'diagram-js/lib/features/keyboard-move-selection'
 import MoveCanvasModule from 'diagram-js/lib/navigation/movecanvas'
@@ -25,6 +33,9 @@ import OverlaysModule from 'diagram-js/lib/features/overlays'
 import GlobalConnectModule from 'diagram-js/lib/features/global-connect'
 import ConnectionPreviewModule from 'diagram-js/lib/features/connection-preview'
 import GridSnappingModule from 'diagram-js/lib/features/grid-snapping'
+import GridSnappingVisualsModule from 'diagram-js/lib/features/grid-snapping/visuals'
+import ClipboardModule from 'diagram-js/lib/features/clipboard'
+// import DistributeElementsModule from 'diagram-js/lib/features/distribute-elements'
 import DirectEditingModule from 'diagram-js-direct-editing/index'
 // import PreviewSupportModule from 'diagram-js/lib/features/preview-support'
 
@@ -90,17 +101,27 @@ const builtinModules = [
   GlobalConnectModule,
   ConnectionPreviewModule,
   GridSnappingModule,
+  GridSnappingVisualsModule,
+  ClipboardModule,
+  // DistributeElementsModule,
   DirectEditingModule
 ]
 
 // our own modules, contributing controls, customizations, and more
 const customModules = [
-    FlowModule,
-    ElementStyleModule
+  FlowContextPadProviders,
+  FlowDirectEditingProviders,
+  FlowLayoutModule,
+  FlowPaletteProvider,
+  FlowRuleProvider,
+  FlowRenderers,
+  FlowManagers,
+  FlowFactories,
+  ElementStyleModule
 ]
 
 export default [
-    ...builtinModules,
-    ...interactionModules,
-    ...customModules
+  ...builtinModules,
+  ...interactionModules,
+  ...customModules
 ]

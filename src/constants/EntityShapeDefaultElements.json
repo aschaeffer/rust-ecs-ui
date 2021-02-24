@@ -1,0 +1,47 @@
+{
+  "title": {
+    "show": true,
+    "type": "text",
+    "content": "element.description",
+    "position": {
+      "left": 0,
+      "top": 0,
+      "width": "shape.width",
+      "height": "socket.height"
+    },
+    "styles": {
+      "font-size": "12px",
+      "fill": "black"
+    }
+  },
+  "symbol": {
+    "show": true,
+    "type": "text",
+    "content": "entityType.name",
+    "position": {
+      "left": 0,
+      "top": 0,
+      "width": "shape.width",
+      "height": "shape.height"
+    },
+    "styles": {
+      "font-size": "20px",
+      "fill": "black"
+    }
+  },
+  "id": {
+    "show": true,
+    "type": "text",
+    "content": "shape.id",
+    "position": {
+      "left": 0,
+      "top": "shape.height-socket.height",
+      "width": "shape.width",
+      "height": "socket.height"
+    },
+    "styles": {
+      "font-size": "9px",
+      "fill": "black"
+    }
+  }
+}

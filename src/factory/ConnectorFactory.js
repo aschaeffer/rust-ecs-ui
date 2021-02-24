@@ -1,33 +1,61 @@
-import RelationTypeManager from '@/manager/RelationTypeManager'
 import InstanceTypes from '@/constants/InstanceTypes.json'
-import EntityShapeManager from '@/manager/EntityShapeManager'
+import EntityShapeManager from '@/utils/EntityShapeUtils'
 
-function createConnectorInstance(
-  elementFactory,
-  elementRegistry,
+export default function ConnectorFactory(elementFactory, elementRegistry, relationTypeManager) {
+  this._elementFactory = elementFactory
+  this._elementRegistry = elementRegistry
+  this._relationTypeManager = relationTypeManager
+}
+
+ConnectorFactory.$inject = [
+  'elementFactory',
+  'elementRegistry',
+  'relationTypeManager'
+]
+
+ConnectorFactory.prototype.createConnectorInstance = function (
   relationTypeName,
   outboundId,
   outboundPropertyName,
   relationInstanceTypeName,
   inboundId,
-  inboundPropertyName
+  inboundPropertyName,
+  description
 ) {
-  let relationType = RelationTypeManager.getRelationType(relationTypeName)
+  let relationType = this._relationTypeManager.getRelationType(relationTypeName)
 
-  let outboundShape = elementRegistry.get(outboundId)
-  let inboundShape = elementRegistry.get(inboundId)
+  let outboundShape = this._elementRegistry.get(outboundId)
+  let inboundShape = this._elementRegistry.get(inboundId)
 
   let outboundPropertyShapeId = `${outboundId}-${outboundPropertyName}`
   let inboundPropertyShapeId = `${inboundId}-${inboundPropertyName}`
   let edgeKey = `${outboundPropertyShapeId}--${relationTypeName}--${inboundPropertyShapeId}`
 
   let outboundPropertyShape = outboundShape.children.filter(p => p.id === outboundPropertyShapeId)[0]
+  if (typeof outboundPropertyShape === 'undefined') {
+    console.error(`Missing outbound property ${outboundPropertyShapeId}`)
+    return
+  }
   let inboundPropertyShape = inboundShape.children.filter(p => p.id === inboundPropertyShapeId)[0]
+  if (typeof inboundPropertyShape === 'undefined') {
+    console.error(`Missing inbound property ${inboundPropertyShapeId}`)
+    return
+  }
 
-  let outboundPropertyShapeDefinition = EntityShapeManager.getShapeDefinition(outboundPropertyShape.businessObject.entityType)
-  let inboundPropertyShapeDefinition = EntityShapeManager.getShapeDefinition(inboundPropertyShape.businessObject.entityType)
+  let outboundPropertyShapeDefinition
+  try {
+    outboundPropertyShapeDefinition = EntityShapeManager.getShapeDefinition(outboundPropertyShape.businessObject.entityType)
+  } catch {
+    outboundPropertyShapeDefinition = EntityShapeManager.getDefaultShapeDefinition()
+  }
+  let inboundPropertyShapeDefinition
+  try {
+    inboundPropertyShapeDefinition = EntityShapeManager.getShapeDefinition(inboundPropertyShape.businessObject.entityType)
+  } catch {
+    inboundPropertyShapeDefinition = EntityShapeManager.getDefaultShapeDefinition()
+  }
 
-  let connection = elementFactory.createConnection({
+  let connection = this._elementFactory.createConnection({
     id: edgeKey,
     waypoints: [
       {
@@ -49,7 +77,7 @@ function createConnectorInstance(
       name: relationInstanceTypeName,
       outboundPropertyName,
       inboundPropertyName,
-
+      description: description || ''
     },
     source: outboundPropertyShape,
     target: inboundPropertyShape
@@ -57,21 +85,21 @@ function createConnectorInstance(
   return connection
 }
 
-function connectProperties(
-  elementFactory,
+ConnectorFactory.prototype.connectProperties = function (
   relationTypeName,
   outboundProperty,
   relationInstanceTypeName,
-  inboundProperty
+  inboundProperty,
+  description
 ) {
-  let relationType = RelationTypeManager.getRelationType(relationTypeName)
+  let relationType = this._relationTypeManager.getRelationType(relationTypeName)
 
   let outboundPropertyShapeDefinition = EntityShapeManager.getShapeDefinition(outboundProperty.businessObject.entityType)
   let inboundPropertyShapeDefinition = EntityShapeManager.getShapeDefinition(inboundProperty.businessObject.entityType)
 
   let edgeKey = `${outboundProperty.id}--${relationTypeName}--${inboundProperty.id}`
 
-  let connection = elementFactory.createConnection({
+  let connection = this._elementFactory.createConnection({
     id: edgeKey,
     waypoints: [
       {
@@ -93,16 +121,10 @@ function connectProperties(
       name: relationInstanceTypeName,
       outboundPropertyName: outboundProperty.businessObject.name,
       inboundPropertyName: inboundProperty.businessObject.name,
-
+      description: description || ''
     },
     source: outboundProperty,
     target: inboundProperty
   })
   return connection
-}
-
-
-export default {
-  createConnectorInstance,
-  connectProperties
 }

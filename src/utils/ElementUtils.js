@@ -38,8 +38,8 @@ function hasBusinessObject (element) {
   return Object.getOwnPropertyDescriptor(element, 'businessObject') && typeof element.businessObject !== 'undefined'
 }
 
-function getProperties (element) {
-  return element.children.reduce(
+function getProperties (element, x, y) {
+  let properties = element.children.reduce(
     (properties, propertyInstance) => Object.assign(
       properties,
       {
@@ -48,6 +48,13 @@ function getProperties (element) {
     ),
     {}
   )
+  if (typeof x === 'number') {
+    properties.f2dx = x
+  }
+  if (typeof y === 'number') {
+    properties.f2dy = y
+  }
+  return properties
 }
 
 export default {

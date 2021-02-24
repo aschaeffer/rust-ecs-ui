@@ -12,7 +12,7 @@ import {
 } from 'tiny-svg'
 
 import DataTypeUtils from "@/utils/DataTypeUtils"
-import EntityShapeManager from "@/manager/EntityShapeManager"
+import EntityShapeManager from "@/utils/EntityShapeUtils"
 import InstanceTypes from "@/constants/InstanceTypes.json"
 import SocketTypes from "@/constants/SocketTypes.json"
 
@@ -73,13 +73,10 @@ PropertyRenderer.prototype.drawShape = function (visuals, element) {
   let factualDataType = dataType
   if (DataTypeUtils.isAny(dataType)) {
     if (isInput && element.incoming.length > 0) {
-      console.log(element.incoming[0])
       factualDataType = element.incoming[0].source.businessObject.dataType
     } else if (isOutput && element.outgoing.length > 0) {
-      console.log(element.outgoing[0])
       factualDataType = element.outgoing[0].target.businessObject.dataType
     }
-    console.log(factualDataType)
   }
 
   let propertyShape = svgCreate('rect');

@@ -1,10 +1,10 @@
-import EntityShapeManager from "@/manager/EntityShapeManager";
+import EntityShapeUtils from "@/utils/EntityShapeUtils";
 import InstanceTypes from "@/constants/InstanceTypes.json";
 import ShapeUtils from "@/utils/ShapeUtils";
 
 function createEntityProperty (elementFactory, socketDescriptor, idx, shape, value) {
   let entityType = shape.businessObject.entityType
-  let shapeDefinition = EntityShapeManager.getShapeDefinition(entityType)
+  let shapeDefinition = EntityShapeUtils.getShapeDefinition(entityType)
 
   let x
   switch (socketDescriptor.propertySocketType) {
@@ -17,7 +17,10 @@ function createEntityProperty (elementFactory, socketDescriptor, idx, shape, val
       break
   }
   let offsetTop = ShapeUtils.parseValue(shapeDefinition, null, shapeDefinition.offset.top)
-  let y = shape.y + (idx * shapeDefinition.socket.height) + offsetTop
+  let y = shape.y +
+    (idx * shapeDefinition.socket.height) +
+    (idx * shapeDefinition.socket.offset) +
+    offsetTop
   let propertyId = `${shape.id}-${socketDescriptor.propertyName}`
   return elementFactory.createShape({
     id: propertyId,

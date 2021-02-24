@@ -70,7 +70,7 @@ PropertyDirectEditingProvider.prototype.update = function (element, text, oldTex
     element
   })
 
-  var labelBounds = element.labelBounds || element
+  let labelBounds = element.labelBounds || element
 
   assign(labelBounds, bounds)
 }

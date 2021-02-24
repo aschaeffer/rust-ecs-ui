@@ -2,20 +2,24 @@ import {v4 as uuidv4} from 'uuid'
 
 import ElementUtils from '@/utils/ElementUtils'
 import DataTypes from '@/constants/DataTypes.json'
-import EntityInstanceFactory from '@/factory/EntityInstanceFactory'
 
-export default function PropertyContextPadProvider(connect, create, contextPad, elementFactory) {
+export default function PropertyContextPadProvider(
+  contextPad, connect, create, modeling, entityInstanceFactory
+) {
   this._connect = connect
   this._create = create
-  this._elementFactory = elementFactory
+  this._modeling = modeling
+  this._entityInstanceFactory = entityInstanceFactory
+
   contextPad.registerProvider(this)
 }
 
 PropertyContextPadProvider.$inject = [
+  'contextPad',
   'connect',
   'create',
-  'contextPad',
-  'elementFactory'
+  'modeling',
+  'entityInstanceFactory'
 ]
 
 PropertyContextPadProvider.prototype.getContextPadEntries = function (element) {
@@ -25,15 +29,26 @@ PropertyContextPadProvider.prototype.getContextPadEntries = function (element) {
 
   let connect = this._connect
   let create = this._create
-  let elementFactory = this._elementFactory
+  let modeling = this._modeling
+
+  let removeIncomingConnectors = () => {
+    let connectors = []
+    element.incoming.forEach(connector => connectors.push(connector))
+    modeling.removeElements(element.incoming)
+  }
+
+  let removeOutgoingConnectors = () => {
+    let connectors = []
+    element.outgoing.forEach(connector => connectors.push(connector))
+    modeling.removeElements(connectors)
+  }
 
   let startConnect = (event, element, autoActivate) => {
     connect.start(event, element, autoActivate)
   }
 
   let createAndConnect = (event, element) => {
-    let shape = EntityInstanceFactory.createEntityInstance(
-      elementFactory,
+    let shape = this._entityInstanceFactory.createEntityInstance(
       'and',
       undefined,
       undefined,
@@ -44,8 +59,6 @@ PropertyContextPadProvider.prototype.getContextPadEntries = function (element) {
       inboundPropertyName: 'lhs',
       relationTypeName: 'default_connector'
     })
-
-    // connect.start(event, element, autoActivate)
   }
 
   let contextPadEntries = {}
@@ -71,22 +84,27 @@ PropertyContextPadProvider.prototype.getContextPadEntries = function (element) {
       }
     }
   }
+
+  if (ElementUtils.hasIncomingConnectors(element)) {
+    contextPadEntries['delete-incoming-connectors'] = {
+      group: 'edit',
+      className: 'bpmn-icon-trash',
+      title: 'Delete incoming connectors',
+      action: {
+        click: removeIncomingConnectors
+      }
+    }
+  }
+  if (ElementUtils.hasOutgoingConnectors(element)) {
+    contextPadEntries['delete-outgoing-connectors'] = {
+      group: 'edit',
+      className: 'bpmn-icon-trash',
+      title: 'Delete outgoing connectors',
+      action: {
+        click: removeOutgoingConnectors
+      }
+    }
+  }
+
   return contextPadEntries
 }
-// 'create-and': {
-//   group: 'logical-gates',
-//     className: 'bpmn-icon-task-none',
-//     title: 'Create AND',
-//     action: {
-//     click: function() {
-//       let shape = EntityInstanceFactory.createEntityInstance(
-//         elementFactory,
-//         'and',
-//         undefined,
-//         undefined,
-//         uuidv4()
-//       )
-//       create.start(event, shape)
-//     }
-//   }
-// },
