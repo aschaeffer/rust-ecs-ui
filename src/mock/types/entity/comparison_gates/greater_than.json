@@ -1,34 +1,19 @@
 {
   "name": "greater_than",
+  "group": "comparison_gates",
   "description": "Tests if a number is greater than another number",
   "components": [
     "comparison_gate"
   ],
-  "behaviours": [
-    "AddGate"
-  ],
-  "properties": [
-    {
-      "name": "lhs",
-      "data_type": "number",
-      "socket_type": "input"
-    },
-    {
-      "name": "rhs",
-      "data_type": "number",
-      "socket_type": "input"
-    },
-    {
-      "name": "result",
-      "data_type": "bool",
-      "socket_type": "output"
-    }
-  ],
+  "palette": {
+    "className": "inexor-ecs-right-open"
+  },
   "shape": {
     "width": 200,
     "socket": {
       "width": 60,
-      "height": 30
+      "height": 30,
+      "offset": 15
     },
     "offset": {
       "top": "socket.height",
@@ -37,6 +22,7 @@
     "elements": {
       "title": {
         "show": true,
+        "type": "text",
         "content": "element.description",
         "position": {
           "left": 0,
@@ -51,6 +37,7 @@
       },
       "symbol": {
         "show": true,
+        "type": "text",
         "content": ">",
         "position": {
           "left": 0,
@@ -65,6 +52,7 @@
       },
       "id": {
         "show": true,
+        "type": "text",
         "content": "shape.id",
         "position": {
           "left": 0,

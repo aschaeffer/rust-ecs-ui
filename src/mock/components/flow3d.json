@@ -1,0 +1,17 @@
+{
+  "name": "flow3d",
+  "properties": [
+    {
+      "name": "f3dx",
+      "data_type": "number"
+    },
+    {
+      "name": "f3dy",
+      "data_type": "number"
+    },
+    {
+      "name": "f3dz",
+      "data_type": "number"
+    }
+  ]
+}

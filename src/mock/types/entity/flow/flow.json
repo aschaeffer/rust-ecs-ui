@@ -1,20 +1,25 @@
 {
   "name": "flow",
+  "group": "flow",
   "description": "Flow",
   "components": [
     "named"
   ],
   "properties": [
   ],
+  "palette": {
+    "className": "inexor-ecs-flow-cross"
+  },
   "shape": {
     "width": 200,
     "socket": {
       "width": 60,
-      "height": 30
+      "height": 30,
+      "offset": 5
     },
     "offset": {
-      "top": "socket.height",
-      "bottom": "socket.height"
+      "top": 60,
+      "bottom": 60
     },
     "elements": {
       "title": {
@@ -33,7 +38,8 @@
       },
       "symbol": {
         "show": true,
-        "content": "⊞",
+        "type": "text",
+        "content": "\uE834",
         "position": {
           "left": 0,
           "top": 0,
@@ -42,7 +48,8 @@
         },
         "styles": {
           "font-size": "40px",
-          "fill": "black"
+          "fill": "black",
+          "font-family": "inexor-ecs"
         }
       },
       "id": {

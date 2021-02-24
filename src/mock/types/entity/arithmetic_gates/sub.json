@@ -1,34 +1,25 @@
 {
   "name": "sub",
-  "description": "Performs a subtration on two integer numbers",
+  "group": "arithmetic",
+  "description": "Subtracts two integer numbers",
   "components": [
-    "arithmetic_gate"
+    "arithmetic_gate",
+    "flow_2d",
+    "flow_3d"
   ],
   "behaviours": [
     "SubGate"
   ],
-  "properties": [
-    {
-      "name": "lhs",
-      "data_type": "number",
-      "socket_type": "input"
-    },
-    {
-      "name": "rhs",
-      "data_type": "number",
-      "socket_type": "input"
-    },
-    {
-      "name": "result",
-      "data_type": "number",
-      "socket_type": "output"
-    }
-  ],
+  "palette": {
+    "className": "inexor-ecs-minus-1"
+  },
   "shape": {
+    "group": "arithmetic",
     "width": 200,
     "socket": {
       "width": 60,
-      "height": 30
+      "height": 30,
+      "offset": 5
     },
     "offset": {
       "top": "socket.height",

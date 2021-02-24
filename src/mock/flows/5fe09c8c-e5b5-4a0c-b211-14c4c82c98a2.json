@@ -1,6 +1,6 @@
 {
   "id": "5fe09c8c-e5b5-4a0c-b211-14c4c82c98a2",
-  "description": "Threads per CPU Core",
+  "description": "Camera Controls",
   "entities": [
     {
       "type": "flow",
@@ -80,6 +80,23 @@
         "outbound_property_name": "result",
         "inbound_property_name": "rhs"
       }
+    }
+  ],
+  "properties": [
+    {
+      "name": "cameraId",
+      "data_type": "number",
+      "socket_type": "input"
+    },
+    {
+      "name": "x",
+      "data_type": "number",
+      "socket_type": "output"
+    },
+    {
+      "name": "y",
+      "data_type": "number",
+      "socket_type": "output"
     }
   ]
 }

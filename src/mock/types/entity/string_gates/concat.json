@@ -1,5 +1,6 @@
 {
   "name": "concat",
+  "group": "string_gates",
   "description": "Concatenates two strings",
   "components": [
     "string_gate"
@@ -24,14 +25,19 @@
       "socket_type": "output"
     }
   ],
+  "palette": {
+    "className": "bpmn-icon-task-none",
+    "content": "cc"
+  },
   "shape": {
     "width": 350,
     "socket": {
       "width": 175,
-      "height": 30
+      "height": 60,
+      "offset": 15
     },
     "offset": {
-      "top": "socket.height",
+      "top": 30,
       "bottom": "socket.height"
     },
     "elements": {

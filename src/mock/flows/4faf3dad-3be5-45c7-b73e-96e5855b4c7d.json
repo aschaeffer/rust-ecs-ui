@@ -1,35 +1,50 @@
 {
   "id": "4faf3dad-3be5-45c7-b73e-96e5855b4c7d",
-  "description": "Threads per CPU Core",
+  "description": "Flow Example 1",
   "entities": [
     {
-      "type": "and",
-      "id": "ddde5b62-e85a-4b26-bfbd-70e51c2be815",
-      "description": "",
+      "type": "flow",
+      "id": "4faf3dad-3be5-45c7-b73e-96e5855b4c7d",
       "properties": {
         "lhs": true,
         "rhs": true,
         "result": true
+      }
+    },
+    {
+      "type": "and",
+      "id": "ddde5b62-e85a-4b26-bfbd-70e51c2be815",
+      "description": "Door 1 Open",
+      "properties": {
+        "lhs": true,
+        "rhs": true,
+        "result": true,
+        "f2dx": 480,
+        "f2dy": 150
       }
     },
     {
       "type": "and",
       "id": "3cb4254a-0a99-41b8-b6f4-b5dc6e13f7ff",
-      "description": "",
+      "description": "Door 2 Open",
       "properties": {
         "lhs": true,
         "rhs": true,
-        "result": true
+        "result": true,
+        "f2dx": 480,
+        "f2dy": 300
       }
     },
     {
       "type": "and",
       "id": "d5f6e205-ccc6-4b63-9675-014831ecbf3f",
-      "description": "",
+      "description": "Both doors open?",
       "properties": {
         "lhs": true,
         "rhs": true,
-        "result": true
+        "result": true,
+        "f2dx": 900,
+        "f2dy": 225
       }
     },
     {
@@ -39,7 +54,9 @@
       "properties": {
         "lhs": 5,
         "rhs": 10,
-        "result": 15
+        "result": 15,
+        "f2dx": 480,
+        "f2dy": 500
       }
     },
     {
@@ -49,7 +66,9 @@
       "properties": {
         "lhs": "Hallo",
         "rhs": "Welt",
-        "result": "HalloWelt"
+        "result": "HalloWelt",
+        "f2dx": 480,
+        "f2dy": 800
       }
     }
   ],
@@ -58,6 +77,7 @@
       "outbound_id": "ddde5b62-e85a-4b26-bfbd-70e51c2be815",
       "type": "default_connector--result--lhs",
       "inbound_id": "d5f6e205-ccc6-4b63-9675-014831ecbf3f",
+      "description": "Hello",
       "properties": {
         "outbound_property_name": "result",
         "inbound_property_name": "lhs"
@@ -67,10 +87,28 @@
       "outbound_id": "3cb4254a-0a99-41b8-b6f4-b5dc6e13f7ff",
       "type": "default_connector--result--rhs",
       "inbound_id": "d5f6e205-ccc6-4b63-9675-014831ecbf3f",
+      "description": "World",
       "properties": {
         "outbound_property_name": "result",
         "inbound_property_name": "rhs"
       }
+    }
+  ],
+  "properties": [
+    {
+      "name": "lhs",
+      "data_type": "bool",
+      "socket_type": "input"
+    },
+    {
+      "name": "rhs",
+      "data_type": "bool",
+      "socket_type": "input"
+    },
+    {
+      "name": "result",
+      "data_type": "bool",
+      "socket_type": "output"
     }
   ]
 }

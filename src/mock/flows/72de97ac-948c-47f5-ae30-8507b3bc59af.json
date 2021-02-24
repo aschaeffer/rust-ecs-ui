@@ -1,0 +1,209 @@
+{
+  "id": "72de97ac-948c-47f5-ae30-8507b3bc59af",
+  "description": "Example 3",
+  "entities": [
+    {
+      "type": "and",
+      "id": "ddde5b62-e85a-4b26-bfbd-70e51c2be815",
+      "description": "Door 1 Open",
+      "properties": {
+        "lhs": true,
+        "rhs": true,
+        "result": true,
+        "f2dx": 690,
+        "f2dy": 230
+      }
+    },
+    {
+      "type": "and",
+      "id": "3cb4254a-0a99-41b8-b6f4-b5dc6e13f7ff",
+      "description": "and",
+      "properties": {
+        "lhs": true,
+        "rhs": true,
+        "result": true,
+        "f2dx": 690,
+        "f2dy": 370
+      }
+    },
+    {
+      "type": "and",
+      "id": "d5f6e205-ccc6-4b63-9675-014831ecbf3f",
+      "description": "and",
+      "properties": {
+        "lhs": true,
+        "rhs": true,
+        "result": true,
+        "f2dx": 1090,
+        "f2dy": 300
+      }
+    },
+    {
+      "type": "add",
+      "id": "590d78f1-edb6-4890-8e65-4c9427680870",
+      "description": "CPU",
+      "properties": {
+        "lhs": 5,
+        "rhs": 10,
+        "result": 15,
+        "f2dx": 690,
+        "f2dy": 520
+      }
+    },
+    {
+      "type": "equals",
+      "id": "3822f7c5-b457-48c4-847f-be3a8fb4fc4a",
+      "description": "equals",
+      "properties": {
+        "f2dx": 1090,
+        "f2dy": 580
+      }
+    },
+    {
+      "type": "sub",
+      "id": "bc5ccd08-65b2-47b0-937e-568ab57ea463",
+      "description": "sub",
+      "properties": {
+        "lhs": "",
+        "rhs": "",
+        "result": "",
+        "f2dx": 690,
+        "f2dy": 660
+      }
+    },
+    {
+      "type": "value",
+      "id": "7ea71108-c9c2-4695-8452-5a3a5e9f0f44",
+      "description": "value",
+      "properties": {
+        "value": "",
+        "f2dx": 230,
+        "f2dy": 500
+      }
+    },
+    {
+      "type": "value",
+      "id": "02dee84f-bcd7-4058-9acf-c49f559f5296",
+      "description": "value",
+      "properties": {
+        "value": "",
+        "f2dx": 230,
+        "f2dy": 680
+      }
+    },
+    {
+      "type": "and",
+      "id": "f269c1a5-fba3-4d2e-9a52-d42391d239fa",
+      "description": "and",
+      "properties": {
+        "lhs": "",
+        "rhs": "",
+        "result": "",
+        "f2dx": 1520,
+        "f2dy": 420
+      }
+    }
+  ],
+  "relations": [
+    {
+      "outbound_id": "ddde5b62-e85a-4b26-bfbd-70e51c2be815",
+      "type": "default_connector--result--lhs",
+      "inbound_id": "d5f6e205-ccc6-4b63-9675-014831ecbf3f",
+      "description": "World",
+      "properties": {
+        "outbound_property_name": "result",
+        "inbound_property_name": "lhs"
+      }
+    },
+    {
+      "outbound_id": "3cb4254a-0a99-41b8-b6f4-b5dc6e13f7ff",
+      "type": "default_connector--result--rhs",
+      "inbound_id": "d5f6e205-ccc6-4b63-9675-014831ecbf3f",
+      "description": "Hello",
+      "properties": {
+        "outbound_property_name": "result",
+        "inbound_property_name": "rhs"
+      }
+    },
+    {
+      "outbound_id": "bc5ccd08-65b2-47b0-937e-568ab57ea463",
+      "type": "default_connector--result--rhs",
+      "inbound_id": "3822f7c5-b457-48c4-847f-be3a8fb4fc4a",
+      "description": "",
+      "properties": {
+        "outbound_property_name": "result",
+        "inbound_property_name": "rhs"
+      }
+    },
+    {
+      "outbound_id": "590d78f1-edb6-4890-8e65-4c9427680870",
+      "type": "default_connector--result--lhs",
+      "inbound_id": "3822f7c5-b457-48c4-847f-be3a8fb4fc4a",
+      "description": "",
+      "properties": {
+        "outbound_property_name": "result",
+        "inbound_property_name": "lhs"
+      }
+    },
+    {
+      "outbound_id": "7ea71108-c9c2-4695-8452-5a3a5e9f0f44",
+      "type": "default_connector--value--lhs",
+      "inbound_id": "590d78f1-edb6-4890-8e65-4c9427680870",
+      "description": "",
+      "properties": {
+        "outbound_property_name": "value",
+        "inbound_property_name": "lhs"
+      }
+    },
+    {
+      "outbound_id": "7ea71108-c9c2-4695-8452-5a3a5e9f0f44",
+      "type": "default_connector--value--lhs",
+      "inbound_id": "bc5ccd08-65b2-47b0-937e-568ab57ea463",
+      "description": "",
+      "properties": {
+        "outbound_property_name": "value",
+        "inbound_property_name": "lhs"
+      }
+    },
+    {
+      "outbound_id": "02dee84f-bcd7-4058-9acf-c49f559f5296",
+      "type": "default_connector--value--rhs",
+      "inbound_id": "590d78f1-edb6-4890-8e65-4c9427680870",
+      "description": "",
+      "properties": {
+        "outbound_property_name": "value",
+        "inbound_property_name": "rhs"
+      }
+    },
+    {
+      "outbound_id": "02dee84f-bcd7-4058-9acf-c49f559f5296",
+      "type": "default_connector--value--rhs",
+      "inbound_id": "bc5ccd08-65b2-47b0-937e-568ab57ea463",
+      "description": "",
+      "properties": {
+        "outbound_property_name": "value",
+        "inbound_property_name": "rhs"
+      }
+    },
+    {
+      "outbound_id": "3822f7c5-b457-48c4-847f-be3a8fb4fc4a",
+      "type": "default_connector--result--rhs",
+      "inbound_id": "f269c1a5-fba3-4d2e-9a52-d42391d239fa",
+      "description": "",
+      "properties": {
+        "outbound_property_name": "result",
+        "inbound_property_name": "rhs"
+      }
+    },
+    {
+      "outbound_id": "d5f6e205-ccc6-4b63-9675-014831ecbf3f",
+      "type": "default_connector--result--lhs",
+      "inbound_id": "f269c1a5-fba3-4d2e-9a52-d42391d239fa",
+      "description": "",
+      "properties": {
+        "outbound_property_name": "result",
+        "inbound_property_name": "lhs"
+      }
+    }
+  ]
+}

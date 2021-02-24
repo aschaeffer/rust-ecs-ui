@@ -1,0 +1,15 @@
+{
+  "name": "flow2d",
+  "properties": [
+    {
+      "name": "f2dx",
+      "data_type": "number",
+      "socket_type": "none"
+    },
+    {
+      "name": "f2dy",
+      "data_type": "number",
+      "socket_type": "none"
+    }
+  ]
+}

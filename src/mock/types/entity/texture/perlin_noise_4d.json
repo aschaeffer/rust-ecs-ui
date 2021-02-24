@@ -31,11 +31,16 @@
       "socket_type": "output"
     }
   ],
+  "palette": {
+    "className": "bpmn-icon-task-none",
+    "imgUrl": "/symbols/texture/perlin_noise_4d.jpg"
+  },
   "shape": {
     "width": 200,
     "socket": {
       "width": 60,
-      "height": 30
+      "height": 30,
+      "offset": 5
     },
     "offset": {
       "top": "socket.height",

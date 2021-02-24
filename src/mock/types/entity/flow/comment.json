@@ -1,0 +1,48 @@
+{
+  "name": "comment",
+  "group": "flow",
+  "description": "A simple comment",
+  "components": [
+  ],
+  "properties": [
+  ],
+  "palette": {
+    "className": "inexor-ecs-comment"
+  },
+  "shape": {
+    "width": 200,
+    "socket": {
+      "width": 60,
+      "height": 30,
+      "offset": 5
+    },
+    "offset": {
+      "top": "socket.height",
+      "bottom": "socket.height"
+    },
+    "style": {
+      "stroke": "blue",
+      "stroke-opacity": 0.3,
+      "stroke-width": 5,
+      "fill": "rgba(0, 0, 255, 0.05)",
+      "rx": 5,
+      "ry": 5
+    },
+    "elements": {
+      "comment": {
+        "show": true,
+        "content": "element.description",
+        "position": {
+          "left": 0,
+          "top": 0,
+          "width": "shape.width",
+          "height": "shape.height"
+        },
+        "styles": {
+          "font-size": "12px",
+          "color": "black"
+        }
+      }
+    }
+  }
+}

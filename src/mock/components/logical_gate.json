@@ -3,15 +3,18 @@
   "properties": [
     {
       "name": "lhs",
-      "data_type": "bool"
+      "data_type": "bool",
+      "socket_type": "input"
     },
     {
       "name": "rhs",
-      "data_type": "bool"
+      "data_type": "bool",
+      "socket_type": "input"
     },
     {
       "name": "result",
-      "data_type": "bool"
+      "data_type": "bool",
+      "socket_type": "output"
     }
   ]
 }

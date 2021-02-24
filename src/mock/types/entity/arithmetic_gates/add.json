@@ -1,34 +1,25 @@
 {
   "name": "add",
-  "description": "Performs an addition on two integer numbers",
+  "group": "arithmetic",
+  "description": "Adds two integer numbers",
   "components": [
-    "arithmetic_gate"
+    "arithmetic_gate",
+    "flow_2d",
+    "flow_3d"
   ],
   "behaviours": [
     "AddGate"
   ],
-  "properties": [
-    {
-      "name": "lhs",
-      "data_type": "number",
-      "socket_type": "input"
-    },
-    {
-      "name": "rhs",
-      "data_type": "number",
-      "socket_type": "input"
-    },
-    {
-      "name": "result",
-      "data_type": "number",
-      "socket_type": "output"
-    }
-  ],
+  "palette": {
+    "imgUrl": "/symbols/arithmetic_gates/add.svg",
+    "className": "inexor-ecs-plus-1"
+  },
   "shape": {
     "width": 200,
     "socket": {
       "width": 60,
-      "height": 30
+      "height": 30,
+      "offset": 5
     },
     "offset": {
       "top": "socket.height",
@@ -37,6 +28,7 @@
     "elements": {
       "title": {
         "show": true,
+        "type": "text",
         "content": "element.description",
         "position": {
           "left": 0,
@@ -51,20 +43,24 @@
       },
       "symbol": {
         "show": true,
-        "content": "+",
+        "type": "svg",
+        "symbol": "./arithmetic_gates/add.svg",
         "position": {
-          "left": 0,
-          "top": 0,
+          "left": 155,
+          "top": 80,
           "width": "shape.width",
-          "height": "shape.height"
+          "height": "shape.height",
+          "scale": 0.5
         },
         "styles": {
-          "font-size": "40px",
-          "fill": "steelblue"
+          "fill": "steelblue",
+          "stroke": "rgba(0,0,0,0.2)",
+          "strokeWidth": 2
         }
       },
       "id": {
         "show": true,
+        "type": "text",
         "content": "shape.id",
         "position": {
           "left": 0,

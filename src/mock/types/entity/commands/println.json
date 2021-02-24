@@ -1,5 +1,6 @@
 {
   "name": "println",
+  "group": "commands",
   "description": "Prints the given input to console",
   "components": [
   ],
@@ -12,11 +13,15 @@
       "socket_type": "input"
     }
   ],
+  "palette": {
+    "className": "inexor-ecs-print"
+  },
   "shape": {
     "width": 200,
     "socket": {
       "width": 60,
-      "height": 30
+      "height": 30,
+      "offset": 5
     },
     "offset": {
       "top": "socket.height",
@@ -25,6 +30,7 @@
     "elements": {
       "title": {
         "show": true,
+        "type": "text",
         "content": "element.description",
         "position": {
           "left": 0,
@@ -39,7 +45,8 @@
       },
       "symbol": {
         "show": true,
-        "content": "\uD83D\uDDB9",
+        "type": "text",
+        "content": "\uE839",
         "position": {
           "left": 0,
           "top": 0,
@@ -48,11 +55,13 @@
         },
         "styles": {
           "font-size": "40px",
-          "fill": "darkorange"
+          "fill": "darkorange",
+          "font-family": "inexor-ecs"
         }
       },
       "id": {
         "show": true,
+        "type": "text",
         "content": "shape.id",
         "position": {
           "left": 0,

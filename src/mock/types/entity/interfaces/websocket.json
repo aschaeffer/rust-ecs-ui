@@ -1,14 +1,33 @@
 {
-  "name": "divide",
-  "group": "arithmetic",
-  "description": "Divides two integer numbers",
+  "name": "websocket",
+  "group": "interfaces",
+  "description": "Web Socket",
   "components": [
-    "arithmetic_gate",
     "flow_2d",
     "flow_3d"
   ],
+  "behaviours": [
+  ],
+  "properties": [
+    {
+      "name": "endpoint",
+      "data_type": "string",
+      "socket_type": "input"
+    },
+    {
+      "name": "input",
+      "data_type": "string",
+      "socket_type": "input"
+    },
+    {
+      "name": "output",
+      "data_type": "string",
+      "socket_type": "output"
+    }
+  ],
   "palette": {
-    "className": "inexor-ecs-divide"
+    "imgUrl": "/symbols/interfaces/websocket.svg",
+    "className": "bpmn-icon-task-none"
   },
   "shape": {
     "width": 200,
@@ -18,8 +37,8 @@
       "offset": 5
     },
     "offset": {
-      "top": "socket.height",
-      "bottom": "socket.height"
+      "top": 40,
+      "bottom": 40
     },
     "elements": {
       "title": {
@@ -40,16 +59,16 @@
       "symbol": {
         "show": true,
         "type": "svg",
-        "symbol": "./arithmetic_gates/div.svg",
+        "symbol": "./interfaces/websocket.svg",
         "position": {
-          "left": 185,
-          "top": 90,
-          "width": "shape.width",
-          "height": "shape.height",
-          "scale": 0.4
+          "left": 750,
+          "top": 300,
+          "width": 600,
+          "height": 600,
+          "scale": 0.1
         },
         "styles": {
-          "fill": "steelblue",
+          "fill": "darkorange",
           "stroke": "rgba(0,0,0,0.2)",
           "strokeWidth": 2
         }

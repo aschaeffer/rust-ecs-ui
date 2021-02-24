@@ -1,5 +1,6 @@
 {
   "name": "or",
+  "group": "logical_gates",
   "description": "OR",
   "components": [
     "logical_gate"
@@ -24,11 +25,16 @@
       "socket_type": "output"
     }
   ],
+  "palette": {
+    "className": "bpmn-icon-task-none",
+    "content": "||"
+  },
   "shape": {
     "width": 200,
     "socket": {
       "width": 60,
-      "height": 30
+      "height": 30,
+      "offset": 5
     },
     "offset": {
       "top": "socket.height",

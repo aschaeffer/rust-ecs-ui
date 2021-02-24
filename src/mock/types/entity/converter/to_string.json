@@ -1,5 +1,6 @@
 {
   "name": "to_string",
+  "group": "converters",
   "description": "Converts any input to a string",
   "components": [
     "converter"
@@ -16,11 +17,15 @@
       "socket_type": "output"
     }
   ],
+  "palette": {
+    "className": "inexor-ecs-sort-alphabet"
+  },
   "shape": {
     "width": 200,
     "socket": {
       "width": 60,
-      "height": 30
+      "height": 30,
+      "offset": 5
     },
     "offset": {
       "top": "socket.height",
@@ -43,7 +48,7 @@
       },
       "symbol": {
         "show": true,
-        "content": "str()",
+        "content": "\uE842 \uE82E",
         "position": {
           "left": 0,
           "top": 0,
@@ -52,7 +57,8 @@
         },
         "styles": {
           "font-size": "40px",
-          "fill": "darkorange"
+          "fill": "darkorange",
+          "font-family": "inexor-ecs"
         }
       },
       "id": {

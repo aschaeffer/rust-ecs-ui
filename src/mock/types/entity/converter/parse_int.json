@@ -1,14 +1,24 @@
 {
-  "name": "divide",
-  "group": "arithmetic",
-  "description": "Divides two integer numbers",
+  "name": "parse_int",
+  "group": "converters",
+  "description": "Parses an string to a number",
   "components": [
-    "arithmetic_gate",
-    "flow_2d",
-    "flow_3d"
+    "converter"
+  ],
+  "properties": [
+    {
+      "name": "input",
+      "data_type": "string",
+      "socket_type": "input"
+    },
+    {
+      "name": "result",
+      "data_type": "number",
+      "socket_type": "output"
+    }
   ],
   "palette": {
-    "className": "inexor-ecs-divide"
+    "className": "inexor-ecs-sort-numeric"
   },
   "shape": {
     "width": 200,
@@ -39,19 +49,18 @@
       },
       "symbol": {
         "show": true,
-        "type": "svg",
-        "symbol": "./arithmetic_gates/div.svg",
+        "type": "text",
+        "content": "\uE82E \uE842 \uE82F",
         "position": {
-          "left": 185,
-          "top": 90,
+          "left": 0,
+          "top": 0,
           "width": "shape.width",
-          "height": "shape.height",
-          "scale": 0.4
+          "height": "shape.height"
         },
         "styles": {
-          "fill": "steelblue",
-          "stroke": "rgba(0,0,0,0.2)",
-          "strokeWidth": 2
+          "font-size": "40px",
+          "fill": "darkorange",
+          "font-family": "inexor-ecs"
         }
       },
       "id": {

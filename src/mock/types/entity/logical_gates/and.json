@@ -1,5 +1,6 @@
 {
   "name": "and",
+  "group": "logical_gates",
   "description": "Performs a logical AND operation",
   "components": [
     "logical_gate"
@@ -24,11 +25,16 @@
       "socket_type": "output"
     }
   ],
+  "palette": {
+    "className": "bpmn-icon-task-none",
+    "content": "&&"
+  },
   "shape": {
     "width": 200,
     "socket": {
       "width": 60,
-      "height": 30
+      "height": 30,
+      "offset": 5
     },
     "offset": {
       "top": "socket.height",
@@ -37,6 +43,7 @@
     "elements": {
       "title": {
         "show": true,
+        "type": "text",
         "content": "element.description",
         "position": {
           "left": 0,
@@ -51,6 +58,7 @@
       },
       "symbol": {
         "show": true,
+        "type": "text",
         "content": "&&",
         "position": {
           "left": 0,
@@ -65,6 +73,7 @@
       },
       "id": {
         "show": true,
+        "type": "text",
         "content": "shape.id",
         "position": {
           "left": 0,

@@ -1,21 +1,31 @@
 {
-  "name": "divide",
-  "group": "arithmetic",
-  "description": "Divides two integer numbers",
+  "name": "equals",
+  "group": "comparison_gates",
+  "description": "Tests if two numbers are equal",
   "components": [
-    "arithmetic_gate",
-    "flow_2d",
-    "flow_3d"
+    "comparison_gate"
+  ],
+  "properties": [
+    {
+      "name": "lhs",
+      "data_type": "any",
+      "socket_type": "input"
+    },
+    {
+      "name": "rhs",
+      "data_type": "any",
+      "socket_type": "input"
+    }
   ],
   "palette": {
-    "className": "inexor-ecs-divide"
+    "className": "inexor-ecs-eq"
   },
   "shape": {
     "width": 200,
     "socket": {
       "width": 60,
       "height": 30,
-      "offset": 5
+      "offset": 15
     },
     "offset": {
       "top": "socket.height",
@@ -39,19 +49,17 @@
       },
       "symbol": {
         "show": true,
-        "type": "svg",
-        "symbol": "./arithmetic_gates/div.svg",
+        "type": "text",
+        "content": "=",
         "position": {
-          "left": 185,
-          "top": 90,
+          "left": 0,
+          "top": 0,
           "width": "shape.width",
-          "height": "shape.height",
-          "scale": 0.4
+          "height": "shape.height"
         },
         "styles": {
-          "fill": "steelblue",
-          "stroke": "rgba(0,0,0,0.2)",
-          "strokeWidth": 2
+          "font-size": "40px",
+          "fill": "steelblue"
         }
       },
       "id": {

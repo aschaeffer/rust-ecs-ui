@@ -1,5 +1,5 @@
 {
-  "name": "arithmetic_gate",
+  "name": "comparison_gate",
   "properties": [
     {
       "name": "lhs",
@@ -13,7 +13,7 @@
     },
     {
       "name": "result",
-      "data_type": "number",
+      "data_type": "bool",
       "socket_type": "output"
     }
   ]
