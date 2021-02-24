@@ -37,12 +37,34 @@ At a later point of development the same or a similar interface will be implemen
 the 3D Visual Scripting Editor of Inexor! The can be a really useful extension for map designers which can
 combine entities in the 3D world with logical gates, mathematical or other operations.
 
-[<img src="https://raw.githubusercontent.com/aschaeffer/rust-ecs-ui/master/docs/screenshots/1.png">]()
+[<img src="https://raw.githubusercontent.com/aschaeffer/rust-ecs-ui/master/docs/screenshots/overview.png">]()
 
-[<img src="https://raw.githubusercontent.com/aschaeffer/rust-ecs-ui/master/docs/screenshots/2.png">]()
+### Palette
 
-[<img src="https://raw.githubusercontent.com/aschaeffer/rust-ecs-ui/master/docs/screenshots/3.png">]()
+[<img src="https://raw.githubusercontent.com/aschaeffer/rust-ecs-ui/master/docs/screenshots/flow-palette.png">]()
 
+### Entities
+
+[<img src="https://raw.githubusercontent.com/aschaeffer/rust-ecs-ui/master/docs/screenshots/direct-editing.png">]()
+
+* Rendering of sockets with data type and current value (if available)
+* Rendering of the name and symbol (can be configured in the entity type)
+* The entities can have an description (Direct editing)
+
+### Connectors
+
+[<img src="https://raw.githubusercontent.com/aschaeffer/rust-ecs-ui/master/docs/screenshots/autolayout-connectors.png">]()
+
+* Auto-Layout + Bend-Points
+* You can only connect compatible sockets
+* The connectors can have an description (Direct editing)
+
+### Context Actions
+
+[<img src="https://raw.githubusercontent.com/aschaeffer/rust-ecs-ui/master/docs/screenshots/context-actions.png">]()
+
+* Delete Connectors
+* Delete Entity Instances
 
 ## Roadmap
 
