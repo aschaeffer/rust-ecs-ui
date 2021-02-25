@@ -336,62 +336,78 @@ export default {
       }
     },
     createEntity (entityInstance) {
-      if (entityInstance.type === 'flow' && this.flowId === entityInstance.id) {
-        // Do not render the flow itself
-        return
-      }
-
-      let entityType = this.entityTypeManager.getEntityType(entityInstance.type)
-      let shapeDefinition = EntityShapeManager.getShapeDefinition(entityType)
-
-      let x = this.x
-      let y = this.y
-      if (Object.getOwnPropertyDescriptor(entityInstance, 'properties')) {
-        if (Object.getOwnPropertyDescriptor(entityInstance.properties, 'f2dx')) {
-          x = entityInstance.properties.f2dx
+      try {
+        if (entityInstance.type === 'flow' && this.flowId === entityInstance.id) {
+          // Do not render the flow itself
+          return
         }
-        if (Object.getOwnPropertyDescriptor(entityInstance.properties, 'f2dy')) {
-          y = entityInstance.properties.f2dy
+
+        let entityType = this.entityTypeManager.getEntityType(entityInstance.type)
+        let shapeDefinition = EntityShapeManager.getShapeDefinition(entityType)
+
+        let x = this.x
+        let y = this.y
+        if (Object.getOwnPropertyDescriptor(entityInstance, 'properties')) {
+          if (Object.getOwnPropertyDescriptor(entityInstance.properties, 'f2dx')) {
+            x = entityInstance.properties.f2dx
+          }
+          if (Object.getOwnPropertyDescriptor(entityInstance.properties, 'f2dy')) {
+            y = entityInstance.properties.f2dy
+          }
         }
-      }
 
-      let entityInstanceShape = this.entityInstanceFactory.createEntityInstance(
-        entityInstance.type,
-        x,
-        y,
-        entityInstance.id,
-        entityInstance.description
-      )
-      this.canvas.addShape(entityInstanceShape, this.rootElement)
+        let entityInstanceShape = this.entityInstanceFactory.createEntityInstance(
+          entityInstance.type,
+          x,
+          y,
+          entityInstance.id,
+          entityInstance.description
+        )
+        this.canvas.addShape(entityInstanceShape, this.rootElement)
 
-      let sockets = this.entityTypeManager.getSocketDescriptors(entityType)
-      this.createSockets(sockets, entityInstanceShape, entityInstance)
+        let sockets = this.entityTypeManager.getSocketDescriptors(entityType)
+        this.createSockets(sockets, entityInstanceShape, entityInstance)
 
-      // Move pointer for next element
-      this.x = this.x + shapeDefinition.entity.width + this.margin.x
-      this.height = Math.max(this.height, entityInstanceShape.height)
-      if (this.x > 1024) {
-        this.x = 100
-        this.y = this.y + this.height + this.margin.y
-        this.height = 0
+        // Move pointer for next element
+        this.x = this.x + shapeDefinition.entity.width + this.margin.x
+        this.height = Math.max(this.height, entityInstanceShape.height)
+        if (this.x > 1024) {
+          this.x = 100
+          this.y = this.y + this.height + this.margin.y
+          this.height = 0
+        }
+      } catch (err) {
+        console.error(err)
       }
     },
     createRelation (relationInstance) {
-      let relationType = this.relationTypeManager.getRelationType(relationInstance.type)
-      if (relationType.name === ConnectorTypes.DEFAULT_CONNECTOR) {
-        let connector = this.connectorFactory.createConnectorInstance(
-          relationType.name,
-          relationInstance.outbound_id,
-          relationInstance.properties.outbound_property_name,
-          relationInstance.type,
-          relationInstance.inbound_id,
-          relationInstance.properties.inbound_property_name,
-          relationInstance.description,
-        )
-        if (connector) {
-          connector.waypoints = this.connectionDocking.getCroppedWaypoints(connector);
-          this.canvas.addConnection(connector, this.rootElement)
+      try {
+        let relationType = this.relationTypeManager.getRelationType(relationInstance.type)
+        if (relationType.name === ConnectorTypes.DEFAULT_CONNECTOR) {
+          let outboundId = relationInstance.outbound_id
+          let inboundId = relationInstance.inbound_id
+          if (outboundId === this.flowId) {
+            outboundId = `${this.flowId}-start`
+          }
+          if (inboundId === this.flowId) {
+            inboundId = `${this.flowId}-end`
+          }
+          let connector = this.connectorFactory.createConnectorInstance(
+            relationType.name,
+            outboundId,
+            relationInstance.properties.outbound_property_name,
+            relationInstance.type,
+            inboundId,
+            relationInstance.properties.inbound_property_name,
+            relationInstance.description,
+          )
+          if (connector) {
+            connector.waypoints = this.connectionDocking.getCroppedWaypoints(connector);
+            this.canvas.addConnection(connector, this.rootElement)
+          }
         }
+      } catch (err) {
+        console.error(err)
       }
     },
     createSockets (sockets, instanceShape, instance) {
