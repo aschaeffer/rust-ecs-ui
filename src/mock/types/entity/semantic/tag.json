@@ -1,0 +1,65 @@
+{
+  "name": "tag",
+  "group": "semantic",
+  "description": "Tag Name",
+  "components": [
+  ],
+  "properties": [
+  ],
+  "palette": {
+    "className": "inexor-ecs-tag-empty"
+  },
+  "shape": {
+    "width": 200,
+    "socket": {
+      "width": 60,
+      "height": 30,
+      "offset": 5
+    },
+    "offset": {
+      "top": "socket.height",
+      "bottom": "socket.height"
+    },
+    "style": {
+      "stroke": "blue",
+      "stroke-opacity": 0.3,
+      "stroke-width": 5,
+      "fill": "rgba(255, 0, 255, 0.05)",
+      "rx": 5,
+      "ry": 5
+    },
+    "elements": {
+      "tag": {
+        "show": true,
+        "type": "text",
+        "content": "element.description",
+        "position": {
+          "left": 0,
+          "top": 0,
+          "width": "shape.width",
+          "height": "shape.height"
+        },
+        "styles": {
+          "font-size": "12px",
+          "color": "black"
+        }
+      },
+      "symbol": {
+        "show": true,
+        "type": "text",
+        "content": "\uE81F",
+        "position": {
+          "left": 0,
+          "top": 0,
+          "width": 50,
+          "height": "shape.height"
+        },
+        "styles": {
+          "font-size": "40px",
+          "fill": "darkorange",
+          "font-family": "inexor-ecs"
+        }
+      }
+    }
+  }
+}
