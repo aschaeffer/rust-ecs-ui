@@ -3,7 +3,9 @@
   "group": "value",
   "description": "Numeric Value",
   "components": [
-    "named"
+    "named",
+    "flow_2d",
+    "flow_3d"
   ],
   "behaviours": [
   ],

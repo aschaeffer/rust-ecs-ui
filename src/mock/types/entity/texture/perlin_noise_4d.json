@@ -3,7 +3,9 @@
   "group": "texture",
   "description": "Perlin Noise 4D - Procedural noise generation (https://docs.rs/noise/0.7.0/noise/)",
   "components": [
-    "texture_gate"
+    "texture_gate",
+    "flow_2d",
+    "flow_3d"
   ],
   "properties": [
     {

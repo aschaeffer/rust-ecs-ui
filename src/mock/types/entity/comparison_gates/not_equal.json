@@ -3,7 +3,9 @@
   "group": "comparison_gates",
   "description": "Not equal",
   "components": [
-    "comparison_gate"
+    "comparison_gate",
+    "flow_2d",
+    "flow_3d"
   ],
   "properties": [
     {

@@ -3,7 +3,9 @@
   "group": "comparison_gates",
   "description": "Lower Than",
   "components": [
-    "comparison_gate"
+    "comparison_gate",
+    "flow_2d",
+    "flow_3d"
   ],
   "palette": {
     "className": "inexor-ecs-left-open"

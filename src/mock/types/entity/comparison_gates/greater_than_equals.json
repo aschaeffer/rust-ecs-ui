@@ -3,7 +3,9 @@
   "group": "comparison_gates",
   "description": "Greater than or equals",
   "components": [
-    "comparison_gate"
+    "comparison_gate",
+    "flow_2d",
+    "flow_3d"
   ],
   "palette": {
     "className": "inexor-ecs-right-open"

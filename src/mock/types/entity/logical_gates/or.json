@@ -3,7 +3,9 @@
   "group": "logical_gates",
   "description": "OR",
   "components": [
-    "logical_gate"
+    "logical_gate",
+    "flow_2d",
+    "flow_3d"
   ],
   "behaviours": [
     "OrGate"

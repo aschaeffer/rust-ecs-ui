@@ -3,7 +3,9 @@
   "group": "converters",
   "description": "Parses an string to a number",
   "components": [
-    "converter"
+    "converter",
+    "flow_2d",
+    "flow_3d"
   ],
   "properties": [
     {

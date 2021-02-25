@@ -3,6 +3,8 @@
   "group": "inout",
   "description": "Print To Console",
   "components": [
+    "flow_2d",
+    "flow_3d"
   ],
   "behaviours": [
   ],

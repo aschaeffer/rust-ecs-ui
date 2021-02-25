@@ -3,6 +3,8 @@
   "group": "inout",
   "description": "Write to Logfile",
   "components": [
+    "flow_2d",
+    "flow_3d"
   ],
   "behaviours": [
   ],

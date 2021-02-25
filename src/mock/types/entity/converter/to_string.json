@@ -3,7 +3,9 @@
   "group": "converters",
   "description": "Converts any input to a string",
   "components": [
-    "converter"
+    "converter",
+    "flow_2d",
+    "flow_3d"
   ],
   "properties": [
     {

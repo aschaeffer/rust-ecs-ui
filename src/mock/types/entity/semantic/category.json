@@ -3,6 +3,8 @@
   "group": "semantic",
   "description": "Category",
   "components": [
+    "flow_2d",
+    "flow_3d"
   ],
   "properties": [
   ],

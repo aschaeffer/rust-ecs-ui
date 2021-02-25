@@ -3,7 +3,9 @@
   "group": "string_gates",
   "description": "Concatenates two strings",
   "components": [
-    "string_gate"
+    "string_gate",
+    "flow_2d",
+    "flow_3d"
   ],
   "behaviours": [
     "ConcatGate"

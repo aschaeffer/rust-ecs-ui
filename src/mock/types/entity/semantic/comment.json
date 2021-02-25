@@ -3,6 +3,8 @@
   "group": "semantic",
   "description": "A simple comment",
   "components": [
+    "flow_2d",
+    "flow_3d"
   ],
   "properties": [
   ],
