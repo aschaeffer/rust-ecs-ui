@@ -50,7 +50,7 @@
       "symbol": {
         "show": true,
         "type": "text",
-        "content": "=",
+        "content": "\uE847",
         "position": {
           "left": 0,
           "top": 0,
@@ -59,7 +59,8 @@
         },
         "styles": {
           "font-size": "40px",
-          "fill": "steelblue"
+          "fill": "steelblue",
+          "font-family": "inexor-ecs"
         }
       },
       "id": {

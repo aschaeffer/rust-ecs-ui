@@ -1,7 +1,7 @@
 {
   "name": "greater_than",
   "group": "comparison_gates",
-  "description": "Tests if a number is greater than another number",
+  "description": "Greater Than",
   "components": [
     "comparison_gate"
   ],
@@ -38,7 +38,7 @@
       "symbol": {
         "show": true,
         "type": "text",
-        "content": ">",
+        "content": "\uE806",
         "position": {
           "left": 0,
           "top": 0,
@@ -47,7 +47,8 @@
         },
         "styles": {
           "font-size": "40px",
-          "fill": "steelblue"
+          "fill": "steelblue",
+          "font-family": "inexor-ecs"
         }
       },
       "id": {
