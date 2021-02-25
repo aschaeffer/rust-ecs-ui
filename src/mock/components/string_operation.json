@@ -1,0 +1,15 @@
+{
+  "name": "string_operation",
+  "properties": [
+    {
+      "name": "lhs",
+      "data_type": "string",
+      "socket_type": "input"
+    },
+    {
+      "name": "result",
+      "data_type": "string",
+      "socket_type": "output"
+    }
+  ]
+}

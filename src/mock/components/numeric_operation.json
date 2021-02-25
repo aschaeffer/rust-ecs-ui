@@ -1,0 +1,15 @@
+{
+  "name": "numeric_operation",
+  "properties": [
+    {
+      "name": "lhs",
+      "data_type": "number",
+      "socket_type": "input"
+    },
+    {
+      "name": "result",
+      "data_type": "number",
+      "socket_type": "output"
+    }
+  ]
+}
