@@ -1,7 +1,7 @@
 {
-  "name": "value",
+  "name": "string_value",
   "group": "value",
-  "description": "Constant Value",
+  "description": "String Value",
   "components": [
     "named"
   ],
@@ -10,12 +10,12 @@
   "properties": [
     {
       "name": "value",
-      "data_type": "any",
+      "data_type": "string",
       "socket_type": "output"
     }
   ],
   "palette": {
-    "className": "inexor-ecs-star"
+    "className": "inexor-ecs-sort-alphabet"
   },
   "shape": {
     "width": 200,
