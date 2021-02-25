@@ -2,7 +2,15 @@ import EntityShapeUtils from "@/utils/EntityShapeUtils";
 import InstanceTypes from "@/constants/InstanceTypes.json";
 import ShapeUtils from "@/utils/ShapeUtils";
 
-function createEntityProperty (elementFactory, socketDescriptor, idx, shape, value) {
+export default function PropertyInstanceFactory(elementFactory) {
+  this._elementFactory = elementFactory
+}
+
+PropertyInstanceFactory.$inject = [
+  'elementFactory'
+]
+
+PropertyInstanceFactory.prototype.createPropertyInstance = function (socketDescriptor, idx, shape, value) {
   let entityType = shape.businessObject.entityType
   let shapeDefinition = EntityShapeUtils.getShapeDefinition(entityType)
 
@@ -22,7 +30,7 @@ function createEntityProperty (elementFactory, socketDescriptor, idx, shape, val
     (idx * shapeDefinition.socket.offset) +
     offsetTop
   let propertyId = `${shape.id}-${socketDescriptor.propertyName}`
-  return elementFactory.createShape({
+  return this._elementFactory.createShape({
     id: propertyId,
     x,
     y,
@@ -43,8 +51,4 @@ function createEntityProperty (elementFactory, socketDescriptor, idx, shape, val
       name: 'name'
     }
   })
-}
-
-export default {
-  createEntityProperty,
 }

@@ -48,7 +48,6 @@ import EntityShapeManager from '@/utils/EntityShapeUtils'
 import FlowEditorEntitiesSidebar from '@/components/FlowEditorEntitiesSidebar'
 import FlowEditorModules from '@/editor/FlowEditorModules'
 import FlowManager from '@/manager/FlowManager'
-import PropertyInstanceFactory from '@/factory/PropertyInstanceFactory'
 import DataTypeUtils from '@/utils/DataTypeUtils'
 import ElementUtils from '@/utils/ElementUtils'
 import InstanceTypes from '@/constants/InstanceTypes.json'
@@ -139,6 +138,7 @@ export default {
       this.relationTypeManager = this.diagram.get('relationTypeManager')
       this.entityInstanceFactory = this.diagram.get('entityInstanceFactory')
       this.connectorFactory = this.diagram.get('connectorFactory')
+      this.propertyInstanceFactory = this.diagram.get('propertyInstanceFactory')
 
       this.rootElement = this.elementFactory.createRoot({
         id: `flow-${this.flowId}`
@@ -413,13 +413,13 @@ export default {
     createSockets (sockets, instanceShape, instance) {
       sockets.input.forEach((socket, idx) => {
         let value = this.getPropertyValue(instance, socket)
-        const propertyShape = PropertyInstanceFactory.createEntityProperty(this.elementFactory, socket, idx, instanceShape, value)
+        const propertyShape = this.propertyInstanceFactory.createPropertyInstance(socket, idx, instanceShape, value)
         return this.canvas.addShape(propertyShape, instanceShape)
       })
 
       sockets.output.forEach((socket, idx) => {
         let value = this.getPropertyValue(instance, socket)
-        const propertyShape = PropertyInstanceFactory.createEntityProperty(this.elementFactory, socket, idx, instanceShape, value)
+        const propertyShape = this.propertyInstanceFactory.createPropertyInstance(socket, idx, instanceShape, value)
         return this.canvas.addShape(propertyShape, instanceShape)
       })
     },
