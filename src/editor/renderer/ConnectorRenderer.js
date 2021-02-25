@@ -21,7 +21,8 @@ const CONNECTOR_RENDER_PRIORITY = 3000
 
 function ConnectorRenderer(eventBus, styles, canvas) {
   BaseRenderer.call(this, eventBus, CONNECTOR_RENDER_PRIORITY);
-  this.arrowId = 'arrow-' + Math.random()
+  let arrowId = Math.ceil(Math.random() * 1000)
+  this.arrowId = 'arrow-' + arrowId
   this.CONNECTION_STYLE = styles.style(
     [
       'no-fill'
