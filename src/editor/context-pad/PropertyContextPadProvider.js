@@ -88,7 +88,7 @@ PropertyContextPadProvider.prototype.getContextPadEntries = function (element) {
   if (ElementUtils.hasIncomingConnectors(element)) {
     contextPadEntries['delete-incoming-connectors'] = {
       group: 'edit',
-      className: 'bpmn-icon-trash',
+      className: 'inexor-ecs-trash',
       title: 'Delete incoming connectors',
       action: {
         click: removeIncomingConnectors
@@ -98,7 +98,7 @@ PropertyContextPadProvider.prototype.getContextPadEntries = function (element) {
   if (ElementUtils.hasOutgoingConnectors(element)) {
     contextPadEntries['delete-outgoing-connectors'] = {
       group: 'edit',
-      className: 'bpmn-icon-trash',
+      className: 'inexor-ecs-trash',
       title: 'Delete outgoing connectors',
       action: {
         click: removeOutgoingConnectors

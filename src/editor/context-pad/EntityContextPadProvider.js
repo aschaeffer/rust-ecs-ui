@@ -24,7 +24,7 @@ EntityContextPadProvider.prototype.getContextPadEntries = function (element) {
   return {
     'delete': {
       group: 'edit',
-      className: 'bpmn-icon-trash',
+      className: 'inexor-ecs-trash',
       title: 'Remove',
       action: {
         click: removeElement,
