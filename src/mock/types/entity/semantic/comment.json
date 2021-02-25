@@ -1,6 +1,6 @@
 {
   "name": "comment",
-  "group": "flow",
+  "group": "semantic",
   "description": "A simple comment",
   "components": [
   ],
@@ -41,6 +41,22 @@
         "styles": {
           "font-size": "12px",
           "color": "black"
+        }
+      },
+      "symbol": {
+        "show": true,
+        "type": "text",
+        "content": "\uE83A",
+        "position": {
+          "left": 0,
+          "top": 0,
+          "width": 50,
+          "height": 50
+        },
+        "styles": {
+          "font-size": "40px",
+          "fill": "darkorange",
+          "font-family": "inexor-ecs"
         }
       }
     }
