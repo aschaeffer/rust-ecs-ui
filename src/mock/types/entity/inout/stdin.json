@@ -1,20 +1,20 @@
 {
-  "name": "println",
-  "group": "commands",
-  "description": "Prints the given input to console",
+  "name": "stdin",
+  "group": "inout",
+  "description": "Read from stdin",
   "components": [
   ],
   "behaviours": [
   ],
   "properties": [
     {
-      "name": "input",
+      "name": "output",
       "data_type": "string",
-      "socket_type": "input"
+      "socket_type": "output"
     }
   ],
   "palette": {
-    "className": "inexor-ecs-print"
+    "className": "inexor-ecs-code"
   },
   "shape": {
     "width": 200,
@@ -46,7 +46,7 @@
       "symbol": {
         "show": true,
         "type": "text",
-        "content": "\uE839",
+        "content": "\uE855",
         "position": {
           "left": 0,
           "top": 0,

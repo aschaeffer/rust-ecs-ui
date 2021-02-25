@@ -1,0 +1,79 @@
+{
+  "name": "log_info",
+  "group": "inout",
+  "description": "Write to Logfile",
+  "components": [
+  ],
+  "behaviours": [
+  ],
+  "properties": [
+    {
+      "name": "input",
+      "data_type": "string",
+      "socket_type": "input"
+    }
+  ],
+  "palette": {
+    "className": "inexor-ecs-book-open"
+  },
+  "shape": {
+    "width": 200,
+    "socket": {
+      "width": 60,
+      "height": 30,
+      "offset": 5
+    },
+    "offset": {
+      "top": "socket.height",
+      "bottom": "socket.height"
+    },
+    "elements": {
+      "title": {
+        "show": true,
+        "type": "text",
+        "content": "element.description",
+        "position": {
+          "left": 0,
+          "top": 0,
+          "width": "shape.width",
+          "height": "socket.height"
+        },
+        "styles": {
+          "font-size": "12px",
+          "fill": "black"
+        }
+      },
+      "symbol": {
+        "show": true,
+        "type": "text",
+        "content": "\uE82A",
+        "position": {
+          "left": 0,
+          "top": 0,
+          "width": "shape.width",
+          "height": "shape.height"
+        },
+        "styles": {
+          "font-size": "40px",
+          "fill": "darkorange",
+          "font-family": "inexor-ecs"
+        }
+      },
+      "id": {
+        "show": true,
+        "type": "text",
+        "content": "shape.id",
+        "position": {
+          "left": 0,
+          "top": "shape.height-socket.height",
+          "width": "shape.width",
+          "height": "socket.height"
+        },
+        "styles": {
+          "font-size": "9px",
+          "fill": "black"
+        }
+      }
+    }
+  }
+}
