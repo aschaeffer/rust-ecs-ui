@@ -1,5 +1,6 @@
 {
   "name": "perlin_noise_4d",
+  "group": "texture",
   "description": "Perlin Noise 4D - Procedural noise generation (https://docs.rs/noise/0.7.0/noise/)",
   "components": [
     "texture_gate"
@@ -32,8 +33,7 @@
     }
   ],
   "palette": {
-    "className": "bpmn-icon-task-none",
-    "imgUrl": "/symbols/texture/perlin_noise_4d.jpg"
+    "className": "inexor-ecs-th-outline"
   },
   "shape": {
     "width": 200,
@@ -63,7 +63,7 @@
       },
       "symbol": {
         "show": true,
-        "content": "⊞",
+        "content": "\uE856",
         "position": {
           "left": 0,
           "top": 0,
@@ -72,7 +72,8 @@
         },
         "styles": {
           "font-size": "40px",
-          "fill": "maroon"
+          "fill": "maroon",
+          "font-family": "inexor-ecs"
         }
       },
       "id": {
