@@ -63,6 +63,8 @@ combine entities in the 3D world with logical gates, mathematical or other opera
 
 [<img src="https://raw.githubusercontent.com/aschaeffer/rust-ecs-ui/master/docs/screenshots/context-actions.png">]()
 
+* Create Connectors
+* Create Entity with Connection
 * Delete Connectors
 * Delete Entity Instances
 
@@ -120,6 +122,8 @@ combine entities in the 3D world with logical gates, mathematical or other opera
 - [x] Entity: Symbol: Render Custom SVG by Filename
 - [x] Entity: Symbol: Render Symbol Text using SVG Icon Font
 - [x] Entity: Rule: Allow Resizing Comments
+- [ ] Entity: On Move: Set positions of the sockets
+- [ ] Entity: Shape Element Type: Property By Name (for example value or tag)
 
 #### Properties
 
@@ -137,6 +141,8 @@ combine entities in the 3D world with logical gates, mathematical or other opera
 - [x] Property: Direct Editing: Update Flow
 - [x] Property: Handle Data Type "any"
 - [x] Property: Offset between sockets
+- [ ] Property: On Move: Reset positions of the socket according to the entity
+- [ ] Property: The property of the entity type value should be editable, even if it's an output socket
 
 #### Connectors
 
@@ -154,9 +160,11 @@ combine entities in the 3D world with logical gates, mathematical or other opera
 - [x] Connector: Direct Editing: Update Flow
 - [x] Connector: Rule: Disallow Reconnect
 
-#### Type System Editor
+#### Type System
 
 - [x] Entity Types: Merge properties from Components
+- [x] Relation Types: Merge properties from Components
+- [ ] Flow: Merge properties from Components
 - [x] Entity Types: Tolerant mode if entity type doesn't exist
 - [x] Entity Types: Dynamic Imports
 - [ ] Fetch EntityTypes from GraphQL
