@@ -9,6 +9,8 @@ import 'bpmn-font/dist/css/bpmn.css'
 import '../public/css/inexor-ecs-font/inexor-ecs.css'
 
 import 'diagram-js/assets/diagram-js.css'
+import 'diagram-js-minimap/assets/diagram-js-minimap.css'
+
 import '../public/css/diagram-js.css'
 
 import App from './App.vue'

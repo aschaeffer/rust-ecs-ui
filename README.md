@@ -78,6 +78,7 @@ combine entities in the 3D world with logical gates, mathematical or other opera
 
 - [x] Fork diagram-js CSS styles
 - [x] Create an SVG icon font
+- [x] Show MiniMap
 
 ### Palette
 

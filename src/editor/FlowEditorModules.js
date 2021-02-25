@@ -38,6 +38,7 @@ import ClipboardModule from 'diagram-js/lib/features/clipboard'
 // import DistributeElementsModule from 'diagram-js/lib/features/distribute-elements'
 import DirectEditingModule from 'diagram-js-direct-editing/index'
 // import PreviewSupportModule from 'diagram-js/lib/features/preview-support'
+import MiniMapModule from 'diagram-js-minimap'
 
 /**
  * A module that changes the default diagram look.
@@ -104,7 +105,8 @@ const builtinModules = [
   GridSnappingVisualsModule,
   ClipboardModule,
   // DistributeElementsModule,
-  DirectEditingModule
+  DirectEditingModule,
+  MiniMapModule
 ]
 
 // our own modules, contributing controls, customizations, and more

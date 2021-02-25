@@ -13,6 +13,7 @@
     "core-js": "^3.6.5",
     "diagram-js": "^7.2.0",
     "diagram-js-direct-editing": "^1.6.2",
+    "diagram-js-minimap": "^2.0.4",
     "raw-loader": "^4.0.2",
     "tiny-svg": "^2.2.2",
     "uuid": "^8.3.2",
