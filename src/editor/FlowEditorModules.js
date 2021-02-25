@@ -11,7 +11,7 @@ import HandToolModule from 'diagram-js/lib/features/hand-tool'
 import KeyboardMoveModule from 'diagram-js/lib/features/keyboard-move-selection'
 import MoveCanvasModule from 'diagram-js/lib/navigation/movecanvas'
 import ZoomScrollModule from 'diagram-js/lib/navigation/zoomscroll'
-import SpaceTool from 'diagram-js/lib/features/space-tool'
+import SpaceToolModule from 'diagram-js/lib/features/space-tool'
 import AutoPlaceModule from 'diagram-js/lib/features/auto-place'
 import AlignElementsModule from 'diagram-js/lib/features/align-elements'
 import AutoScrollModule from 'diagram-js/lib/features/auto-scroll'
@@ -35,6 +35,7 @@ import ConnectionPreviewModule from 'diagram-js/lib/features/connection-preview'
 import GridSnappingModule from 'diagram-js/lib/features/grid-snapping'
 import GridSnappingVisualsModule from 'diagram-js/lib/features/grid-snapping/visuals'
 import ClipboardModule from 'diagram-js/lib/features/clipboard'
+import AttachSupportModule from "diagram-js/lib/features/attach-support/AttachSupport"
 // import DistributeElementsModule from 'diagram-js/lib/features/distribute-elements'
 import DirectEditingModule from 'diagram-js-direct-editing/index'
 // import PreviewSupportModule from 'diagram-js/lib/features/preview-support'
@@ -76,7 +77,7 @@ const interactionModules = [
   KeyboardMoveModule,
   MoveCanvasModule,
   ZoomScrollModule,
-  SpaceTool
+  SpaceToolModule
 ]
 
 // default modules provided by the toolbox
@@ -104,6 +105,7 @@ const builtinModules = [
   GridSnappingModule,
   GridSnappingVisualsModule,
   ClipboardModule,
+  AttachSupportModule,
   // DistributeElementsModule,
   DirectEditingModule,
   MiniMapModule

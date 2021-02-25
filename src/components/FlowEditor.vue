@@ -39,20 +39,20 @@
     </div>
     <flow-editor-entities-sidebar :show-sidebar="showSidebar"
                                   :flow-id="flowId"
-                                  @hidden="showSidebar=false"/>
+                                  @hidden="showSidebar=false" />
   </div>
 </template>
 
 <script>
-import EntityShapeManager from '@/utils/EntityShapeUtils'
 import FlowEditorEntitiesSidebar from '@/components/FlowEditorEntitiesSidebar'
+import ConnectorTypes from '@/constants/ConnectorTypes.json'
+import InstanceTypes from '@/constants/InstanceTypes.json'
+import SocketTypes from '@/constants/SocketTypes.json'
 import FlowEditorModules from '@/editor/FlowEditorModules'
 import FlowManager from '@/manager/FlowManager'
 import DataTypeUtils from '@/utils/DataTypeUtils'
 import ElementUtils from '@/utils/ElementUtils'
-import InstanceTypes from '@/constants/InstanceTypes.json'
-import ConnectorTypes from '@/constants/ConnectorTypes.json'
-import SocketTypes from '@/constants/SocketTypes.json'
+import EntityShapeUtils from '@/utils/EntityShapeUtils'
 
 import { connectPoints } from 'diagram-js/lib/layout/ManhattanLayout'
 import Diagram from 'diagram-js'
@@ -107,7 +107,6 @@ export default {
   methods: {
     initEditor() {
       let container = this.$refs['container']
-      // console.log(FlowEditorModules)
       this.diagram = new Diagram({
         canvas: {
           container
@@ -125,7 +124,7 @@ export default {
       this.eventBus.on('connection.removed', 250, this.connectorRemoved)
       this.eventBus.on('property.changed', 250, this.setPropertyValue)
       this.eventBus.on('element.description.changed', 250, this.setDescription)
-
+      this.eventBus.on('spaceTool.end', 250, this.spaceToolMoved)
 
       this.canvas = this.diagram.get('canvas')
       this.elementFactory = this.diagram.get('elementFactory')
@@ -343,7 +342,7 @@ export default {
         }
 
         let entityType = this.entityTypeManager.getEntityType(entityInstance.type)
-        let shapeDefinition = EntityShapeManager.getShapeDefinition(entityType)
+        let shapeDefinition = EntityShapeUtils.getShapeDefinition(entityType)
 
         let x = this.x
         let y = this.y
@@ -410,17 +409,17 @@ export default {
         console.error(err)
       }
     },
-    createSockets (sockets, instanceShape, instance) {
+    createSockets (sockets, entity, instance) {
       sockets.input.forEach((socket, idx) => {
         let value = this.getPropertyValue(instance, socket)
-        const propertyShape = this.propertyInstanceFactory.createPropertyInstance(socket, idx, instanceShape, value)
-        return this.canvas.addShape(propertyShape, instanceShape)
+        const property = this.propertyInstanceFactory.createPropertyInstance(socket, idx, entity, value)
+        return this.canvas.addShape(property, entity)
       })
 
       sockets.output.forEach((socket, idx) => {
         let value = this.getPropertyValue(instance, socket)
-        const propertyShape = this.propertyInstanceFactory.createPropertyInstance(socket, idx, instanceShape, value)
-        return this.canvas.addShape(propertyShape, instanceShape)
+        const property = this.propertyInstanceFactory.createPropertyInstance(socket, idx, entity, value)
+        return this.canvas.addShape(property, entity)
       })
     },
     getPropertyValue (instance, socket) {
@@ -460,6 +459,53 @@ export default {
       if (ElementUtils.isEntity(event.shape)) {
         this.autoLayoutEntity(event.shape)
       }
+    },
+    spaceToolMoved (event) {
+      if (Object.getOwnPropertyDescriptor(event.context, 'movingShapes')) {
+        event.context.movingShapes.forEach(element => {
+          if (ElementUtils.isProperty(element)) {
+            this.updatePropertyPosition(element)
+          }
+          if (ElementUtils.isEntity(element)) {
+            console.log('spaceTool', element)
+            element.children.forEach(this.updatePropertyPosition)
+          }
+        })
+      }
+      if (Object.getOwnPropertyDescriptor(event.context, 'movingConnections')) {
+        event.context.movingConnections.forEach(element => {
+          if (ElementUtils.isDefaultConnector(element)) {
+            this.updateConnectorPositions(element)
+          }
+        })
+      }
+    },
+    updatePropertyPosition (property) {
+      let entity = property.parent
+      let entityType = entity.businessObject.entityType
+      let shapeDefinition = EntityShapeUtils.getShapeDefinition(entityType)
+      property.x = this.propertyInstanceFactory.getX(entity, shapeDefinition, property.businessObject.socketType)
+      property.y = this.propertyInstanceFactory.getY(entity, shapeDefinition, property.businessObject.idx)
+      this.rerenderShape(property)
+      this.autoLayoutProperty(property)
+    },
+    updateConnectorPositions (connector) {
+      let outboundProperty = connector.source
+      let inboundProperty = connector.target
+
+      let outboundPropertyShapeDefinition = EntityShapeUtils.getShapeDefinition(outboundProperty.businessObject.entityType)
+      let inboundPropertyShapeDefinition = EntityShapeUtils.getShapeDefinition(inboundProperty.businessObject.entityType)
+      connector.waypoints = [
+        {
+          x: outboundProperty.x + outboundPropertyShapeDefinition.socket.width,
+          y: outboundProperty.y + outboundPropertyShapeDefinition.socket.height / 2
+        },
+        {
+          x: inboundProperty.x + inboundPropertyShapeDefinition.socket.width,
+          y: inboundProperty.y + inboundPropertyShapeDefinition.socket.height / 2
+        }
+      ]
+      this.autoLayoutConnector(connector)
     },
     autoLayoutEntity (element) {
       if (ElementUtils.isEntity(element)) {
