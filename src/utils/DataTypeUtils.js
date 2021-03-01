@@ -119,6 +119,52 @@ function convertValue (dataType, value) {
   }
 }
 
+function toEditableString (dataType, value) {
+  try {
+    switch (dataType.toLowerCase()) {
+      case 'bool':
+        return value.toString()
+      case 'string':
+        return value.toString()
+      case 'number':
+        return value.toString()
+      case 'array':
+        return JSON.stringify(value)
+      case 'object':
+        return JSON.stringify(value)
+      case 'any':
+        return value.toString()
+      default:
+        return '?'
+    }
+  } catch (err) {
+    return '?'
+  }
+}
+
+function parseValue (dataType, value) {
+  try {
+    switch (dataType.toLowerCase()) {
+      case 'bool':
+        return value === 'true'
+      case 'string':
+        return value.toString()
+      case 'number':
+        return parseFloat(value)
+      case 'array':
+        return JSON.parse(value)
+      case 'object':
+        return JSON.parse(value)
+      case 'any':
+        return value.toString()
+      default:
+        return '?'
+    }
+  } catch (err) {
+    return '?'
+  }
+}
+
 function isAny (dataType) {
   return dataType.toLowerCase() === 'any' || dataType.toLowerCase() === '*'
 }
@@ -139,6 +185,8 @@ export default {
   getDataTypeColor,
   getDataTypeColorOpaque,
   convertValue,
+  toEditableString,
+  parseValue,
   isAny,
   isBool,
   haveCompatibleDataTypes
