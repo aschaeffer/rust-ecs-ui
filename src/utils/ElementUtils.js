@@ -38,7 +38,7 @@ function hasBusinessObject (element) {
   return Object.getOwnPropertyDescriptor(element, 'businessObject') && typeof element.businessObject !== 'undefined'
 }
 
-function getProperties (element, x, y) {
+function getProperties (element, x, y, width, height) {
   let properties = element.children.reduce(
     (properties, propertyInstance) => Object.assign(
       properties,
@@ -53,6 +53,12 @@ function getProperties (element, x, y) {
   }
   if (typeof y === 'number') {
     properties.f2dy = y
+  }
+  if (typeof x === 'number') {
+    properties.f2dw = width
+  }
+  if (typeof y === 'number') {
+    properties.f2dh = height
   }
   return properties
 }

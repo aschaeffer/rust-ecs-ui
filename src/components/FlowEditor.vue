@@ -38,6 +38,7 @@
       </div>
     </div>
     <flow-editor-entities-sidebar :show-sidebar="showSidebar"
+                                  :flow="flow"
                                   :flow-id="flowId"
                                   @hidden="showSidebar=false" />
   </div>
@@ -49,7 +50,6 @@ import ConnectorTypes from '@/constants/ConnectorTypes.json'
 import InstanceTypes from '@/constants/InstanceTypes.json'
 import SocketTypes from '@/constants/SocketTypes.json'
 import FlowEditorModules from '@/editor/FlowEditorModules'
-import FlowManager from '@/manager/FlowManager'
 import DataTypeUtils from '@/utils/DataTypeUtils'
 import ElementUtils from '@/utils/ElementUtils'
 import EntityShapeUtils from '@/utils/EntityShapeUtils'
@@ -74,10 +74,8 @@ export default {
     BBreadcrumb
   },
   props: {
-    flowId: {
-      type: String,
-      required: true
-    }
+    flowManager: Object,
+    flowId: String,
   },
   data: function() {
     return {
@@ -88,8 +86,8 @@ export default {
       selection: null,
       rootElement: null,
       showSidebar: false,
-      x: 100,
-      y: 100,
+      x: 500,
+      y: 200,
       margin: {
         x: 100,
         y: 50,
@@ -99,7 +97,7 @@ export default {
   },
   mounted () {
     this.initEditor()
-    this.flow = FlowManager.getFlow(this.flowId)
+    this.flow = this.flowManager.getFlow(this.flowId)
     this.createFlowSockets()
     this.flow.entities.forEach(entityInstance => this.createEntity(entityInstance))
     this.flow.relations.forEach(relationInstance => this.createRelation(relationInstance))
@@ -120,10 +118,12 @@ export default {
       this.eventBus.on('element.dblclick', 250, this.elementDblClick)
       this.eventBus.on('element.start.drag', 250, this.elementDblClick)
       this.eventBus.on('shape.move.end', 250, this.entityMoved)
+      this.eventBus.on('resize.end', 250, this.entityResized)
       this.eventBus.on('shape.removed', 250, this.entityRemoved)
       this.eventBus.on('connection.removed', 250, this.connectorRemoved)
       this.eventBus.on('property.changed', 250, this.setPropertyValue)
       this.eventBus.on('element.description.changed', 250, this.setDescription)
+      this.eventBus.on('element.property.changed', 250, this.setEntityProperty)
       this.eventBus.on('spaceTool.end', 250, this.spaceToolMoved)
 
       this.canvas = this.diagram.get('canvas')
@@ -272,104 +272,111 @@ export default {
       }
     },
     createFlowSockets () {
-      if (Object.getOwnPropertyDescriptor(this.flow, 'properties')) {
-        console.log(this.flow)
-        let sockets = this.entityTypeManager.getSocketDescriptors(this.flow)
-        console.log(sockets)
-        let entityInstance = this.flow.entities.filter(e => e.id === this.flowId)
-        if (entityInstance.length === 1) {
-          entityInstance = entityInstance[0]
-          let flowStart = this.entityInstanceFactory.createEntityInstance(
-            'flow-start',
-            0,
-            0,
-            `${this.flowId}-start`,
-            'Start'
-          )
-          this.canvas.addShape(flowStart, this.rootElement)
-          let startNodeSockets = {
-            input: [],
-            output: sockets.input.map(socket => {
-              return {
-                propertyDataType: socket.propertyDataType,
-                propertyName: socket.propertyName,
-                propertySocketType: SocketTypes.OUTPUT,
-                propertyType: {
-                  data_type: socket.propertyType.data_type,
-                  name: socket.propertyType.name,
-                  socket_type: SocketTypes.OUTPUT
-                }
-              }
-            })
-          }
-          console.log(startNodeSockets)
-          this.createSockets(startNodeSockets, flowStart, entityInstance)
-
-          let flowEnd = this.entityInstanceFactory.createEntityInstance(
-            'flow-end',
-            1024,
-            0,
-            `${this.flowId}-end`,
-            'End'
-          )
-          this.canvas.addShape(flowEnd, this.rootElement)
-
-          let endNodeSockets = {
-            input: sockets.output.map(socket => {
-              return {
-                propertyDataType: socket.propertyDataType,
-                propertyName: socket.propertyName,
-                propertySocketType: SocketTypes.INPUT,
-                propertyType: {
-                  data_type: socket.propertyType.data_type,
-                  name: socket.propertyType.name,
-                  socket_type: SocketTypes.INPUT
-                }
-              }
-            }),
-            output: []
-          }
-          console.log(endNodeSockets)
-          this.createSockets(endNodeSockets, flowEnd, entityInstance)
+      // if (Object.getOwnPropertyDescriptor(this.flow, 'properties')) {
+      let sockets = this.entityTypeManager.getSocketDescriptors(this.flow)
+      let entityInstances = this.flow.entities.filter(e => e.id === this.flowId)
+      let entityInstance
+      if (entityInstances.length === 1) {
+        entityInstance = entityInstances[0]
+      } else {
+        entityInstance = {
+          type: 'flow',
+          id: this.flowId,
+          properties: {}
         }
       }
+      let flowStartShapeDefinition = EntityShapeUtils.getDefaultShapeDefinition()
+      let flowStartDimensions = {
+        x: 300,
+        y: 100,
+        width: flowStartShapeDefinition.entity.width,
+        height: this.entityInstanceFactory.calculateHeight(flowStartShapeDefinition, null, sockets)
+      }
+      let flowStart = this.entityInstanceFactory.createEntityInstance(
+        'flow-start',
+        `${this.flowId}-start`,
+        flowStartDimensions,
+        'Start'
+      )
+      this.canvas.addShape(flowStart, this.rootElement)
+      let startNodeSockets = {
+        input: [],
+        output: sockets.input.map(socket => {
+          return {
+            propertyDataType: socket.propertyDataType,
+            propertyName: socket.propertyName,
+            propertySocketType: SocketTypes.OUTPUT,
+            propertyType: {
+              data_type: socket.propertyType.data_type,
+              name: socket.propertyType.name,
+              socket_type: SocketTypes.OUTPUT
+            }
+          }
+        })
+      }
+      this.createSockets(startNodeSockets, flowStart, entityInstance)
+
+      let flowEndShapeDefinition = EntityShapeUtils.getDefaultShapeDefinition()
+      let flowEndDimensions = {
+        x: 2048,
+        y: 100,
+        width: flowEndShapeDefinition.entity.width,
+        height: this.entityInstanceFactory.calculateHeight(flowEndShapeDefinition, null, sockets)
+      }
+      let flowEnd = this.entityInstanceFactory.createEntityInstance(
+        'flow-end',
+        `${this.flowId}-end`,
+        flowEndDimensions,
+        'End'
+      )
+      this.canvas.addShape(flowEnd, this.rootElement)
+
+      let endNodeSockets = {
+        input: sockets.output.map(socket => {
+          return {
+            propertyDataType: socket.propertyDataType,
+            propertyName: socket.propertyName,
+            propertySocketType: SocketTypes.INPUT,
+            propertyType: {
+              data_type: socket.propertyType.data_type,
+              name: socket.propertyType.name,
+              socket_type: SocketTypes.INPUT
+            }
+          }
+        }),
+        output: []
+      }
+      this.createSockets(endNodeSockets, flowEnd, entityInstance)
     },
     createEntity (entityInstance) {
       try {
-        if (entityInstance.type === 'flow' && this.flowId === entityInstance.id) {
-          // Do not render the flow itself
-          return
+        if (this.flowId === entityInstance.id) {
+          if (entityInstance.type === 'flow') {
+            // Do not render the flow itself
+            return
+          } else {
+            console.error(`Detected entity instance with flow.id has not type 'flow'`)
+          }
         }
 
         let entityType = this.entityTypeManager.getEntityType(entityInstance.type)
         let shapeDefinition = EntityShapeUtils.getShapeDefinition(entityType)
+        let dimensions = this.entityInstanceFactory.getDimensions(entityInstance, { x: this.x, y: this.y })
 
-        let x = this.x
-        let y = this.y
-        if (Object.getOwnPropertyDescriptor(entityInstance, 'properties')) {
-          if (Object.getOwnPropertyDescriptor(entityInstance.properties, 'f2dx')) {
-            x = entityInstance.properties.f2dx
-          }
-          if (Object.getOwnPropertyDescriptor(entityInstance.properties, 'f2dy')) {
-            y = entityInstance.properties.f2dy
-          }
-        }
-
-        let entityInstanceShape = this.entityInstanceFactory.createEntityInstance(
+        let entity = this.entityInstanceFactory.createEntityInstance(
           entityInstance.type,
-          x,
-          y,
           entityInstance.id,
+          dimensions,
           entityInstance.description
         )
-        this.canvas.addShape(entityInstanceShape, this.rootElement)
+        this.canvas.addShape(entity, this.rootElement)
 
         let sockets = this.entityTypeManager.getSocketDescriptors(entityType)
-        this.createSockets(sockets, entityInstanceShape, entityInstance)
+        this.createSockets(sockets, entity, entityInstance)
 
         // Move pointer for next element
         this.x = this.x + shapeDefinition.entity.width + this.margin.x
-        this.height = Math.max(this.height, entityInstanceShape.height)
+        this.height = Math.max(this.height, entity.height)
         if (this.x > 1024) {
           this.x = 100
           this.y = this.y + this.height + this.margin.y
@@ -429,6 +436,13 @@ export default {
         return DataTypeUtils.getDataTypeDefault(socket.dataType)
       }
     },
+    setEntityProperty (event) {
+      let property = event.property
+      this.rerenderShape(property)
+      this.commitProperty(property)
+      let entity = event.element
+      this.rerenderShape(entity)
+    },
     setPropertyValue (event) {
       let element = event.element
       this.rerenderShape(event.element)
@@ -460,6 +474,13 @@ export default {
         this.autoLayoutEntity(event.shape)
       }
     },
+    entityResized (event) {
+      let newBounds = event.context.newBounds
+      this.commitEntity(event.shape, newBounds.x, newBounds.y, newBounds.width, newBounds.height)
+      if (ElementUtils.isEntity(event.shape)) {
+        this.autoLayoutEntity(event.shape)
+      }
+    },
     spaceToolMoved (event) {
       if (Object.getOwnPropertyDescriptor(event.context, 'movingShapes')) {
         event.context.movingShapes.forEach(element => {
@@ -467,7 +488,7 @@ export default {
             this.updatePropertyPosition(element)
           }
           if (ElementUtils.isEntity(element)) {
-            console.log('spaceTool', element)
+            this.commitEntity(element, element.x, element.y)
             element.children.forEach(this.updatePropertyPosition)
           }
         })
@@ -528,11 +549,11 @@ export default {
       connector.waypoints = this.connectionDocking.getCroppedWaypoints(connector);
       this.rerenderConnector(connector)
     },
-    commitEntity (element, x, y) {
+    commitEntity (element, x, y, width, height) {
       let idx = this.flow.entities.findIndex(entity => entity.id === element.id)
       if (idx >= 0) {
         let properties = Object.assign({}, this.flow.entities[idx].properties)
-        properties = Object.assign(properties, ElementUtils.getProperties(element, x, y))
+        properties = Object.assign(properties, ElementUtils.getProperties(element, x, y, width, height))
         this.flow.entities[idx] = {
           type: element.businessObject.entityType.name,
           id: element.id,

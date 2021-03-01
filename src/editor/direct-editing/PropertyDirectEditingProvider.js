@@ -55,7 +55,7 @@ PropertyDirectEditingProvider.prototype.update = function (element, text, oldTex
       element.businessObject.value = (text === 'true')
       break
     case 'number':
-      parsed = parseInt(text, 10)
+      parsed = parseFloat(text)
       if (!isNaN(parsed)) {
         element.businessObject.value = parsed
       }

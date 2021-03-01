@@ -22,6 +22,7 @@ ConnectorFactory.prototype.createConnectorInstance = function (
   inboundPropertyName,
   description
 ) {
+  // console.log(outboundId, outboundPropertyName, inboundId, inboundPropertyName)
   let relationType = this._relationTypeManager.getRelationType(relationTypeName)
 
   let outboundShape = this._elementRegistry.get(outboundId)

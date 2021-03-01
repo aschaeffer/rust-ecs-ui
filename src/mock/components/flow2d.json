@@ -10,6 +10,16 @@
       "name": "f2dy",
       "data_type": "number",
       "socket_type": "none"
+    },
+    {
+      "name": "f2dw",
+      "data_type": "number",
+      "socket_type": "none"
+    },
+    {
+      "name": "f2dh",
+      "data_type": "number",
+      "socket_type": "none"
     }
   ]
 }

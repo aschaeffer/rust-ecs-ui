@@ -1,7 +1,8 @@
-import {
-  assign
-} from 'min-dash';
+import { assign } from 'min-dash'
+import DirectEditingTypes from '@/constants/DirectEditingTypes.json'
 import ElementUtils from '@/utils/ElementUtils'
+import EntityShapeUtils from '@/utils/EntityShapeUtils'
+import DataTypeUtils from '@/utils/DataTypeUtils'
 
 export default function EntityDirectEditingProvider (directEditing, eventBus) {
   this._eventBus = eventBus
@@ -38,6 +39,7 @@ EntityDirectEditingProvider.prototype.activate = function (element) {
       bounds: element.labelBounds || element,
       text
     })
+    console.log(context)
 
     assign(context, {
       options: this.options || {}

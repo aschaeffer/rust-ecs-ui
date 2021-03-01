@@ -1,4 +1,5 @@
-import { v4 as uuidv4 } from "uuid"
+import { v4 as uuidv4 } from 'uuid'
+import StyleUtils from '@/utils/StyleUtils'
 
 /**
  * The flow palette provider.
@@ -85,9 +86,8 @@ FlowPaletteProvider.prototype.getEntityEntries = function() {
   let createInstance = function (entityTypeName) {
     let shape = self._entityInstanceFactory.createEntityInstance(
       entityTypeName,
-      undefined,
-      undefined,
-      uuidv4()
+      uuidv4(),
+      {},
     )
     create.start(event, shape)
   }
@@ -111,13 +111,24 @@ FlowPaletteProvider.prototype.getEntityEntries = function() {
         }
       }
       if (Object.getOwnPropertyDescriptor(type, 'palette')) {
-
         if (Object.getOwnPropertyDescriptor(type.palette, 'imgUrl')) {
           paletteEntry.html = `<div class="entry" draggable="true"><img style="position: absolute; left: 0; top: -44px; width: 18px; height: 18px; padding: 4px;" class="position-relative" src="${type.palette.imgUrl}" /></div>`
         }
         if (Object.getOwnPropertyDescriptor(type.palette, 'content')) {
-          paletteEntry.html = `<div class="entry" draggable="true"><div style="position: relative; left: 0; top: -44px; text-align: center; font-size: 14px;">${type.palette.content}</div></div>`
-          delete type.palette.className
+          let styles = {
+            position: 'relative',
+            left: 0,
+            top: 0,
+            'text-align': 'center',
+            'font-size': '24px'
+          }
+          if (Object.getOwnPropertyDescriptor(type.palette, 'styles')) {
+            styles = StyleUtils.styleToString(Object.assign({}, styles, type.palette.styles))
+            console.log(styles)
+          }
+          paletteEntry.html = `<div class="entry" draggable="true"><div style="${styles}">${type.palette.content}</div></div>`
+          type.palette.className = ''
+          // delete type.palette.className
         } else if (Object.getOwnPropertyDescriptor(type.palette, 'className')) {
           paletteEntry.className = type.palette.className
         }

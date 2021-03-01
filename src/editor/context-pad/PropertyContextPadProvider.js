@@ -50,9 +50,8 @@ PropertyContextPadProvider.prototype.getContextPadEntries = function (element) {
   let createAndConnect = (event, element) => {
     let shape = this._entityInstanceFactory.createEntityInstance(
       'and',
-      undefined,
-      undefined,
-      uuidv4()
+      uuidv4(),
+      {}
     )
     create.start(event, shape, {
       outboundProperty: element,

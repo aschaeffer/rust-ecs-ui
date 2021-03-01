@@ -5,7 +5,7 @@
              shadow
              backdrop
              @change="changed($event)">
-    <div class="px-3 py-2">
+    <div v-if="flow !== null" class="px-3 py-2">
       <table class="table table-striped">
         <thead>
           <tr>
@@ -15,7 +15,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="entity in getFlow(flowId).entities" :key="entity.id">
+          <tr v-for="entity in flow.entities" :key="entity.id">
             <td>{{entity.type}}</td>
             <td>{{entity.id}}</td>
             <td>{{entity.description}}</td>
@@ -27,12 +27,10 @@
 </template>
 
 <script>
-import FlowManager from "@/manager/FlowManager";
-
 export default {
   name: "FlowEditorEntitiesSidebar",
   props: {
-    flowId: String,
+    flow: Object,
     showSidebar: Boolean
   },
   methods: {
@@ -40,8 +38,7 @@ export default {
       if (!newValue) {
         this.$emit('hidden')
       }
-    },
-    getFlow: FlowManager.getFlows
+    }
   }
 }
 </script>

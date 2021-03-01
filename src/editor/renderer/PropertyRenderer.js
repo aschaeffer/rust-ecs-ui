@@ -12,7 +12,7 @@ import {
 } from 'tiny-svg'
 
 import DataTypeUtils from "@/utils/DataTypeUtils"
-import EntityShapeManager from "@/utils/EntityShapeUtils"
+import EntityShapeUtils from "@/utils/EntityShapeUtils"
 import InstanceTypes from "@/constants/InstanceTypes.json"
 import SocketTypes from "@/constants/SocketTypes.json"
 
@@ -28,13 +28,13 @@ function PropertyRenderer(eventBus, styles) {
     }
   )
   this.DATA_TYPE_TEXT_STYLE = {
-    fontFamily: 'Arial, sans-serif',
+    fontFamily: 'Fira Code',
     fontSize: 20,
     fill: 'fuchsia'
   }
   this.VALUE_TEXT_STYLE = {
     fontFamily: 'Arial, sans-serif',
-    fontSize: 12,
+    fontSize: 10,
     fill: 'black'
   }
 }
@@ -65,7 +65,7 @@ PropertyRenderer.prototype.drawShape = function (visuals, element) {
   let dataType = element.businessObject.dataType;
   let isBool = DataTypeUtils.isBool(dataType)
   let entityType = element.parent.businessObject.entityType
-  let shapeDefinition = EntityShapeManager.getShapeDefinition(entityType)
+  let shapeDefinition = EntityShapeUtils.getShapeDefinition(entityType)
   let isInput = this.isInput(element.businessObject.socketType)
   let isOutput = this.isOutput(element.businessObject.socketType)
   let value = element.businessObject.value
