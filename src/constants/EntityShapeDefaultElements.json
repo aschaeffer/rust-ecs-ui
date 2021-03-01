@@ -12,7 +12,8 @@
     "styles": {
       "font-size": "12px",
       "fill": "black"
-    }
+    },
+    "align": "center-middle"
   },
   "symbol": {
     "show": true,
@@ -27,7 +28,8 @@
     "styles": {
       "font-size": "20px",
       "fill": "black"
-    }
+    },
+    "align": "center-middle"
   },
   "id": {
     "show": true,
@@ -42,6 +44,7 @@
     "styles": {
       "font-size": "9px",
       "fill": "black"
-    }
+    },
+    "align": "center-middle"
   }
 }

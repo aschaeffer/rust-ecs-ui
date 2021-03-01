@@ -1,5 +1,6 @@
 import EntityShapeDefaults from "@/constants/EntityShapeDefaults.json"
 import EntityShapeDefaultElements from "@/constants/EntityShapeDefaultElements.json"
+import EntityShapeDefaultDirectEditing from "@/constants/EntityShapeDefaultDirectEditing.json"
 import SocketShapeDefaults from "@/constants/SocketShapeDefaults.json"
 
 function getEntityWidth (entityType) {
@@ -54,8 +55,7 @@ function getShapeElements (entityType) {
   try {
     let elements = entityType.shape.elements
     for (let elementName of Object.keys(elements)) {
-      // eslint-disable-next-line no-prototype-builtins
-      if (!elements[elementName].hasOwnProperty('position')) {
+      if (!Object.getOwnPropertyDescriptor(elements[elementName], 'position')) {
         elements[elementName].position = {
           top: 0,
           left: 0,
@@ -63,11 +63,24 @@ function getShapeElements (entityType) {
           width: "socket.width"
         }
       }
-
+      if (!Object.getOwnPropertyDescriptor(elements[elementName], 'align')) {
+        elements[elementName].align = 'center-middle'
+      }
     }
     return elements
   } catch {
     return EntityShapeDefaultElements
+  }
+}
+
+function getShapeDirectEditing (entityType) {
+  try {
+    if (typeof entityType.shape.directEditing  !== 'undefined') {
+      return entityType.shape.directEditing
+    }
+    return EntityShapeDefaultDirectEditing
+  } catch {
+    return EntityShapeDefaultDirectEditing
   }
 }
 
@@ -97,7 +110,8 @@ function getShapeDefinition (entityType) {
       bottom: getOffsetBottom(entityType)
     },
     elements: getShapeElements(entityType),
-    style: getShapeStyle(entityType),
+    directEditing: getShapeDirectEditing(entityType),
+    style: getShapeStyle(entityType)
   }
 }
 
@@ -116,7 +130,8 @@ function getDefaultShapeDefinition () {
       bottom: EntityShapeDefaults.OFFSET_BOTTOM
     },
     elements: EntityShapeDefaultElements,
-    style: {},
+    directEditing: EntityShapeDefaultDirectEditing,
+    style: {}
   }
 }
 
