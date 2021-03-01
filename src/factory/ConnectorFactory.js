@@ -1,5 +1,5 @@
 import InstanceTypes from '@/constants/InstanceTypes.json'
-import EntityShapeManager from '@/utils/EntityShapeUtils'
+import EntityShapeUtils from '@/utils/EntityShapeUtils'
 
 export default function ConnectorFactory(elementFactory, elementRegistry, relationTypeManager) {
   this._elementFactory = elementFactory
@@ -44,15 +44,15 @@ ConnectorFactory.prototype.createConnectorInstance = function (
 
   let outboundPropertyShapeDefinition
   try {
-    outboundPropertyShapeDefinition = EntityShapeManager.getShapeDefinition(outboundPropertyShape.businessObject.entityType)
+    outboundPropertyShapeDefinition = EntityShapeUtils.getShapeDefinition(outboundPropertyShape.businessObject.entityType)
   } catch {
-    outboundPropertyShapeDefinition = EntityShapeManager.getDefaultShapeDefinition()
+    outboundPropertyShapeDefinition = EntityShapeUtils.getDefaultShapeDefinition()
   }
   let inboundPropertyShapeDefinition
   try {
-    inboundPropertyShapeDefinition = EntityShapeManager.getShapeDefinition(inboundPropertyShape.businessObject.entityType)
+    inboundPropertyShapeDefinition = EntityShapeUtils.getShapeDefinition(inboundPropertyShape.businessObject.entityType)
   } catch {
-    inboundPropertyShapeDefinition = EntityShapeManager.getDefaultShapeDefinition()
+    inboundPropertyShapeDefinition = EntityShapeUtils.getDefaultShapeDefinition()
   }
 
   let connection = this._elementFactory.createConnection({
@@ -94,8 +94,8 @@ ConnectorFactory.prototype.connectProperties = function (
 ) {
   let relationType = this._relationTypeManager.getRelationType(relationTypeName)
 
-  let outboundPropertyShapeDefinition = EntityShapeManager.getShapeDefinition(outboundProperty.businessObject.entityType)
-  let inboundPropertyShapeDefinition = EntityShapeManager.getShapeDefinition(inboundProperty.businessObject.entityType)
+  let outboundPropertyShapeDefinition = EntityShapeUtils.getShapeDefinition(outboundProperty.businessObject.entityType)
+  let inboundPropertyShapeDefinition = EntityShapeUtils.getShapeDefinition(inboundProperty.businessObject.entityType)
 
   let edgeKey = `${outboundProperty.id}--${relationTypeName}--${inboundProperty.id}`
 
