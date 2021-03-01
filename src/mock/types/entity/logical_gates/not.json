@@ -1,29 +1,32 @@
 {
-  "name": "equals",
-  "group": "comparison_gates",
-  "description": "Tests if two numbers are equal",
+  "name": "not",
+  "group": "logical_gates",
+  "description": "NOT",
   "components": [
-    "comparison_gate",
     "flow_2d",
     "flow_3d"
+  ],
+  "behaviours": [
+    "OrGate"
   ],
   "properties": [
     {
       "name": "lhs",
-      "data_type": "any",
+      "data_type": "bool",
       "socket_type": "input"
     },
     {
-      "name": "rhs",
-      "data_type": "any",
-      "socket_type": "input"
+      "name": "result",
+      "data_type": "bool",
+      "socket_type": "output"
     }
   ],
   "palette": {
-    "content": "==",
-    "styles": {
+    "content": "!",
+    "styles":  {
+      "font-size": "20px",
       "font-family": "Fira Code",
-      "font-variant-ligatures": "ss02"
+      "padding": "5px"
     }
   },
   "shape": {
@@ -31,7 +34,7 @@
     "socket": {
       "width": 60,
       "height": 30,
-      "offset": 15
+      "offset": 5
     },
     "offset": {
       "top": "socket.height",
@@ -40,7 +43,6 @@
     "elements": {
       "title": {
         "show": true,
-        "type": "text",
         "content": "element.description",
         "position": {
           "left": 0,
@@ -50,13 +52,12 @@
         },
         "styles": {
           "font-size": "12px",
-          "color": "black"
+          "fill": "black"
         }
       },
       "symbol": {
         "show": true,
-        "type": "text",
-        "content": "==",
+        "content": "!",
         "position": {
           "left": 0,
           "top": 0,
@@ -64,14 +65,13 @@
           "height": "shape.height"
         },
         "styles": {
-          "fill": "steelblue",
-          "font-size": "60px",
+          "fill": "fuchsia",
+          "font-size": "40px",
           "font-family": "Fira Code"
         }
       },
       "id": {
         "show": true,
-        "type": "text",
         "content": "shape.id",
         "position": {
           "left": 0,
@@ -81,7 +81,7 @@
         },
         "styles": {
           "font-size": "9px",
-          "color": "black"
+          "fill": "black"
         }
       }
     }

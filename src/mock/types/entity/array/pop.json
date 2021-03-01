@@ -1,29 +1,35 @@
 {
-  "name": "equals",
-  "group": "comparison_gates",
-  "description": "Tests if two numbers are equal",
+  "name": "pop",
+  "group": "array",
+  "description": "Pop value from array",
   "components": [
-    "comparison_gate",
     "flow_2d",
     "flow_3d"
   ],
   "properties": [
     {
-      "name": "lhs",
-      "data_type": "any",
+      "name": "input",
+      "data_type": "array",
       "socket_type": "input"
     },
     {
-      "name": "rhs",
+      "name": "result",
+      "data_type": "array",
+      "socket_type": "output"
+    },
+    {
+      "name": "value",
       "data_type": "any",
-      "socket_type": "input"
+      "socket_type": "output"
     }
   ],
   "palette": {
-    "content": "==",
+    "content": "[]=>>V",
     "styles": {
       "font-family": "Fira Code",
-      "font-variant-ligatures": "ss02"
+      "font-size": "12px",
+      "line-height": "16px",
+      "padding-top": "16px"
     }
   },
   "shape": {
@@ -31,7 +37,7 @@
     "socket": {
       "width": 60,
       "height": 30,
-      "offset": 15
+      "offset": 5
     },
     "offset": {
       "top": "socket.height",
@@ -56,7 +62,7 @@
       "symbol": {
         "show": true,
         "type": "text",
-        "content": "==",
+        "content": "[]=>>V",
         "position": {
           "left": 0,
           "top": 0,
@@ -64,9 +70,9 @@
           "height": "shape.height"
         },
         "styles": {
-          "fill": "steelblue",
-          "font-size": "60px",
-          "font-family": "Fira Code"
+          "fill": "rgb(240, 128, 128)",
+          "font-family": "Fira Code",
+          "font-size": "20px"
         }
       },
       "id": {

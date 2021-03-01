@@ -1,37 +1,33 @@
 {
-  "name": "equals",
-  "group": "comparison_gates",
-  "description": "Tests if two numbers are equal",
+  "name": "wave",
+  "group": "texture",
+  "description": "Wave",
   "components": [
-    "comparison_gate",
+    "texture_gate",
     "flow_2d",
     "flow_3d"
   ],
   "properties": [
     {
-      "name": "lhs",
-      "data_type": "any",
+      "name": "texture",
+      "data_type": "object",
       "socket_type": "input"
     },
     {
-      "name": "rhs",
-      "data_type": "any",
-      "socket_type": "input"
+      "name": "result",
+      "data_type": "object",
+      "socket_type": "output"
     }
   ],
   "palette": {
-    "content": "==",
-    "styles": {
-      "font-family": "Fira Code",
-      "font-variant-ligatures": "ss02"
-    }
+    "className": "inexor-ecs-th-outline"
   },
   "shape": {
     "width": 200,
     "socket": {
       "width": 60,
       "height": 30,
-      "offset": 15
+      "offset": 5
     },
     "offset": {
       "top": "socket.height",
@@ -40,7 +36,6 @@
     "elements": {
       "title": {
         "show": true,
-        "type": "text",
         "content": "element.description",
         "position": {
           "left": 0,
@@ -55,8 +50,7 @@
       },
       "symbol": {
         "show": true,
-        "type": "text",
-        "content": "==",
+        "content": "\uE856",
         "position": {
           "left": 0,
           "top": 0,
@@ -64,14 +58,13 @@
           "height": "shape.height"
         },
         "styles": {
-          "fill": "steelblue",
-          "font-size": "60px",
-          "font-family": "Fira Code"
+          "font-size": "40px",
+          "fill": "maroon",
+          "font-family": "inexor-ecs"
         }
       },
       "id": {
         "show": true,
-        "type": "text",
         "content": "shape.id",
         "position": {
           "left": 0,

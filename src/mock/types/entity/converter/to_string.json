@@ -20,7 +20,12 @@
     }
   ],
   "palette": {
-    "className": "inexor-ecs-sort-alphabet"
+    "content": "=>S",
+    "styles": {
+      "font-family": "Fira Code",
+      "font-size": "16px",
+      "padding": "5px"
+    }
   },
   "shape": {
     "width": 200,
@@ -50,7 +55,7 @@
       },
       "symbol": {
         "show": true,
-        "content": "\uE842 \uE82E",
+        "content": "=>S",
         "position": {
           "left": 0,
           "top": 0,
@@ -58,9 +63,9 @@
           "height": "shape.height"
         },
         "styles": {
-          "font-size": "40px",
           "fill": "darkorange",
-          "font-family": "inexor-ecs"
+          "font-family": "Fira Code",
+          "font-size": "40px"
         }
       },
       "id": {

@@ -11,13 +11,22 @@
   ],
   "properties": [
     {
+      "name": "symbol",
+      "data_type": "string",
+      "socket_type": "input"
+    },
+    {
       "name": "value",
       "data_type": "number",
       "socket_type": "output"
     }
   ],
   "palette": {
-    "className": "inexor-ecs-sort-numeric"
+    "content": ":=N",
+    "styles":  {
+      "font-size": "20px",
+      "font-family": "Fira Code"
+    }
   },
   "shape": {
     "width": 200,
@@ -34,7 +43,7 @@
       "title": {
         "show": true,
         "type": "text",
-        "content": "entityType.name",
+        "content": "element.description",
         "position": {
           "left": 0,
           "top": 0,
@@ -48,8 +57,8 @@
       },
       "symbol": {
         "show": true,
-        "type": "text",
-        "content": "element.description",
+        "type": "property",
+        "property": "symbol,value",
         "position": {
           "left": 0,
           "top": 0,
@@ -57,8 +66,9 @@
           "height": "shape.height"
         },
         "styles": {
-          "font-size": "20px",
-          "fill": "black"
+          "fill": "black",
+          "font-family": "Fira Code",
+          "font-size": "40px"
         }
       },
       "id": {
@@ -76,6 +86,10 @@
           "fill": "black"
         }
       }
+    },
+    "directEditing": {
+      "type": "property",
+      "property": "value"
     }
   }
 }

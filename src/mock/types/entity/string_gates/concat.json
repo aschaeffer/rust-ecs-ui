@@ -32,11 +32,11 @@
     "content": "cc"
   },
   "shape": {
-    "width": 350,
+    "width": 200,
     "socket": {
-      "width": 175,
-      "height": 60,
-      "offset": 15
+      "width": 60,
+      "height": 30,
+      "offset": 5
     },
     "offset": {
       "top": 30,

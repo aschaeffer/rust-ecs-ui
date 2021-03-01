@@ -1,33 +1,25 @@
 {
-  "name": "parse_int",
-  "group": "converters",
-  "description": "Parses an string to a number",
+  "name": "greater_than_or_equals",
+  "group": "comparison_gates",
+  "description": "Greater than or equals",
   "components": [
-    "converter",
+    "comparison_gate",
     "flow_2d",
     "flow_3d"
   ],
-  "properties": [
-    {
-      "name": "input",
-      "data_type": "string",
-      "socket_type": "input"
-    },
-    {
-      "name": "result",
-      "data_type": "number",
-      "socket_type": "output"
-    }
-  ],
   "palette": {
-    "className": "inexor-ecs-sort-numeric"
+    "content": ">=",
+    "styles": {
+      "font-family": "Fira Code",
+      "font-variant-ligatures": "ss02"
+    }
   },
   "shape": {
     "width": 200,
     "socket": {
       "width": 60,
       "height": 30,
-      "offset": 5
+      "offset": 15
     },
     "offset": {
       "top": "socket.height",
@@ -52,7 +44,7 @@
       "symbol": {
         "show": true,
         "type": "text",
-        "content": "\uE82E \uE842 \uE82F",
+        "content": ">=",
         "position": {
           "left": 0,
           "top": 0,
@@ -60,9 +52,10 @@
           "height": "shape.height"
         },
         "styles": {
-          "font-size": "40px",
-          "fill": "darkorange",
-          "font-family": "inexor-ecs"
+          "fill": "steelblue",
+          "font-size": "60px",
+          "font-family": "Fira Code",
+          "font-variant-ligatures": "ss02"
         }
       },
       "id": {

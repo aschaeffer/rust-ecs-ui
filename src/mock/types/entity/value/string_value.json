@@ -11,13 +11,22 @@
   ],
   "properties": [
     {
+      "name": "symbol",
+      "data_type": "string",
+      "socket_type": "input"
+    },
+    {
       "name": "value",
       "data_type": "string",
       "socket_type": "output"
     }
   ],
   "palette": {
-    "className": "inexor-ecs-sort-alphabet"
+    "content": ":=S",
+    "styles":  {
+      "font-size": "20px",
+      "font-family": "Fira Code"
+    }
   },
   "shape": {
     "width": 200,
@@ -34,7 +43,7 @@
       "title": {
         "show": true,
         "type": "text",
-        "content": "entityType.name",
+        "content": "element.description",
         "position": {
           "left": 0,
           "top": 0,
@@ -46,10 +55,10 @@
           "fill": "black"
         }
       },
-      "symbol": {
+      "value": {
         "show": true,
-        "type": "text",
-        "content": "element.description",
+        "type": "property",
+        "property": "symbol,value",
         "position": {
           "left": 0,
           "top": 0,
@@ -76,6 +85,10 @@
           "fill": "black"
         }
       }
+    },
+    "directEditing": {
+      "type": "property",
+      "property": "value"
     }
   }
 }

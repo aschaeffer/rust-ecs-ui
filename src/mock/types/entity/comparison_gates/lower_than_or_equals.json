@@ -1,26 +1,14 @@
 {
-  "name": "equals",
+  "name": "lower_than_or_equals",
   "group": "comparison_gates",
-  "description": "Tests if two numbers are equal",
+  "description": "Lower Than Or Equals",
   "components": [
     "comparison_gate",
     "flow_2d",
     "flow_3d"
   ],
-  "properties": [
-    {
-      "name": "lhs",
-      "data_type": "any",
-      "socket_type": "input"
-    },
-    {
-      "name": "rhs",
-      "data_type": "any",
-      "socket_type": "input"
-    }
-  ],
   "palette": {
-    "content": "==",
+    "content": "<=",
     "styles": {
       "font-family": "Fira Code",
       "font-variant-ligatures": "ss02"
@@ -56,7 +44,7 @@
       "symbol": {
         "show": true,
         "type": "text",
-        "content": "==",
+        "content": "<=",
         "position": {
           "left": 0,
           "top": 0,

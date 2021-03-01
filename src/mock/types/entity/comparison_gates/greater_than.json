@@ -8,7 +8,11 @@
     "flow_3d"
   ],
   "palette": {
-    "className": "inexor-ecs-right-open"
+    "content": ">",
+    "styles": {
+      "font-family": "Fira Code",
+      "font-variant-ligatures": "ss02"
+    }
   },
   "shape": {
     "width": 200,
@@ -40,7 +44,7 @@
       "symbol": {
         "show": true,
         "type": "text",
-        "content": "\uE806",
+        "content": ">",
         "position": {
           "left": 0,
           "top": 0,
@@ -48,9 +52,9 @@
           "height": "shape.height"
         },
         "styles": {
-          "font-size": "40px",
           "fill": "steelblue",
-          "font-family": "inexor-ecs"
+          "font-size": "60px",
+          "font-family": "Fira Code"
         }
       },
       "id": {

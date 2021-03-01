@@ -11,7 +11,11 @@
     "SubGate"
   ],
   "palette": {
-    "className": "inexor-ecs-minus-1"
+    "content": "-",
+    "styles": {
+      "font-family": "Fira Code",
+      "font-size": "40px"
+    }
   },
   "shape": {
     "group": "arithmetic",
@@ -42,6 +46,7 @@
       },
       "symbol": {
         "show": true,
+        "type": "text",
         "content": "-",
         "position": {
           "left": 0,
@@ -50,8 +55,9 @@
           "height": "shape.height"
         },
         "styles": {
-          "font-size": "40px",
-          "fill": "steelblue"
+          "fill": "steelblue",
+          "font-size": "80px",
+          "font-family": "Fira Code"
         }
       },
       "id": {

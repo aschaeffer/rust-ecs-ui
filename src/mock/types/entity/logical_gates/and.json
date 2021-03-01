@@ -1,7 +1,7 @@
 {
   "name": "and",
   "group": "logical_gates",
-  "description": "Performs a logical AND operation",
+  "description": "AND",
   "components": [
     "logical_gate",
     "flow_2d",
@@ -28,8 +28,12 @@
     }
   ],
   "palette": {
-    "className": "bpmn-icon-task-none",
-    "content": "&&"
+    "content": "&&",
+    "styles":  {
+      "font-size": "20px",
+      "font-family": "Fira Code",
+      "padding": "5px"
+    }
   },
   "shape": {
     "width": 200,
@@ -69,8 +73,9 @@
           "height": "shape.height"
         },
         "styles": {
+          "fill": "fuchsia",
           "font-size": "40px",
-          "fill": "fuchsia"
+          "font-family": "Fira Code"
         }
       },
       "id": {

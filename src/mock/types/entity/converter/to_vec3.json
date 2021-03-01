@@ -1,29 +1,43 @@
 {
-  "name": "equals",
-  "group": "comparison_gates",
-  "description": "Tests if two numbers are equal",
+  "name": "to_vec3",
+  "group": "converter",
+  "description": "To VEC3",
   "components": [
-    "comparison_gate",
     "flow_2d",
     "flow_3d"
   ],
+  "behaviours": [
+    "AddGate"
+  ],
   "properties": [
     {
-      "name": "lhs",
-      "data_type": "any",
+      "name": "x",
+      "data_type": "number",
       "socket_type": "input"
     },
     {
-      "name": "rhs",
-      "data_type": "any",
+      "name": "y",
+      "data_type": "number",
       "socket_type": "input"
+    },
+    {
+      "name": "z",
+      "data_type": "number",
+      "socket_type": "input"
+    },
+    {
+      "name": "result",
+      "data_type": "array",
+      "socket_type": "output"
     }
   ],
   "palette": {
-    "content": "==",
+    "content": "&nbsp;&nbsp;⎡x⎤\n=>⎢y⎥\n&nbsp;&nbsp;⎣z⎦",
     "styles": {
       "font-family": "Fira Code",
-      "font-variant-ligatures": "ss02"
+      "font-size": "12px",
+      "line-height": "16px",
+      "padding": "5px"
     }
   },
   "shape": {
@@ -31,7 +45,7 @@
     "socket": {
       "width": 60,
       "height": 30,
-      "offset": 15
+      "offset": 5
     },
     "offset": {
       "top": "socket.height",
@@ -56,7 +70,7 @@
       "symbol": {
         "show": true,
         "type": "text",
-        "content": "==",
+        "content": "⎡x⎤\n⎢y⎥\n⎣z⎦",
         "position": {
           "left": 0,
           "top": 0,
@@ -65,8 +79,8 @@
         },
         "styles": {
           "fill": "steelblue",
-          "font-size": "60px",
-          "font-family": "Fira Code"
+          "font-family": "Fira Code",
+          "font-size": "20px"
         }
       },
       "id": {

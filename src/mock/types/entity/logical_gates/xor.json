@@ -1,29 +1,21 @@
 {
-  "name": "equals",
-  "group": "comparison_gates",
-  "description": "Tests if two numbers are equal",
+  "name": "xor",
+  "group": "logical_gates",
+  "description": "XOR",
   "components": [
-    "comparison_gate",
+    "logical_gate",
     "flow_2d",
     "flow_3d"
   ],
-  "properties": [
-    {
-      "name": "lhs",
-      "data_type": "any",
-      "socket_type": "input"
-    },
-    {
-      "name": "rhs",
-      "data_type": "any",
-      "socket_type": "input"
-    }
+  "behaviours": [
+    "XorGate"
   ],
   "palette": {
-    "content": "==",
-    "styles": {
+    "content": "⊕",
+    "styles":  {
       "font-family": "Fira Code",
-      "font-variant-ligatures": "ss02"
+      "font-size": "20px",
+      "padding": "5px"
     }
   },
   "shape": {
@@ -31,7 +23,7 @@
     "socket": {
       "width": 60,
       "height": 30,
-      "offset": 15
+      "offset": 5
     },
     "offset": {
       "top": "socket.height",
@@ -40,7 +32,6 @@
     "elements": {
       "title": {
         "show": true,
-        "type": "text",
         "content": "element.description",
         "position": {
           "left": 0,
@@ -50,13 +41,12 @@
         },
         "styles": {
           "font-size": "12px",
-          "color": "black"
+          "fill": "black"
         }
       },
       "symbol": {
         "show": true,
-        "type": "text",
-        "content": "==",
+        "content": "⊕",
         "position": {
           "left": 0,
           "top": 0,
@@ -64,14 +54,13 @@
           "height": "shape.height"
         },
         "styles": {
-          "fill": "steelblue",
-          "font-size": "60px",
-          "font-family": "Fira Code"
+          "fill": "fuchsia",
+          "font-family": "Fira Code",
+          "font-size": "60px"
         }
       },
       "id": {
         "show": true,
-        "type": "text",
         "content": "shape.id",
         "position": {
           "left": 0,
@@ -81,7 +70,7 @@
         },
         "styles": {
           "font-size": "9px",
-          "color": "black"
+          "fill": "black"
         }
       }
     }

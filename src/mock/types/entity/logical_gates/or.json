@@ -10,26 +10,13 @@
   "behaviours": [
     "OrGate"
   ],
-  "properties": [
-    {
-      "name": "lhs",
-      "data_type": "bool",
-      "socket_type": "input"
-    },
-    {
-      "name": "rhs",
-      "data_type": "bool",
-      "socket_type": "input"
-    },
-    {
-      "name": "result",
-      "data_type": "bool",
-      "socket_type": "output"
-    }
-  ],
   "palette": {
-    "className": "bpmn-icon-task-none",
-    "content": "||"
+    "content": "||",
+    "styles":  {
+      "font-size": "20px",
+      "font-family": "Fira Code",
+      "padding": "5px"
+    }
   },
   "shape": {
     "width": 200,
@@ -59,7 +46,7 @@
       },
       "symbol": {
         "show": true,
-        "content": "| |",
+        "content": "||",
         "position": {
           "left": 0,
           "top": 0,
@@ -67,8 +54,9 @@
           "height": "shape.height"
         },
         "styles": {
-          "font-size": "40px",
-          "fill": "fuchsia"
+          "fill": "fuchsia",
+          "font-family": "Fira Code",
+          "font-size": "40px"
         }
       },
       "id": {

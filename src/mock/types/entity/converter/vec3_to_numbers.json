@@ -1,21 +1,51 @@
 {
-  "name": "greater_than_equals",
-  "group": "comparison_gates",
-  "description": "Greater than or equals",
+  "name": "vec3_to_numbers",
+  "group": "converter",
+  "description": "Vec3 to Numbers",
   "components": [
-    "comparison_gate",
     "flow_2d",
     "flow_3d"
   ],
+  "behaviours": [
+    "AddGate"
+  ],
+  "properties": [
+    {
+      "name": "vec3",
+      "data_type": "array",
+      "socket_type": "input"
+    },
+    {
+      "name": "x",
+      "data_type": "number",
+      "socket_type": "output"
+    },
+    {
+      "name": "y",
+      "data_type": "number",
+      "socket_type": "output"
+    },
+    {
+      "name": "z",
+      "data_type": "number",
+      "socket_type": "output"
+    }
+  ],
   "palette": {
-    "className": "inexor-ecs-right-open"
+    "content": "⎡x⎤&nbsp;&nbsp;\n⎢y⎥=>\n⎣z⎦&nbsp;&nbsp;",
+    "styles": {
+      "font-family": "Fira Code",
+      "font-size": "12px",
+      "line-height": "16px",
+      "padding": "5px"
+    }
   },
   "shape": {
     "width": 200,
     "socket": {
       "width": 60,
       "height": 30,
-      "offset": 15
+      "offset": 5
     },
     "offset": {
       "top": "socket.height",
@@ -40,7 +70,7 @@
       "symbol": {
         "show": true,
         "type": "text",
-        "content": "\uE806",
+        "content": "⎡ x ⎤\n⎢ y ⎥\n⎣ z ⎦",
         "position": {
           "left": 0,
           "top": 0,
@@ -48,25 +78,9 @@
           "height": "shape.height"
         },
         "styles": {
-          "font-size": "40px",
           "fill": "steelblue",
-          "font-family": "inexor-ecs"
-        }
-      },
-      "symbol2": {
-        "show": true,
-        "type": "text",
-        "content": "\uE847",
-        "position": {
-          "left": 0,
-          "top": 30,
-          "width": "shape.width",
-          "height": "shape.height"
-        },
-        "styles": {
-          "font-size": "40px",
-          "fill": "steelblue",
-          "font-family": "inexor-ecs"
+          "font-family": "Fira Code",
+          "font-size": "20px"
         }
       },
       "id": {

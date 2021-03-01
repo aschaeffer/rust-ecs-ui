@@ -11,7 +11,11 @@
     "AddGate"
   ],
   "palette": {
-    "className": "inexor-ecs-cancel-1"
+    "content": "×",
+    "styles": {
+      "font-family": "Fira Code",
+      "font-size": "40px"
+    }
   },
   "shape": {
     "width": 200,
@@ -42,18 +46,18 @@
       },
       "symbol": {
         "show": true,
-        "type": "svg",
-        "symbol": "./arithmetic_gates/mul.svg",
+        "type": "text",
+        "content": "×",
         "position": {
-          "left": 155,
-          "top": 80,
+          "left": 0,
+          "top": 0,
           "width": "shape.width",
-          "height": "shape.height",
-          "scale": 0.5
+          "height": "shape.height"
         },
         "styles": {
-          "font-size": "40px",
-          "fill": "steelblue"
+          "fill": "steelblue",
+          "font-size": "80px",
+          "font-family": "Fira Code"
         }
       },
       "id": {
