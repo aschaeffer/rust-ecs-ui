@@ -98,7 +98,9 @@ function convertValue (dataType, value) {
   try {
     switch (dataType.toLowerCase()) {
       case 'bool':
-        return value ? '✅' : '❌'
+        // ⊤ T 1
+        // ⊥ F 0
+        return value ? '⊤' : '⊥'
       case 'string':
         return (value.length > 10) ? value.substr(0, 9) + '&hellip;' : value
       case 'number':
