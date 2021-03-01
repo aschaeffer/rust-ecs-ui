@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'inexor-ecs';
-  src: url('../../font/inexor-ecs.eot?73886328');
-  src: url('../../font/inexor-ecs.eot?73886328#iefix') format('embedded-opentype'),
-       url('../../font/inexor-ecs.woff2?73886328') format('woff2'),
-       url('../../font/inexor-ecs.woff?73886328') format('woff'),
-       url('../../font/inexor-ecs.ttf?73886328') format('truetype'),
-       url('../../font/inexor-ecs.svg?73886328#inexor-ecs') format('svg');
+  src: url('../../font/inexor-ecs/inexor-ecs.eot?73886328');
+  src: url('../../font/inexor-ecs/inexor-ecs.eot?73886328#iefix') format('embedded-opentype'),
+       url('../../font/inexor-ecs/inexor-ecs.woff2?73886328') format('woff2'),
+       url('../../font/inexor-ecs/inexor-ecs.woff?73886328') format('woff'),
+       url('../../font/inexor-ecs/inexor-ecs.ttf?73886328') format('truetype'),
+       url('../../font/inexor-ecs/inexor-ecs.svg?73886328#inexor-ecs') format('svg');
   font-weight: normal;
   font-style: normal;
 }

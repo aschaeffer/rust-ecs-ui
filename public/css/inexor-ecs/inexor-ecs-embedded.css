@@ -1,8 +1,8 @@
 @font-face {
   font-family: 'inexor-ecs';
-  src: url('../../font/inexor-ecs.eot?89746220');
-  src: url('../../font/inexor-ecs.eot?89746220#iefix') format('embedded-opentype'),
-       url('../../font/inexor-ecs.svg?89746220#inexor-ecs') format('svg');
+  src: url('../../font/inexor-ecs/inexor-ecs.eot?89746220');
+  src: url('../../font/inexor-ecs/inexor-ecs.eot?89746220#iefix') format('embedded-opentype'),
+       url('../../font/inexor-ecs/inexor-ecs.svg?89746220#inexor-ecs') format('svg');
   font-weight: normal;
   font-style: normal;
 }

@@ -6,7 +6,8 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 import 'bpmn-font/dist/css/bpmn.css'
-import '../public/css/inexor-ecs-font/inexor-ecs.css'
+import '../public/css/inexor-ecs/inexor-ecs.css'
+import '../public/css/fira-code/fira-code.css'
 
 import 'diagram-js/assets/diagram-js.css'
 import 'diagram-js-minimap/assets/diagram-js-minimap.css'
