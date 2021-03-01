@@ -1,16 +1,16 @@
 <template>
   <div id="app">
-    <FlowManager />
+    <FlowDesigner />
   </div>
 </template>
 
 <script>
-import FlowManager from "@/components/FlowManager";
+import FlowDesigner from "@/components/FlowDesigner";
 
 export default {
   name: 'App',
   components: {
-    FlowManager
+    FlowDesigner
   }
 }
 </script>
