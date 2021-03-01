@@ -77,19 +77,30 @@ combine entities in the 3D world with logical gates, mathematical or other opera
 ### General Styling
 
 - [x] Fork diagram-js CSS styles
-- [x] Create an SVG icon font
 - [x] Show MiniMap
+
+#### Fonts
+
+- [x] https://github.com/bpmn-io/bpmn-font
+- [x] Create an SVG icon font
+- [x] https://github.com/tonsky/FiraCode
+- [ ] https://game-icons.net/ --- https://github.com/game-icons/icons
+- [ ] https://github.com/kiliman/operator-mono-lig
+- [ ] https://www.recursive.design/
+- [ ] https://icons.coreui.io/icons/
 
 ### Palette
 
 - [x] Provide a customized palette
 - [x] Resolve Palette-Entries from EntityTypeManager
 - [x] Use SVG Icon Font
+- [ ] Group Label
 
 ### Context Pad
 
 - [x] ContextPad: Property: Add Shape and Connector (like in BPMN Editor)
 - [x] ContextPad: Property: Sockets: Trash -> Remove the incoming/outgoing connector(s)
+- [ ] ContextPad: Property: Outgoing Sockets: Provide a list of possible following entities
 
 ### Rendering
 
@@ -100,8 +111,12 @@ combine entities in the 3D world with logical gates, mathematical or other opera
 - [x] Synchronize Flow Data Structure with created/removed entities and connectors
 - [x] Export Flow to JSON
 - [x] Import Flow from Local JSON-File
-- [ ] Render: Virtual Flow Start Node
-- [ ] Render: Virtual Flow End Node
+- [x] Render: Virtual Flow Start Node
+- [x] Render: Virtual Flow End Node
+- [x] List of Flows
+- [x] Do not load any flow at start
+- [x] Make FlowManager a shared component
+- [ ] Model: Add Properties / Sockets to Start Node / End Node
 - [ ] Fetch Flow from GraphQL
 
 #### Sub-Flows
@@ -118,13 +133,15 @@ combine entities in the 3D world with logical gates, mathematical or other opera
 - [x] Entity: Relayout all incoming and outgoing connectors with double click on the entity
 - [x] Entity: Direct Editing: Description / Title
 - [x] Entity: Direct Editing: Update Flow
-- [x] Entity: Import Positions (via properties: f2dx, f2dy)
+- [x] Entity: Import/Export Positions (via properties: f2dx, f2dy)
 - [x] Entity: Shape Styles & Rendering Comments
 - [x] Entity: Symbol: Render Custom SVG by Filename
 - [x] Entity: Symbol: Render Symbol Text using SVG Icon Font
 - [x] Entity: Rule: Allow Resizing Comments
-- [ ] Entity: On Move: Set positions of the sockets
-- [ ] Entity: Shape Element Type: Property By Name (for example value or tag)
+- [x] Entity: On Move: Set positions of the sockets
+- [x] Entity: Import/Export Positions (via properties: f2dw, f2dh)
+- [x] Entity: Shape Element Type: Render Property Value
+- [x] Entity: Direct Editing: New Mode: One property can be defined as editable
 
 #### Properties
 
@@ -143,7 +160,6 @@ combine entities in the 3D world with logical gates, mathematical or other opera
 - [x] Property: Handle Data Type "any"
 - [x] Property: Offset between sockets
 - [ ] Property: On Move: Reset positions of the socket according to the entity
-- [ ] Property: The property of the entity type value should be editable, even if it's an output socket
 
 #### Connectors
 
