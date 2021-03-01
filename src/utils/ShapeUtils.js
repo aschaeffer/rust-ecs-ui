@@ -51,10 +51,10 @@ function parseContentValue (shapeDefinition, element, content) {
       case 'entityType.description':
         return element.businessObject.entityType.description
       default:
-        return content
+        return content || ''
     }
   } catch (err) {
-    return content
+    return content || ''
   }
 }
 
