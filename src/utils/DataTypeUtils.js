@@ -102,7 +102,7 @@ function convertValue (dataType, value) {
         // ⊥ F 0
         return value ? '⊤' : '⊥'
       case 'string':
-        return (value.length > 10) ? value.substr(0, 9) + '&hellip;' : value
+        return (value.length > 10) ? value.substr(0, 9) + '…' : value
       case 'number':
         return value.toString()
       case 'array':
