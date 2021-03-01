@@ -60,12 +60,7 @@ function parseContentValue (shapeDefinition, element, content) {
 
 function getShapeElementType (shapeElementDefinition) {
   try {
-    switch (shapeElementDefinition.type.toLowerCase()) {
-      case 'svg':
-        return EntityShapeElementTypes.SVG
-      default:
-        return EntityShapeElementTypes.TEXT
-    }
+    return EntityShapeElementTypes[Object.keys(EntityShapeElementTypes).filter(t => t.toLowerCase() === shapeElementDefinition.type.toLowerCase())[0]]
   } catch {
     return EntityShapeElementTypes.TEXT
   }

@@ -17,10 +17,26 @@ EntityDirectEditingProvider.prototype.activate = function (element) {
   let context = {}
 
   if (ElementUtils.isEntity(element)) {
-    console.log(element)
+    let shapeDefinition = EntityShapeUtils.getShapeDefinition(element.businessObject.entityType)
+    let directEditingDefinition = shapeDefinition.directEditing
+    let text
+    let property
+    switch (directEditingDefinition.type.toLowerCase()) {
+      case DirectEditingTypes.PROPERTY:
+        property = ElementUtils.getProperty(element, directEditingDefinition.property)
+        if (property) {
+          text = DataTypeUtils.toEditableString(property.businessObject.dataType, property.businessObject.value)
+        }
+        break
+      default:
+      case DirectEditingTypes.DESCRIPTION:
+        text = element.businessObject.description || ''
+        break
+    }
+
     assign(context, {
       bounds: element.labelBounds || element,
-      text: element.businessObject.description || ''
+      text
     })
 
     assign(context, {
@@ -32,15 +48,34 @@ EntityDirectEditingProvider.prototype.activate = function (element) {
 }
 
 EntityDirectEditingProvider.prototype.update = function (element, text, oldText, bounds) {
-  element.businessObject.description = text
-
-  this._eventBus.fire('element.description.changed', {
-    element
-  })
-
-  let labelBounds = element.labelBounds || element
-
-  assign(labelBounds, bounds)
+  if (ElementUtils.isEntity(element)) {
+    let shapeDefinition = EntityShapeUtils.getShapeDefinition(element.businessObject.entityType)
+    let directEditingDefinition = shapeDefinition.directEditing
+    let property
+    switch (directEditingDefinition.type.toLowerCase()) {
+      case DirectEditingTypes.PROPERTY:
+        property = ElementUtils.getProperty(element, directEditingDefinition.property)
+        if (property) {
+          property.businessObject.value = DataTypeUtils.parseValue(property.businessObject.dataType, text)
+          this._eventBus.fire('element.property.changed', {
+            element,
+            property
+          })
+        }
+        break
+      default:
+      case DirectEditingTypes.DESCRIPTION:
+        element.businessObject.description = text
+        this._eventBus.fire('element.description.changed', {
+          element
+        })
+        break
+    }
+    if (element.labelBounds) {
+      let labelBounds = element.labelBounds || element
+      assign(labelBounds, bounds)
+    }
+  }
 }
 
 EntityDirectEditingProvider.prototype.setOptions = function (options) {

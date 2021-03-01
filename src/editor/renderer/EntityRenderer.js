@@ -16,8 +16,9 @@ import {
 
 import InstanceTypes from "@/constants/InstanceTypes.json"
 import EntityShapeElementTypes from '@/constants/EntityShapeElementTypes.json'
-import EntityShapeManager from "@/utils/EntityShapeUtils"
+import EntityShapeUtils from "@/utils/EntityShapeUtils"
 import ShapeUtils from "@/utils/ShapeUtils"
+import ElementUtils from "@/utils/ElementUtils";
 
 const ENTITY_RENDER_PRIORITY = 4000
 
@@ -66,7 +67,7 @@ EntityRenderer.prototype.getShapeType = function (element) {
 
 EntityRenderer.prototype.drawShape = function (visuals, element) {
   let entityType = element.businessObject.entityType
-  let shapeDefinition = EntityShapeManager.getShapeDefinition(entityType)
+  let shapeDefinition = EntityShapeUtils.getShapeDefinition(entityType)
 
   // The entity shape itself
   let entityShape = svgCreate('rect')
@@ -86,16 +87,18 @@ EntityRenderer.prototype.drawShape = function (visuals, element) {
       let height = ShapeUtils.parseValue(shapeDefinition, element, shapeElement.position.height, true)
       if (shapeElementType === EntityShapeElementTypes.TEXT) {
         let content = ShapeUtils.parseContentValue(shapeDefinition, element, shapeElement.content)
-        let shapeElementLabel = new TextUtil({
-          style: shapeElement.styles,
-          size: { width, height },
-          align: 'center-middle'
-        })
+        if (content !== null && content !== '') {
+          let shapeElementLabel = new TextUtil({
+            style: shapeElement.styles,
+            size: { width, height },
+            align: shapeElement.align
+          })
 
-        let shapeElementText = shapeElementLabel.createText(content, {})
-        svgClasses(shapeElementText).add('djs-label')
-        translate(shapeElementText, left, top)
-        svgAppend(visuals, shapeElementText)
+          let shapeElementText = shapeElementLabel.createText(content || '', {})
+          svgClasses(shapeElementText).add('djs-label')
+          translate(shapeElementText, left, top)
+          svgAppend(visuals, shapeElementText)
+        }
       } else if (shapeElementType === EntityShapeElementTypes.SVG) {
         let symbol = this._symbolManager.getSymbol(shapeElement.symbol)
         let scaleFactor = shapeElement.position.scale || 1.0
@@ -118,6 +121,33 @@ EntityRenderer.prototype.drawShape = function (visuals, element) {
         })
         svgAppend(shapeElementSymbol, shapeElementSymbolInner)
         svgAppend(visuals, shapeElementSymbol)
+      } else if (shapeElementType === EntityShapeElementTypes.PROPERTY && Object.getOwnPropertyDescriptor(shapeElement, 'property')) {
+        let properties = ElementUtils.getProperties(element)
+        console.log(properties, shapeElement.property)
+        let propertyNames = shapeElement.property.split(',')
+        console.log(propertyNames)
+        let content = ''
+        propertyNames.forEach(propertyName => {
+          if (Object.getOwnPropertyDescriptor(properties, propertyName)) {
+            content += properties[propertyName].toString()
+          }
+        })
+        // propertyNames.filter(propertyName => Object.getOwnPropertyDescriptor(properties, propertyName)).length > 0
+        if (content !== '') {
+          // let content = properties[shapeElement.property].toString()
+          // console.log(shapeElement.property)
+          let shapeElementLabel = new TextUtil({
+            style: shapeElement.styles,
+            size: { width, height },
+            align: shapeElement.align
+          })
+          console.log(content)
+
+          let shapeElementText = shapeElementLabel.createText(content, {})
+          svgClasses(shapeElementText).add('djs-label')
+          translate(shapeElementText, left, top)
+          svgAppend(visuals, shapeElementText)
+        }
       }
     }
   }

@@ -57,6 +57,16 @@ function getProperties (element, x, y) {
   return properties
 }
 
+function getProperty (element, propertyName) {
+  let result = element.children.filter(child => {
+    return isProperty(child) && child.businessObject.name === propertyName
+  })
+  if (result.length > 0) {
+    return result[0]
+  }
+  return null
+}
+
 export default {
   isProperty,
   isOutputSocket,
@@ -67,5 +77,6 @@ export default {
   isRelation,
   isDefaultConnector,
   hasBusinessObject,
-  getProperties
+  getProperties,
+  getProperty
 }
